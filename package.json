@@ -1,0 +1,23 @@
+{
+  "name": "book-shop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "backend": "node server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyewon3938/book-shop.git"
+  },
+  "author": "Joy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hyewon3938/book-shop/issues"
+  },
+  "homepage": "https://github.com/hyewon3938/book-shop#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
