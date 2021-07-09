@@ -13,10 +13,6 @@ connectDB();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("hello world!");
-});
-
 app.use("/api/products", productRoutes);
 
 app.listen(PORT, () => {
