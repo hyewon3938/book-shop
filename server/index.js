@@ -1,5 +1,7 @@
 require("dotenv").config();
 const express = require("express");
+const path = require("path");
+
 const connectDB = require("./config/db");
 const productRoutes = require("./routes/productRoutes");
 
@@ -19,4 +21,12 @@ app.use("/api/products", productRoutes);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
+});
+
+// 리액트 정적 파일 제공
+app.use(express.static(path.join(__dirname, "../client/build")));
+
+// 라우트 설정
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "../client/build/index.html"));
 });
