@@ -26,6 +26,7 @@
   "homepage": "https://github.com/hyewon3938/book-shop#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
+    "dotenv-webpack": "^7.0.3",
     "express": "^4.17.1",
     "mongoose": "^5.13.2",
     "webpack": "^5.44.0"
