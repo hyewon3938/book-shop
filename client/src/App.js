@@ -6,12 +6,12 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // Pages
 import HomePage from "@/pages/HomePage";
 import ProductPage from "@/pages/ProductPage";
-import cartPage from "./pages/cartPage";
+import cartPage from "@/pages/cartPage";
 
 // Components
 import Navbar from "@/components/Navbar";
 import SideDrawer from "@/components/SideDrawer";
-import Backdrop from "./components/Backdrop";
+import Backdrop from "@/components/Backdrop";
 
 const App = () => {
   const [sideToggle, setSideToggle] = useState(false);
