@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const GlobalStyleProvider = () => {
+const GlobalStyleProvider = ({ children }) => {
   return (
     <StyledThemeProvider theme={theme}>
       <GlobalStyle />
