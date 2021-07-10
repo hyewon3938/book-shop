@@ -1,5 +1,7 @@
 require("dotenv").config();
 const express = require("express");
+const path = require("path");
+
 const connectDB = require("./config/db");
 const productRoutes = require("./routes/productRoutes");
 
@@ -11,12 +13,14 @@ connectDB();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("hello world!");
-});
-
 app.use("/api/products", productRoutes);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
+});
+
+app.use(express.static(path.join(__dirname, "../client/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "../client/build/index.html"));
 });
