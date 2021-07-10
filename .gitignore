@@ -5,4 +5,4 @@ dev.js
 
 .env*
 
-/build
+build
