@@ -6,3 +6,4 @@ dev.js
 .env*
 
 build
+dist
