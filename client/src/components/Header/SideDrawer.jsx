@@ -1,17 +1,74 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+
+// Images
+import logo2 from "@/image/logo2.png";
 
 const SideDrawer = ({ show, click }) => {
+  const history = useHistory();
+
+  const category = [
+    "전체보기",
+    "소설",
+    "시",
+    "에세이",
+    "자기계발",
+    "사회 정치",
+    "예술",
+    "여행",
+    "과학",
+  ];
+  const isLogin = true;
+
   const showSideDrawer = show ? "translateX(0)" : "translateX(-100%)";
 
-  return <Wrap style={{ transform: showSideDrawer }}></Wrap>;
+  const menuClickHandler = (category) => {
+    history.push(`/product/${category}`);
+    click();
+  };
+
+  return (
+    <Wrap style={{ transform: showSideDrawer }}>
+      <LogoImage>
+        <img src={logo2} alt="logo" />
+      </LogoImage>
+      <MenuWrap>
+        {isLogin ? (
+          <LogInInfo>
+            <div>이혜원님 안녕하세요!</div>
+            <div>
+              <button>주문내역</button>
+              <button>로그아웃</button>
+            </div>
+          </LogInInfo>
+        ) : (
+          <LogInInfo>
+            <div>로그인 해주세요.</div>
+            <div>
+              <button>로그인</button>
+              <button>회원가입</button>
+            </div>
+          </LogInInfo>
+        )}
+
+        <div>SHOP</div>
+        {category.map((item, index) => (
+          <li key={index} onClick={() => menuClickHandler(item)}>
+            {item}
+          </li>
+        ))}
+      </MenuWrap>
+    </Wrap>
+  );
 };
 
 export default SideDrawer;
 
 const Wrap = styled.div`
+  display: flex;
   width: 400px;
-  height: 100vh;
+  min-height: 100vh;
   background: #fff;
   position: fixed;
   top: 0;
@@ -22,14 +79,79 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  @media (max-width: 1200px) {
-    width: 40%;
-  }
-  @media (max-width: 780px) {
-    width: 50%;
+  padding: 30px;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
   }
   @media (max-width: 600px) {
-    width: 60%;
+    width: 280px;
+  }
+  @media (max-width: 320px) {
+    width: 200px;
+  }
+`;
+
+const LogoImage = styled.div`
+  margin: 0 0 30px 0;
+
+  img {
+    width: 120px;
+  }
+  @media (max-height: 600px) {
+    display: none;
+  }
+`;
+
+const MenuWrap = styled.ul`
+  display: flex;
+  flex-direction: column;
+  div {
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0 0 20px 0;
+  }
+  li {
+    display: flex;
+    width: 100%;
+    font-size: 20px;
+    margin: 0 0 20px 0;
+    cursor: pointer;
+    &:hover {
+      color: gray;
+      transform: translateX(10px);
+      transition: all 0.2s ease-out;
+    }
+  }
+  @media (max-width: 600px) {
+    div {
+      font-size: 20px;
+    }
+    li {
+      font-size: 15px;
+    }
+  }
+  @media (max-width: 320px) {
+    div {
+      font-size: 18px;
+    }
+    li {
+      font-size: 13px;
+    }
+  }
+`;
+
+const LogInInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  div {
+    display: flex;
+    button {
+      cursor: pointer;
+      &:hover {
+        color: gray;
+      }
+    }
   }
 `;
