@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 // Image
 import logo from "@/image/logo.png";
 
-const Navbar = () => {
+const Navbar = ({ click }) => {
   const [scrollY, setScrollY] = useState(0);
   const cartItemCount = 90;
 
@@ -30,7 +30,7 @@ const Navbar = () => {
 
   return (
     <Wrap style={wrapStyle}>
-      <HamburgerMenu>
+      <HamburgerMenu onClick={click}>
         <div></div>
         <div></div>
         <div></div>
