@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
+import { Link } from "react-router-dom";
 
 // Image
 import logo from "@/image/logo.png";
@@ -11,7 +12,7 @@ const Navbar = () => {
   const wrapStyle =
     scrollY === 0
       ? {
-          borderBottom: "none",
+          borderBottom: "transparent solid 0.5px",
           background: "transparent",
         }
       : { borderBottom: "lightgray solid 0.5px", background: "#fff" };
@@ -22,8 +23,6 @@ const Navbar = () => {
       window.removeEventListener("scroll", () => setScrollY(window.pageYOffset));
     };
   };
-
-  const logoStyle = scrollY === 0 ? { display: "none" } : { display: "block" };
 
   useEffect(() => {
     saveScrollY();
@@ -36,18 +35,22 @@ const Navbar = () => {
         <div></div>
         <div></div>
       </HamburgerMenu>
-      <Logo>
-        <img style={logoStyle} src={logo} alt="logo" />
-      </Logo>
+      <StyledLink to="/">
+        <Logo>
+          <img src={logo} alt="logo" />
+        </Logo>
+      </StyledLink>
       <Menu>
         <button>
           로그인
           <div />
         </button>
-        <button>
-          카트 {cartItemCount === 0 ? "" : <span>{cartItemCount}</span>}
-          <div />
-        </button>
+        <StyledLink to="/cart">
+          <button>
+            카트 {cartItemCount === 0 ? "" : <span>{cartItemCount}</span>}
+            <div />
+          </button>
+        </StyledLink>
       </Menu>
     </Wrap>
   );
@@ -157,5 +160,17 @@ const Menu = styled.div`
       font-size: 0.8rem;
       margin: 0 3px 0 0;
     }
+  }
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
   }
 `;
