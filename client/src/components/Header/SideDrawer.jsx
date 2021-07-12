@@ -89,6 +89,9 @@ const Wrap = styled.div`
       display: none;
       width: 0 !important;
     }
+    ::-webkit-overflow-scrolling {
+      -webkit-overflow-scrolling: touch;
+    }
   }
 
   @media (max-width: 600px) {
