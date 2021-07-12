@@ -184,7 +184,7 @@ const LogInButtonWrap = styled.div`
 `;
 
 const Bar = styled.div`
-  width: 80%;
+  width: 100%;
   height: 1.5px;
   background: #cacba8;
   margin: 30px 0;

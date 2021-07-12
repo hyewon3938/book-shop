@@ -8,7 +8,9 @@ const Product = () => {
   return (
     <Wrap>
       <Book src="http://image.yes24.com/goods/99181849/XL" alt="bookName"></Book>
-      <Shelf />
+      <Shelf>
+        <div />
+      </Shelf>
       <BookInfo>
         <BookTitle>당신에게 시가 있다면 당신은 혼자가 아닙니다</BookTitle>
         <span>에세이 | 양희은</span>
@@ -23,9 +25,15 @@ export default Product;
 const Shelf = styled.div`
   width: 200px;
   height: 20px;
-  background-image: url(woodTexture.jpg);
   border-radius: 3px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  background: #492211;
+  div {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    background-image: url(woodTexture.jpg);
+  }
   @media (max-width: 530px) {
     width: 130px;
     height: 15px;
@@ -91,7 +99,7 @@ const BookTitle = styled.p`
   height: 36px;
   overflow: hidden;
   text-overflow: ellipsis;
-
+  cursor: pointer;
   @media (max-width: 530px) {
     font-size: 13px;
   }
