@@ -13,6 +13,9 @@ module.exports = merge(common, {
     hot: true,
     publicPath: "/",
     open: true,
+    proxy: {
+      "/api": "http://localhost:5000",
+    },
   },
   plugins: [
     new Dotenv({
