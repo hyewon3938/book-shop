@@ -37,19 +37,19 @@ const SideDrawer = ({ show, click }) => {
         <MenuWrap>
           {isLogin ? (
             <LogInInfo>
-              <div>이혜원님 안녕하세요!</div>
-              <div>
+              <LogInTitle>이혜원님 안녕하세요!</LogInTitle>
+              <LogInButtonWrap>
                 <button>주문내역</button>
                 <button>로그아웃</button>
-              </div>
+              </LogInButtonWrap>
             </LogInInfo>
           ) : (
             <LogInInfo>
-              <div>로그인 해주세요.</div>
-              <div>
+              <LogInTitle>로그인 해주세요.</LogInTitle>
+              <LogInButtonWrap>
                 <button>로그인</button>
                 <button>회원가입</button>
-              </div>
+              </LogInButtonWrap>
             </LogInInfo>
           )}
 
@@ -82,13 +82,15 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 40px 30px;
+  align-items: center;
+  padding: 20px 30px;
 
   @media (max-width: 600px) {
     width: 280px;
   }
   @media (max-width: 320px) {
     width: 200px;
+    padding: 10px 20px;
   }
 `;
 
@@ -102,7 +104,6 @@ const ScrollWrap = styled.div`
   ::-webkit-overflow-scrolling {
     -webkit-overflow-scrolling: touch;
   }
-  margin: 0 0 50px 0;
 `;
 
 const LogoImage = styled.div`
@@ -119,13 +120,9 @@ const LogoImage = styled.div`
 const MenuWrap = styled.ul`
   display: flex;
   flex-direction: column;
-  div {
-    font-size: 25px;
-    font-weight: bold;
-    margin: 0 0 20px 0;
-  }
+
   li {
-    font-family: "Eulyoo1945-Regular";
+    font-family: "NotoSerifKR";
     display: flex;
     width: 100%;
     font-size: 20px;
@@ -155,22 +152,43 @@ const MenuWrap = styled.ul`
   }
 `;
 
+const LogInTitle = styled.div`
+  font-size: 25px;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+  padding: 5px 0;
+  line-height: 25px;
+  @media (max-width: 320px) {
+    margin: 0 0 15px 0;
+  }
+`;
+
 const LogInInfo = styled.div`
   display: flex;
   flex-direction: column;
-  div {
-    display: flex;
-    button {
-      cursor: pointer;
-      &:hover {
-        color: gray;
-      }
+  display: flex;
+  word-break: keep-all;
+  button {
+    cursor: pointer;
+    &:hover {
+      color: gray;
+    }
+    @media (max-width: 320px) {
+      font-size: 10px;
     }
   }
+`;
+
+const LogInButtonWrap = styled.div`
+  display: flex;
 `;
 
 const Bar = styled.div`
   width: 80%;
   height: 1.5px;
   background: #cacba8;
+  margin: 30px 0;
+  @media (max-width: 320px) {
+    margin: 20px 0;
+  }
 `;
