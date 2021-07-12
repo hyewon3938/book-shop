@@ -22,7 +22,19 @@ const getProductById = async (req, res) => {
   }
 };
 
+const getProductByCategory = async (req, res) => {
+  try {
+    const product = await Product.find({ category: req.params.category });
+
+    res.json(product);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
+  getProductByCategory,
 };
