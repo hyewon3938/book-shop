@@ -19,7 +19,7 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(jpg|png|gif|svg)$/,
+        test: /\.(jpg|png|gif|svg|ico)$/,
         loader: "url-loader",
         options: {
           name: "[name].[ext]?[hash]",
@@ -39,6 +39,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: "index.html",
+      favicon: "public/favicon.ico",
       template: "public/index.html",
     }),
   ],
