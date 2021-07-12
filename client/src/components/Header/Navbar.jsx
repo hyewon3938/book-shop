@@ -15,7 +15,7 @@ const Navbar = ({ click }) => {
           borderBottom: "transparent solid 0.5px",
           background: "transparent",
         }
-      : { borderBottom: "lightgray solid 0.5px", background: "#fff" };
+      : { borderBottom: "#cacba8 solid 1.5px", background: "#fff" };
 
   const saveScrollY = () => {
     window.addEventListener("scroll", () => setScrollY(window.pageYOffset));
@@ -62,15 +62,17 @@ const Wrap = styled.div`
   width: 100%;
   height: 80px;
   position: fixed;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: white;
   border-bottom: lightgray solid 1px;
-  padding: 1rem 1.5rem;
+  padding: 0 1.5rem 1rem 1.5rem;
   z-index: 10;
   @media (max-width: 600px) {
-    padding: 1rem 1rem;
+    padding: 0 1rem 0 1rem;
+    height: 65px;
   }
 `;
 
