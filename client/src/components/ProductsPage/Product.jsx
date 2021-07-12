@@ -4,17 +4,23 @@ import styled from "styled-components";
 // Images
 import woodTexture from "@/image/woodTexture.jpg";
 
-const Product = () => {
+const Product = ({ data }) => {
+  const { name, price, imageUrl, writer, category } = data;
+
   return (
     <Wrap>
-      <Book src="http://image.yes24.com/goods/99181849/XL" alt="bookName"></Book>
+      <Book src={imageUrl} alt={name}></Book>
       <Shelf>
         <div />
+        <BookCategory>
+          <p>{category}</p>
+        </BookCategory>
       </Shelf>
       <BookInfo>
-        <BookTitle>당신에게 시가 있다면 당신은 혼자가 아닙니다</BookTitle>
-        <span>에세이 | 양희은</span>
-        <BookPrice>14500원</BookPrice>
+        <BookTitle>{name}</BookTitle>
+        <span>{writer}</span>
+
+        <BookPrice>{price}원</BookPrice>
       </BookInfo>
     </Wrap>
   );
@@ -24,10 +30,11 @@ export default Product;
 
 const Shelf = styled.div`
   width: 200px;
-  height: 20px;
+  height: 25px;
   border-radius: 3px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
   background: #492211;
+  position: relative;
   div {
     width: 100%;
     height: 100%;
@@ -36,7 +43,7 @@ const Shelf = styled.div`
   }
   @media (max-width: 530px) {
     width: 130px;
-    height: 15px;
+    height: 20px;
   }
 `;
 
@@ -115,4 +122,31 @@ const BookPrice = styled.p`
   width: 100%;
   display: flex;
   justify-content: center;
+`;
+
+const BookCategory = styled.span`
+  position: absolute;
+  top: -23px;
+  right: 3px;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  p {
+    font-family: "NotoSerifKR";
+    background: black;
+    font-size: 10px;
+    padding: 5px 10px;
+    color: #fff;
+    border-radius: 3px 3px 0 0;
+  }
+  @media (max-width: 530px) {
+    font-size: 8px;
+    top: -18px;
+    right: 3px;
+    p {
+      padding: 4px 7px;
+    }
+  }
 `;

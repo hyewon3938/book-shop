@@ -1,30 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
 // Components
 import PageWrap from "@/components/style/layout/PageWrap";
 import Product from "@/components/ProductsPage/Product";
 
-const ProductsPage = () => {
+// Actions
+import { getProducts as listProducts } from "@/redux/actions/productActions";
+
+const ProductsPage = ({ match }) => {
+  const dispatch = useDispatch();
+
+  const getProducts = useSelector((state) => state.getProducts);
+  const { products, loading, error } = getProducts;
+
+  useEffect(() => {
+    const categoryParam = match.params.category === "전체보기" ? "" : match.params.category;
+    dispatch(listProducts(categoryParam));
+  }, [dispatch, match.params.category]);
+
   return (
     <PageWrap>
       <Wrap>
-        <CategoryTitle>전체보기 (12)</CategoryTitle>
-        <ProductsWrap>
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-        </ProductsWrap>
+        {loading ? (
+          <h2>loading...</h2>
+        ) : error ? (
+          <h2>{error}</h2>
+        ) : (
+          <>
+            <CategoryTitle>
+              {match.params.category} ({products.length})
+            </CategoryTitle>
+            <ProductsWrap>
+              {products.map((product) => {
+                return <Product key={product._id} data={product} />;
+              })}
+            </ProductsWrap>
+          </>
+        )}
       </Wrap>
     </PageWrap>
   );
