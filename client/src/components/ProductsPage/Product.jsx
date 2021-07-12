@@ -42,11 +42,14 @@ const Shelf = styled.div`
 
 const Book = styled.img`
   width: 150px;
+  height: 228px;
   margin: 0 10px;
   cursor: pointer;
   box-shadow: 10px 2px 10px rgba(0, 0, 0, 0.4);
+  background: #cacba8c8;
   @media (max-width: 530px) {
     width: 100px;
+    height: 152px;
   }
 `;
 
