@@ -30,7 +30,7 @@ const SideDrawer = ({ show, click }) => {
 
   return (
     <Wrap style={{ transform: showSideDrawer }}>
-      <div>
+      <ScrollWrap>
         <LogoImage>
           <img src={logo2} alt="logo" />
         </LogoImage>
@@ -60,7 +60,7 @@ const SideDrawer = ({ show, click }) => {
             </li>
           ))}
         </MenuWrap>
-      </div>
+      </ScrollWrap>
     </Wrap>
   );
 };
@@ -82,23 +82,24 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 40px 30px;
-  div {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    ::-webkit-scrollbar {
-      display: none;
-      width: 0 !important;
-    }
-    ::-webkit-overflow-scrolling {
-      -webkit-overflow-scrolling: touch;
-    }
-  }
 
   @media (max-width: 600px) {
     width: 280px;
   }
   @media (max-width: 320px) {
     width: 200px;
+  }
+`;
+
+const ScrollWrap = styled.div`
+  overflow-y: scroll;
+  overflow-x: hidden;
+  ::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+  }
+  ::-webkit-overflow-scrolling {
+    -webkit-overflow-scrolling: touch;
   }
 `;
 
@@ -120,7 +121,6 @@ const MenuWrap = styled.ul`
     font-size: 25px;
     font-weight: bold;
     margin: 0 0 20px 0;
-    min-height: 26px;
   }
   li {
     display: flex;
@@ -156,7 +156,6 @@ const LogInInfo = styled.div`
   display: flex;
   flex-direction: column;
   div {
-    min-height: 26px;
     display: flex;
     button {
       cursor: pointer;
