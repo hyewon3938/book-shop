@@ -30,35 +30,37 @@ const SideDrawer = ({ show, click }) => {
 
   return (
     <Wrap style={{ transform: showSideDrawer }}>
-      <LogoImage>
-        <img src={logo2} alt="logo" />
-      </LogoImage>
-      <MenuWrap>
-        {isLogin ? (
-          <LogInInfo>
-            <div>이혜원님 안녕하세요!</div>
-            <div>
-              <button>주문내역</button>
-              <button>로그아웃</button>
-            </div>
-          </LogInInfo>
-        ) : (
-          <LogInInfo>
-            <div>로그인 해주세요.</div>
-            <div>
-              <button>로그인</button>
-              <button>회원가입</button>
-            </div>
-          </LogInInfo>
-        )}
+      <div>
+        <LogoImage>
+          <img src={logo2} alt="logo" />
+        </LogoImage>
+        <MenuWrap>
+          {isLogin ? (
+            <LogInInfo>
+              <div>이혜원님 안녕하세요!</div>
+              <div>
+                <button>주문내역</button>
+                <button>로그아웃</button>
+              </div>
+            </LogInInfo>
+          ) : (
+            <LogInInfo>
+              <div>로그인 해주세요.</div>
+              <div>
+                <button>로그인</button>
+                <button>회원가입</button>
+              </div>
+            </LogInInfo>
+          )}
 
-        <div>SHOP</div>
-        {category.map((item, index) => (
-          <li key={index} onClick={() => menuClickHandler(item)}>
-            {item}
-          </li>
-        ))}
-      </MenuWrap>
+          <div>SHOP</div>
+          {category.map((item, index) => (
+            <li key={index} onClick={() => menuClickHandler(item)}>
+              {item}
+            </li>
+          ))}
+        </MenuWrap>
+      </div>
     </Wrap>
   );
 };
@@ -68,7 +70,7 @@ export default SideDrawer;
 const Wrap = styled.div`
   display: flex;
   width: 400px;
-  min-height: 100vh;
+  height: 100vh;
   background: #fff;
   position: fixed;
   top: 0;
@@ -79,12 +81,16 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 30px;
-  overflow-y: scroll;
-  ::-webkit-scrollbar {
-    display: none;
-    width: 0 !important;
+  padding: 40px 30px;
+  div {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    ::-webkit-scrollbar {
+      display: none;
+      width: 0 !important;
+    }
   }
+
   @media (max-width: 600px) {
     width: 280px;
   }
@@ -111,6 +117,7 @@ const MenuWrap = styled.ul`
     font-size: 25px;
     font-weight: bold;
     margin: 0 0 20px 0;
+    min-height: 26px;
   }
   li {
     display: flex;
@@ -146,6 +153,7 @@ const LogInInfo = styled.div`
   display: flex;
   flex-direction: column;
   div {
+    min-height: 26px;
     display: flex;
     button {
       cursor: pointer;
