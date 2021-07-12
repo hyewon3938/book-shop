@@ -53,7 +53,8 @@ const SideDrawer = ({ show, click }) => {
             </LogInInfo>
           )}
 
-          <div>SHOP</div>
+          <Bar />
+
           {category.map((item, index) => (
             <li key={index} onClick={() => menuClickHandler(item)}>
               {item}
@@ -124,6 +125,7 @@ const MenuWrap = styled.ul`
     margin: 0 0 20px 0;
   }
   li {
+    font-family: "Eulyoo1945-Regular";
     display: flex;
     width: 100%;
     font-size: 20px;
@@ -165,4 +167,10 @@ const LogInInfo = styled.div`
       }
     }
   }
+`;
+
+const Bar = styled.div`
+  width: 80%;
+  height: 1.5px;
+  background: #cacba8;
 `;
