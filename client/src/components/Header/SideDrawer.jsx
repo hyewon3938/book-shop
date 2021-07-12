@@ -101,6 +101,7 @@ const ScrollWrap = styled.div`
   ::-webkit-overflow-scrolling {
     -webkit-overflow-scrolling: touch;
   }
+  margin: 0 0 50px 0;
 `;
 
 const LogoImage = styled.div`
