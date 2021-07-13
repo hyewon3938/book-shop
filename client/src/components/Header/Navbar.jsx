@@ -7,12 +7,12 @@ import { throttle } from "lodash";
 import logo from "@/image/logo.png";
 
 const Navbar = ({ click }) => {
-  const [isScrollTop, setIsScrollTop] = useState();
+  const [isScrollTop, setIsScrollTop] = useState(true);
   const cartItemCount = 90;
 
   const wrapStyle = isScrollTop
     ? {
-        borderBottom: "transparent solid 0.5px",
+        borderBottom: "transparent solid 1.5px",
         background: "transparent",
       }
     : { borderBottom: "#cacba8 solid 1.5px", background: "#fff" };
