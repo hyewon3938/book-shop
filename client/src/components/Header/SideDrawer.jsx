@@ -18,6 +18,7 @@ const SideDrawer = ({ show, click }) => {
     "예술",
     "여행",
     "과학",
+    "철학",
   ];
   const isLogin = true;
 

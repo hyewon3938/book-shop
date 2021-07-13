@@ -1,15 +1,22 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 // Images
 import woodTexture from "@/image/woodTexture.jpg";
 
 const Product = ({ data }) => {
-  const { name, price, imageUrl, writer, category } = data;
+  const history = useHistory();
+
+  const { _id, name, price, imageUrl, writer, category } = data;
+
+  const productClickHandler = () => {
+    history.push(`/product/${category}/${_id}`);
+  };
 
   return (
     <Wrap>
-      <Book src={imageUrl} alt={name}></Book>
+      <Book src={imageUrl} alt={name} onClick={productClickHandler}></Book>
       <Shelf>
         <div />
         <BookCategory>
@@ -17,7 +24,7 @@ const Product = ({ data }) => {
         </BookCategory>
       </Shelf>
       <BookInfo>
-        <BookTitle>{name}</BookTitle>
+        <BookTitle onClick={productClickHandler}>{name}</BookTitle>
         <span>{writer}</span>
 
         <BookPrice>{price}원</BookPrice>
@@ -126,7 +133,7 @@ const BookPrice = styled.p`
 
 const BookCategory = styled.span`
   position: absolute;
-  top: -23px;
+  top: -21px;
   right: 3px;
   display: flex;
   height: 100%;
