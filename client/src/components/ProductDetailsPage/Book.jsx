@@ -56,6 +56,9 @@ const mCoverHeight = 330;
 const mDepth = 30;
 
 const Front = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: ${coverWidth}px;
   height: ${coverHeight}px;
   transform: rotateY(0deg) translateZ(${depth / 2}px);
@@ -119,13 +122,24 @@ const rotation = keyframes`
   }
 `;
 
+const disappear = keyframes`
+ 0%{
+   opacity : 0;
+ }
+ 20%{
+   opacity : 1;
+ }
+  100%{
+   opacity : 0;
+  }
+`;
+
 const CoverImageWrap = styled.div`
   height: ${coverHeight}px;
   position: relative;
   transform-style: preserve-3d;
   transform: perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0);
   transition: 1s;
-  cursor: pointer;
   animation: ${rotation} 2.5s;
   margin: 0 ${coverWidth}px 0 0;
   div {
@@ -133,13 +147,16 @@ const CoverImageWrap = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #fff;
-    font-size: 1.5em;
   }
   img {
     width: 100%;
     height: 100%;
   }
+  &:hover {
+    cursor: url("https://user-images.githubusercontent.com/58355499/125520237-7fccfd2f-b57c-415d-b5a5-95bd5e2de254.png"),
+      pointer;
+  }
+
   @media (max-width: 1300px) {
     height: ${mCoverHeight}px;
     margin: 0 ${mCoverWidth}px 0 0;
