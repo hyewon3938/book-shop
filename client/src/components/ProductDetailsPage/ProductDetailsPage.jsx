@@ -41,11 +41,8 @@ const ProductDetailsPage = () => {
         <InfoBuyButtonWrap>
           <Category>철학</Category>
           <ColumnFlexBox>
-            <h1>소크라테스 익스프레스소크라테스 익스프레스소크라테스 익스프레스</h1>
-            <h2>
-              : 철학이 우리 인생에 스며드는 순간소크라테스 익스프레스소크라테스 익스프레스소크라테스
-              익스프레스
-            </h2>
+            <h1>소크라테스 익스프레스</h1>
+            <h2>: 철학이 우리 인생에 스며드는 순간</h2>
             <InfoWrap>
               <p>에릭 와이너 저</p>
               <span>|</span>
@@ -54,7 +51,7 @@ const ProductDetailsPage = () => {
             </InfoWrap>
             <PriceWrap>
               <p>판매가</p>
-              {price}원
+              {price} 원
             </PriceWrap>
             <Counter>
               <FlexBox>
@@ -71,7 +68,7 @@ const ProductDetailsPage = () => {
               </FlexBox>
               <FlexBox>
                 <TotalPrice>
-                  <p>합계</p> {price * itemCount}원
+                  <p>합계</p> {price * itemCount} 원
                 </TotalPrice>
               </FlexBox>
             </Counter>
@@ -111,6 +108,7 @@ const BookWrap = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
+  align-items: center;
   @media (max-width: 1300px) {
     flex: 0.4;
   }
@@ -124,15 +122,17 @@ const InfoBuyButtonWrap = styled.div`
   padding: 10px 30px;
   h1 {
     font-family: "NotoSerifKR";
-    font-size: 25px;
+    font-size: 24px;
     font-weight: bold;
-    margin: 10px 0 20px 0;
+    margin: 0 0 20px 0;
     word-break: keep-all;
+    line-height: 28px;
   }
   h2 {
     font-family: "NotoSerifKR";
     font-size: 18px;
     word-break: keep-all;
+    line-height: 20px;
   }
 
   @media (max-width: 1300px) {
@@ -141,11 +141,9 @@ const InfoBuyButtonWrap = styled.div`
     h1 {
       font-size: 20px;
       margin: 5px 0 15px 0;
-      line-height: 25px;
     }
     h2 {
       font-size: 15px;
-      line-height: 20px;
     }
   }
 
@@ -250,9 +248,10 @@ const ButtonWrap = styled.div`
 
 const Counter = styled.div`
   display: flex;
-  margin: 30px 0 0 0;
+  padding: 30px 0 0 0;
   justify-content: space-between;
   align-items: center;
+  border-top: solid 1px black;
   span {
     line-height: 30px;
     margin: 0 30px 0 0;
