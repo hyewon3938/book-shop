@@ -1,32 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
+import { throttle } from "lodash";
 
 // Image
 import logo from "@/image/logo.png";
 
 const Navbar = ({ click }) => {
-  const [scrollY, setScrollY] = useState(0);
+  const [isScrollTop, setIsScrollTop] = useState();
   const cartItemCount = 90;
 
-  const wrapStyle =
-    scrollY === 0
-      ? {
-          borderBottom: "transparent solid 0.5px",
-          background: "transparent",
-        }
-      : { borderBottom: "#cacba8 solid 1.5px", background: "#fff" };
+  const wrapStyle = isScrollTop
+    ? {
+        borderBottom: "transparent solid 0.5px",
+        background: "transparent",
+      }
+    : { borderBottom: "#cacba8 solid 1.5px", background: "#fff" };
 
-  const saveScrollY = () => {
-    window.addEventListener("scroll", () => setScrollY(window.pageYOffset));
-    return () => {
-      window.removeEventListener("scroll", () => setScrollY(window.pageYOffset));
-    };
-  };
+  const throttledSaveIsScrollTop = throttle(() => {
+    window.pageYOffset === 0 ? setIsScrollTop(true) : setIsScrollTop(false);
+  }, 300);
+
 
   useEffect(() => {
-    saveScrollY();
-  });
+    window.addEventListener("scroll", throttledSaveIsScrollTop);
+    return () => {
+      window.removeEventListener("scroll", throttledSaveIsScrollTop);
+    };
+  }, [scrollY]);
 
   return (
     <Wrap style={wrapStyle}>
