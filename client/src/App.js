@@ -9,6 +9,9 @@ import ProductsPage from "@/components/ProductsPage/ProductsPage";
 import ProductDetailsPage from "@/components/ProductDetailsPage/ProductDetailsPage";
 import CartPage from "@/components/CartPage/CartPage";
 
+// Lib
+import ScrollReset from "@/lib/ScrollReset";
+
 const App = () => {
   return (
     <GlobalStyleProvider>
@@ -16,10 +19,12 @@ const App = () => {
         <Header />
         <main>
           <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/product/:category" component={ProductsPage} />
-            <Route exact path="/product/:category/:id" component={ProductDetailsPage} />
-            <Route exact path="/cart" component={CartPage} />
+            <ScrollReset>
+              <Route exact path="/" component={HomePage} />
+              <Route exact path="/product/:category" component={ProductsPage} />
+              <Route exact path="/product/:category/:id" component={ProductDetailsPage} />
+              <Route exact path="/cart" component={CartPage} />
+            </ScrollReset>
           </Switch>
         </main>
       </Router>
