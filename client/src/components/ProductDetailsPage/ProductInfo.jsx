@@ -4,6 +4,9 @@ import styled from "styled-components";
 // Components
 import Book from "@/components/ProductDetailsPage/Book";
 
+// Utils
+import { numberWithCommas } from "@/lib/utils";
+
 const ProductInfo = () => {
   const price = 15800;
 
@@ -49,7 +52,7 @@ const ProductInfo = () => {
           </InfoWrap>
           <PriceWrap>
             <p>판매가</p>
-            {price} 원
+            {numberWithCommas(price)} 원
           </PriceWrap>
           <Counter>
             <FlexBox>
@@ -66,7 +69,7 @@ const ProductInfo = () => {
             </FlexBox>
             <FlexBox>
               <TotalPrice>
-                <p>합계</p> {price * itemCount} 원
+                <p>합계</p> {numberWithCommas(price * itemCount)} 원
               </TotalPrice>
             </FlexBox>
           </Counter>
@@ -175,7 +178,6 @@ const Category = styled.p`
 const PriceWrap = styled.div`
   flex: 0.5;
   padding: 20px 0;
-  font-family: "NotoSerifKR";
   font-size: 18px;
   display: flex;
   align-items: center;
