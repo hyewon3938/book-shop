@@ -18,9 +18,9 @@ const Book = () => {
     "https://image.aladin.co.kr/product/27514/85/spineflip/K032733196_d.jpg";
 
   const coverStyle = isFrontCover
-    ? { transform: "perspective(1500px) rotate3d(0, 0, 0, 0 )" }
+    ? { transform: "perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0 )" }
     : {
-        transform: `perspective(1500px) ${
+        transform: `perspective(1500px) translateZ(-50px) ${
           window.innerWidth <= 1300 ? `translateX(${mCoverWidth}px)` : `translateX(${coverWidth}px)`
         } rotate3d(0, 1, 0, ${sideCoverImageUrl ? "" : "-"}180deg)`,
       };
@@ -110,14 +110,14 @@ const Right = styled.div`
 
 const rotation = keyframes`
   0% {
-    transform: perspective(1500px)  rotate3d(0, 0, 0, 0);
+    transform: perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0);
 
   }
   50% {
-    transform: perspective(1500px) translateZ(0px) rotate3d(0, 1, 0, 30deg);
+    transform: perspective(1500px) translateZ(-50px) rotate3d(0, 1, 0, 30deg);
   }
   100%{
-    transform: perspective(1500px) rotate3d(0, 0, 0, 0);
+    transform: perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0);
 
   }
 `;
@@ -126,10 +126,11 @@ const CoverImageWrap = styled.div`
   height: ${coverHeight}px;
   position: relative;
   transform-style: preserve-3d;
-  transform: perspective(1500px) rotate3d(0, 0, 0, 0);
+  transform: perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0);
   transition: 1s;
   animation: ${rotation} 2.5s;
   margin: 0 ${coverWidth}px 0 0;
+  z-index: 1;
   div {
     position: absolute;
     display: flex;
