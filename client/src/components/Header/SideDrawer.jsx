@@ -77,7 +77,7 @@ const Wrap = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 200;
+  z-index: 30000;
   transform: translateX(-100%);
   transition: all 0.3s ease-out;
   display: flex;

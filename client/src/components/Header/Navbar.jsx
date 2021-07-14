@@ -21,6 +21,10 @@ const Navbar = ({ click }) => {
     window.pageYOffset === 0 ? setIsScrollTop(true) : setIsScrollTop(false);
   }, 300);
 
+  // const saveIsScrollTop = () => {
+  //   window.pageYOffset === 0 ? setIsScrollTop(true) : setIsScrollTop(false);
+  //   console.log(window.pageYOffset);
+  // };
 
   useEffect(() => {
     window.addEventListener("scroll", throttledSaveIsScrollTop);
@@ -70,7 +74,7 @@ const Wrap = styled.div`
   background: white;
   border-bottom: lightgray solid 1px;
   padding: 0 1.5rem 1rem 1.5rem;
-  z-index: 10;
+  z-index: 10000;
   @media (max-width: 600px) {
     padding: 0 1rem 0 1rem;
     height: 65px;
