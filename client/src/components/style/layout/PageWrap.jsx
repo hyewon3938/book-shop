@@ -11,10 +11,9 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 1300px;
+  height: 2000px;
   margin: 80px auto;
-  padding: 1.5rem;
   @media (max-width: 600px) {
     margin: 65px auto;
-    padding: 0.5rem;
   }
 `;
