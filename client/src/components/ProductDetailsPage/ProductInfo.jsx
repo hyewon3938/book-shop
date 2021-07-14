@@ -151,10 +151,10 @@ const ColumnFlexBox = styled.div`
 
 const ImageInfoWrap = styled.div`
   display: flex;
-  margin: 40px 0 0 0;
+  margin: 40px 0;
   @media (max-width: ${device.large}) {
     flex-direction: column;
-    padding: 0.5rem;
+    margin: 40px 0 0 0;
   }
 `;
 
@@ -175,6 +175,7 @@ const InfoBuyButtonWrap = styled.div`
   flex: 0.5;
   margin: 0 0 0 30px;
   padding: 10px 30px;
+
   h1 {
     font-family: "NotoSerifKR";
     font-size: 24px;
