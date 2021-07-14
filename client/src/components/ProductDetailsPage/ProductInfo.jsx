@@ -15,8 +15,8 @@ const ProductInfo = () => {
   const [isShownCount, setIsShownCount] = useState(false);
 
   const mobileButtonStyle = isShownCount
-    ? { mobileCounter: { display: "flex" }, arrowButton: { top: "-105px" } }
-    : { mobileCounter: { display: "none" }, arrowButton: { top: "-25px" } };
+    ? { mobileCounter: { display: "flex" }, arrowButton: { top: "-115px" } }
+    : { mobileCounter: { display: "none" }, arrowButton: { top: "-35px" } };
 
   const increaseButtonClickHandler = () => {
     setItemCount(itemCount + 1);
@@ -94,12 +94,16 @@ const ProductInfo = () => {
       </ImageInfoWrap>
       <MobileCounterButtonWrap>
         <ButtonWrap>
-          <MobileCounterWrapButton
+          <OpenMobileCounterButton
             onClick={mobileArrowButtonClickHandler}
             style={mobileButtonStyle.arrowButton}
           >
-            <i className="fas fa-chevron-up"></i>
-          </MobileCounterWrapButton>
+            {isShownCount ? (
+              <i className="fas fa-chevron-down"></i>
+            ) : (
+              <i className="fas fa-chevron-up"></i>
+            )}
+          </OpenMobileCounterButton>
           <BuyCartButton cart>카트에 담기</BuyCartButton>
           <BuyCartButton>바로 구매하기</BuyCartButton>
           <MobileCounterWrap style={mobileButtonStyle.mobileCounter}>
@@ -292,6 +296,11 @@ const Counter = styled.div`
     margin: 0;
     padding: 10px;
     border: none;
+    background: white;
+    button {
+      background: white;
+      border: 1px solid #d6d6d6;
+    }
     span {
       display: none;
     }
@@ -393,7 +402,7 @@ const BuyCartButton = styled.div`
   }
   @media (max-width: 530px) {
     font-size: 12px;
-    padding: 10px 20px;
+    padding: 20px 20px;
   }
 `;
 
@@ -401,7 +410,7 @@ const MobileCounterButtonWrap = styled.div`
   display: none;
   position: fixed;
   bottom: 0;
-  background: #f4f4f4;
+  background: #e4e4e4;
   width: 100%;
   align-items: center;
   z-index: 3;
@@ -410,21 +419,22 @@ const MobileCounterButtonWrap = styled.div`
     padding: 20px 5px;
   }
   @media (max-width: 530px) {
-    padding: 10px 5px;
+    padding: 20px 5px;
   }
 `;
 
-const MobileCounterWrapButton = styled.div`
+const OpenMobileCounterButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: -25px;
+  top: -35px;
   left: 50% + 30px;
   width: 60px;
-  height: 25px;
-  background: #f4f4f4;
+  height: 35px;
+  background: #e4e4e4;
   cursor: pointer;
+  border-radius: 10px 10px 0 0;
 `;
 
 const MobileCounterWrap = styled.div`
@@ -433,11 +443,11 @@ const MobileCounterWrap = styled.div`
   height: 80px;
   position: absolute;
   top: -80px;
-  background: #f4f4f4;
+  background: #e4e4e4;
   width: 100%;
   align-items: center;
   padding: 0 25px;
-  border-bottom: solid 1px #d4d4d4;
+  border-bottom: solid 1px #cccccc;
   @media (max-width: 530px) {
     padding: 0 10px;
   }
