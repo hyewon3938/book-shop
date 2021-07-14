@@ -7,6 +7,9 @@ import Book from "@/components/ProductDetailsPage/Book";
 // Utils
 import { numberWithCommas } from "@/lib/utils";
 
+// Style
+import { device } from "@/components/style/responsiveBreakPoints";
+
 const ProductInfo = () => {
   const price = 15800;
 
@@ -149,7 +152,7 @@ const ColumnFlexBox = styled.div`
 const ImageInfoWrap = styled.div`
   display: flex;
   margin: 40px 0 0 0;
-  @media (max-width: 850px) {
+  @media (max-width: ${device.large}) {
     flex-direction: column;
     padding: 0.5rem;
   }
@@ -161,7 +164,7 @@ const BookWrap = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
-  @media (max-width: 1300px) {
+  @media (max-width: ${device.extraLarge}) {
     flex: 0.4;
   }
 `;
@@ -187,7 +190,7 @@ const InfoBuyButtonWrap = styled.div`
     line-height: 20px;
   }
 
-  @media (max-width: 1300px) {
+  @media (max-width: ${device.extraLarge}) {
     flex: 0.6;
     margin: 0;
     h1 {
@@ -199,12 +202,12 @@ const InfoBuyButtonWrap = styled.div`
     }
   }
 
-  @media (max-width: 850px) {
+  @media (max-width: ${device.large}) {
     h1 {
       margin: 20px 0 15px 0;
     }
   }
-  @media (max-width: 530px) {
+  @media (max-width: ${device.small}) {
     padding: 0;
   }
 `;
@@ -218,11 +221,11 @@ const Category = styled.p`
   color: #fff;
   border-radius: 3px 3px 0 0;
 
-  @media (max-width: 1300px) {
+  @media (max-width: ${device.extraLarge}) {
     font-size: 13px;
     margin: 0 0 15px 0;
   }
-  @media (max-width: 850px) {
+  @media (max-width: ${device.large}) {
     margin: 40px 0 0 0;
   }
 `;
@@ -236,7 +239,7 @@ const PriceWrap = styled.div`
   p {
     margin: 0 30px 0 0;
   }
-  @media (max-width: 1300px) {
+  @media (max-width: ${device.extraLarge}) {
     padding: 10px 0;
     font-size: 15px;
   }
@@ -251,10 +254,10 @@ const InfoWrap = styled.div`
   span {
     margin: 0 7px 0 0;
   }
-  @media (max-width: 1300px) {
+  @media (max-width: ${device.extraLarge}) {
     font-size: 13px;
   }
-  @media (max-width: 530px) {
+  @media (max-width: ${device.small}) {
     flex-direction: column;
     span {
       display: none;
@@ -281,26 +284,24 @@ const Counter = styled.div`
     height: 30px;
     cursor: pointer;
     font-size: 18px;
-    background: #d6d6d6;
+    background: white;
+    border: 1px solid #c2c2c2;
     text-align: center;
   }
 
-  @media (max-width: 1300px) {
+  @media (max-width: ${device.extraLarge}) {
     margin: 15px 0 0 0;
     button {
       width: 25px;
       height: 25px;
     }
   }
-  @media (max-width: 850px) {
+  @media (max-width: ${device.large}) {
     margin: 0;
     padding: 10px;
     border: none;
     background: white;
-    button {
-      background: white;
-      border: 1px solid #d6d6d6;
-    }
+
     span {
       display: none;
     }
@@ -317,10 +318,10 @@ const TotalPrice = styled.div`
     font-weight: normal;
     margin: 0 30px 0 0;
   }
-  @media (max-width: 1300px) {
+  @media (max-width: ${device.extraLarge}) {
     font-size: 16px;
   }
-  @media (max-width: 850px) {
+  @media (max-width: ${device.large}) {
     margin: 0;
     p {
       margin: 0 15px 0 0;
@@ -331,7 +332,7 @@ const TotalPrice = styled.div`
 const InputNumber = styled.input`
   width: 60px;
   height: 30px;
-  border: 1px solid #d6d6d6;
+  border: 1px solid #c2c2c2;
   border-left: none;
   border-right: none;
   text-align: center;
@@ -343,7 +344,7 @@ const InputNumber = styled.input`
     -webkit-appearance: none;
     margin: 0;
   }
-  @media (max-width: 1300px) {
+  @media (max-width: ${device.extraLarge}) {
     width: 50px;
     height: 25px;
   }
@@ -352,7 +353,7 @@ const InputNumber = styled.input`
 const CounterButtonWrap = styled.div`
   display: flex;
   flex-direction: column;
-  @media (max-width: 850px) {
+  @media (max-width: ${device.large}) {
     display: none;
   }
 `;
@@ -363,16 +364,16 @@ const ButtonWrap = styled.div`
   justify-content: space-between;
   margin: 40px 0 0 0;
 
-  @media (max-width: 1300px) {
+  @media (max-width: ${device.extraLarge}) {
     margin: 30px 0 0 0;
   }
-  @media (max-width: 850px) {
+  @media (max-width: ${device.large}) {
     margin: 0;
     width: 100%;
     height: 50px;
     justify-content: space-around;
   }
-  @media (max-width: 530px) {
+  @media (max-width: ${device.small}) {
     padding: 0;
   }
 `;
@@ -397,10 +398,10 @@ const BuyCartButton = styled.div`
       `;
     }
   }}
-  @media (max-width: 1300px) {
+  @media (max-width: ${device.extraLarge}) {
     padding: 15px 25px;
   }
-  @media (max-width: 530px) {
+  @media (max-width: ${device.small}) {
     font-size: 12px;
     padding: 20px 20px;
   }
@@ -410,15 +411,15 @@ const MobileCounterButtonWrap = styled.div`
   display: none;
   position: fixed;
   bottom: 0;
-  background: #e4e4e4;
+  background: #f0f0f0;
   width: 100%;
   align-items: center;
   z-index: 3;
-  @media (max-width: 850px) {
+  @media (max-width: ${device.large}) {
     display: flex;
     padding: 20px 5px;
   }
-  @media (max-width: 530px) {
+  @media (max-width: ${device.small}) {
     padding: 20px 5px;
   }
 `;
@@ -432,7 +433,7 @@ const OpenMobileCounterButton = styled.div`
   left: 50% + 30px;
   width: 60px;
   height: 35px;
-  background: #e4e4e4;
+  background: #f0f0f0;
   cursor: pointer;
   border-radius: 10px 10px 0 0;
 `;
@@ -443,12 +444,12 @@ const MobileCounterWrap = styled.div`
   height: 80px;
   position: absolute;
   top: -80px;
-  background: #e4e4e4;
+  background: #f0f0f0;
   width: 100%;
   align-items: center;
   padding: 0 25px;
   border-bottom: solid 1px #cccccc;
-  @media (max-width: 530px) {
+  @media (max-width: ${device.small}) {
     padding: 0 10px;
   }
 `;

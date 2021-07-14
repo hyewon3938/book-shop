@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 
+// Style
+import { device } from "@/components/style/responsiveBreakPoints";
+
 // BookCover
 const coverWidth = 300;
 const coverHeight = 450;
@@ -64,7 +67,7 @@ const Front = styled.div`
   transform: rotateY(0deg) translateZ(${depth / 2}px);
   box-shadow: 15px 5px 15px rgba(0, 0, 0, 0.4);
   background: #383838;
-  @media (max-width: 1300px) {
+  @media (max-width: ${device.extraLarge}) {
     width: ${mCoverWidth}px;
     height: ${mCoverHeight}px;
     transform: rotateY(0deg) translateZ(${mDepth / 2}px);
@@ -75,7 +78,7 @@ const Back = styled.div`
   height: ${coverHeight}px;
   transform: rotateY(180deg) translateZ(${depth / 2}px);
   background: #383838;
-  @media (max-width: 1300px) {
+  @media (max-width: ${device.extraLarge}) {
     width: ${mCoverWidth}px;
     height: ${mCoverHeight}px;
     transform: rotateY(180deg) translateZ(${mDepth / 2}px);
@@ -87,7 +90,7 @@ const Left = styled.div`
   height: ${coverHeight}px;
   transform: rotateY(-90deg) translateZ(${coverWidth / 2}px);
   background: #383838;
-  @media (max-width: 1300px) {
+  @media (max-width: ${device.extraLarge}) {
     left: ${mCoverWidth / 2 - mDepth / 2}px;
     width: ${mDepth}px;
     height: ${mCoverHeight}px;
@@ -100,7 +103,7 @@ const Right = styled.div`
   height: ${coverHeight}px;
   background: #ebeaea;
   transform: rotateY(90deg) translateZ(${coverWidth / 2}px);
-  @media (max-width: 1300px) {
+  @media (max-width: ${device.extraLarge}) {
     left: ${mCoverWidth / 2 - mDepth / 2}px;
     width: ${mDepth}px;
     height: ${mCoverHeight}px;
@@ -146,7 +149,7 @@ const CoverImageWrap = styled.div`
       pointer;
   }
 
-  @media (max-width: 1300px) {
+  @media (max-width: ${device.extraLarge}) {
     height: ${mCoverHeight}px;
     margin: 0 ${mCoverWidth}px 0 0;
   }

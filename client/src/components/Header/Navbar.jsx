@@ -6,6 +6,9 @@ import { throttle } from "lodash";
 // Image
 import logo from "@/image/logo.png";
 
+// Style
+import { device } from "@/components/style/responsiveBreakPoints";
+
 const Navbar = ({ click }) => {
   const [isScrollTop, setIsScrollTop] = useState(true);
   const cartItemCount = 90;
@@ -75,7 +78,7 @@ const Wrap = styled.div`
   border-bottom: lightgray solid 1px;
   padding: 0 1.5rem 1rem 1.5rem;
   z-index: 10000;
-  @media (max-width: 600px) {
+  @media (max-width: ${device.small}) {
     padding: 0 1rem 0 1rem;
     height: 65px;
   }
@@ -86,11 +89,11 @@ const Logo = styled.div`
   img {
     height: 60px;
 
-    @media (max-width: 600px) {
+    @media (max-width: ${device.small}) {
       height: 40px;
     }
 
-    @media (max-width: 320px) {
+    @media (max-width: ${device.extraSmall}) {
       height: 35px;
     }
   }
@@ -108,7 +111,7 @@ const HamburgerMenu = styled.div`
     border-radius: 3px;
     background: black;
   }
-  @media (max-width: 600px) {
+  @media (max-width: ${device.small}) {
     height: 15px;
     div {
       width: 20px;
@@ -162,7 +165,7 @@ const Menu = styled.div`
   :last-child {
     margin: 0;
   }
-  @media (max-width: 600px) {
+  @media (max-width: ${device.small}) {
     button {
       font-size: 0.8rem;
       margin: 0 3px 0 0;

@@ -9,6 +9,9 @@ import Product from "@/components/ProductsPage/Product";
 // Actions
 import { getProducts as listProducts } from "@/redux/actions/productActions";
 
+// Style
+import { device } from "@/components/style/responsiveBreakPoints";
+
 const ProductsPage = ({ match }) => {
   const dispatch = useDispatch();
 
@@ -56,11 +59,11 @@ const CategoryTitle = styled.h2`
   margin: 0 3.5rem 1rem 3.5rem;
   font-family: "NotoSerifKR";
 
-  @media (max-width: 800px) {
+  @media (max-width: ${device.medium}) {
     font-size: 15px;
     margin: 0 3rem 1.5rem 3rem;
   }
-  @media (max-width: 530px) {
+  @media (max-width: ${device.small}) {
     width: 100%;
     display: flex;
     justify-content: center;

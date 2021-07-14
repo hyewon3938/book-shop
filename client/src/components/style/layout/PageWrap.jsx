@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
+// Style
+import { device } from "@/components/style/responsiveBreakPoints";
+
 const PageWrap = ({ children }) => {
   return <Wrap>{children}</Wrap>;
 };
@@ -13,7 +16,7 @@ const Wrap = styled.div`
   max-width: 1300px;
   height: 2000px;
   margin: 80px auto;
-  @media (max-width: 600px) {
+  @media (max-width: ${device.small}) {
     margin: 65px auto;
   }
 `;

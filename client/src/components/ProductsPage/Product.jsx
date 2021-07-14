@@ -5,6 +5,9 @@ import { useHistory } from "react-router-dom";
 // Images
 import woodTexture from "@/image/woodTexture.jpg";
 
+// Style
+import { device } from "@/components/style/responsiveBreakPoints";
+
 const Product = ({ data }) => {
   const history = useHistory();
 
@@ -48,7 +51,7 @@ const Shelf = styled.div`
     border-radius: 3px;
     background-image: url(woodTexture.jpg);
   }
-  @media (max-width: 530px) {
+  @media (max-width: ${device.small}) {
     width: 130px;
     height: 20px;
   }
@@ -61,7 +64,7 @@ const Book = styled.img`
   cursor: pointer;
   box-shadow: 10px 2px 10px rgba(0, 0, 0, 0.4);
   background: #cacba8c8;
-  @media (max-width: 530px) {
+  @media (max-width: ${device.small}) {
     width: 100px;
     height: 152px;
   }
@@ -97,7 +100,7 @@ const BookInfo = styled.div`
     display: flex;
     justify-content: center;
   }
-  @media (max-width: 530px) {
+  @media (max-width: ${device.small}) {
     width: 130px;
     margin: 20px 0;
   }
@@ -117,7 +120,7 @@ const BookTitle = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
-  @media (max-width: 530px) {
+  @media (max-width: ${device.small}) {
     font-size: 13px;
   }
 `;
@@ -148,7 +151,7 @@ const BookCategory = styled.span`
     color: #fff;
     border-radius: 3px 3px 0 0;
   }
-  @media (max-width: 530px) {
+  @media (max-width: ${device.small}) {
     font-size: 8px;
     top: -18px;
     right: 3px;
