@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 
+// BookCover
+const coverWidth = 300;
+const coverHeight = 450;
+const depth = 50;
+
+// MobileBookCover
+const mCoverWidth = 230;
+const mCoverHeight = 330;
+const mDepth = 30;
+
 const Book = () => {
   const [isFrontCover, setIsFrontCover] = useState(true);
 
@@ -8,9 +18,9 @@ const Book = () => {
     "https://image.aladin.co.kr/product/27514/85/spineflip/K032733196_d.jpg";
 
   const coverStyle = isFrontCover
-    ? { transform: "perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0 )" }
+    ? { transform: "perspective(1500px) rotate3d(0, 0, 0, 0 )" }
     : {
-        transform: `perspective(1500px) translateZ(0px) ${
+        transform: `perspective(1500px) ${
           window.innerWidth <= 1300 ? `translateX(${mCoverWidth}px)` : `translateX(${coverWidth}px)`
         } rotate3d(0, 1, 0, ${sideCoverImageUrl ? "" : "-"}180deg)`,
       };
@@ -44,16 +54,6 @@ const Book = () => {
 };
 
 export default Book;
-
-// BookCover
-const coverWidth = 300;
-const coverHeight = 450;
-const depth = 50;
-
-// MobileBookCover
-const mCoverWidth = 230;
-const mCoverHeight = 330;
-const mDepth = 30;
 
 const Front = styled.div`
   display: flex;
@@ -110,27 +110,15 @@ const Right = styled.div`
 
 const rotation = keyframes`
   0% {
-    transform: perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0);
+    transform: perspective(1500px)  rotate3d(0, 0, 0, 0);
 
   }
   50% {
     transform: perspective(1500px) translateZ(0px) rotate3d(0, 1, 0, 30deg);
   }
   100%{
-    transform: perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0);
+    transform: perspective(1500px) rotate3d(0, 0, 0, 0);
 
-  }
-`;
-
-const disappear = keyframes`
- 0%{
-   opacity : 0;
- }
- 20%{
-   opacity : 1;
- }
-  100%{
-   opacity : 0;
   }
 `;
 
@@ -138,7 +126,7 @@ const CoverImageWrap = styled.div`
   height: ${coverHeight}px;
   position: relative;
   transform-style: preserve-3d;
-  transform: perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0);
+  transform: perspective(1500px) rotate3d(0, 0, 0, 0);
   transition: 1s;
   animation: ${rotation} 2.5s;
   margin: 0 ${coverWidth}px 0 0;
