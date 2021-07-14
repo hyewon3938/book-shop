@@ -16,12 +16,15 @@ const mDepth = 30;
 
 const Book = () => {
   const [isFrontCover, setIsFrontCover] = useState(true);
+  const [isAnimationEnd, setIsAnimationEnd] = useState(false);
 
   const sideCoverImageUrl =
     "https://image.aladin.co.kr/product/27514/85/spineflip/K032733196_d.jpg";
 
   const coverStyle = isFrontCover
-    ? { transform: "perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0 )" }
+    ? {
+        transform: "perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0)",
+      }
     : {
         transform: `perspective(1500px) translateZ(-50px) ${
           window.innerWidth <= 1300 ? `translateX(${mCoverWidth}px)` : `translateX(${coverWidth}px)`
@@ -29,10 +32,17 @@ const Book = () => {
       };
 
   const bookCoverClickHandler = () => {
+    if (!isAnimationEnd) return;
     setIsFrontCover(!isFrontCover);
   };
+
   return (
-    <CoverImageWrap onClick={bookCoverClickHandler} style={coverStyle}>
+    <CoverImageWrap
+      onClick={bookCoverClickHandler}
+      onAnimationEnd={() => setIsAnimationEnd(true)}
+      onAnimationStart={() => setIsAnimationEnd(false)}
+      style={coverStyle}
+    >
       <Front>
         <img
           src="https://image.aladin.co.kr/product/27514/85/cover500/k032733196_1.jpg"
