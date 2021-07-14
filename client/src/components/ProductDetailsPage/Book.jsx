@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
@@ -18,8 +18,7 @@ const Book = () => {
   const [isFrontCover, setIsFrontCover] = useState(true);
   const [isAnimationEnd, setIsAnimationEnd] = useState(false);
 
-  const sideCoverImageUrl =
-    "https://image.aladin.co.kr/product/27514/85/spineflip/K032733196_d.jpg";
+  const sideCoverImageUrl = "";
 
   const coverStyle = isFrontCover
     ? {
@@ -36,33 +35,38 @@ const Book = () => {
     setIsFrontCover(!isFrontCover);
   };
 
+  const isReverse = sideCoverImageUrl ? "" : "reverse";
+
   return (
-    <CoverImageWrap
-      onClick={bookCoverClickHandler}
-      onAnimationEnd={() => setIsAnimationEnd(true)}
-      onAnimationStart={() => setIsAnimationEnd(false)}
-      style={coverStyle}
-    >
-      <Front>
-        <img
-          src="https://image.aladin.co.kr/product/27514/85/cover500/k032733196_1.jpg"
-          alt="bookName"
-        />
-      </Front>
-      <Left>
-        <img
-          src="https://image.aladin.co.kr/product/27514/85/spineflip/K032733196_d.jpg"
-          alt="BookName"
-        />
-      </Left>
-      <Right></Right>
-      <Back>
-        <img
-          src="https://image.aladin.co.kr/product/27514/85/letslook/K032733196_b.jpg"
-          alt="BookName"
-        />
-      </Back>
-    </CoverImageWrap>
+    <>
+      <CoverImageWrap
+        isReverse={isReverse}
+        onClick={bookCoverClickHandler}
+        onAnimationEnd={() => setIsAnimationEnd(true)}
+        onAnimationStart={() => setIsAnimationEnd(false)}
+        style={coverStyle}
+      >
+        <Front>
+          <img
+            src="https://image.aladin.co.kr/product/27514/85/cover500/k032733196_1.jpg"
+            alt="bookName"
+          />
+        </Front>
+        <Left>
+          <img
+            src="https://image.aladin.co.kr/product/27514/85/spineflip/K032733196_d.jpg"
+            alt="BookName"
+          />
+        </Left>
+        <Right></Right>
+        <Back>
+          <img
+            src="https://image.aladin.co.kr/product/27514/85/letslook/K032733196_b.jpg"
+            alt="BookName"
+          />
+        </Back>
+      </CoverImageWrap>
+    </>
   );
 };
 
@@ -111,7 +115,7 @@ const Right = styled.div`
   left: ${coverWidth / 2 - depth / 2}px;
   width: ${depth}px;
   height: ${coverHeight}px;
-  background: #ebeaea;
+  background: #ebebeb;
   transform: rotateY(90deg) translateZ(${coverWidth / 2}px);
   @media (max-width: ${device.extraLarge}) {
     left: ${mCoverWidth / 2 - mDepth / 2}px;
@@ -135,6 +139,20 @@ const rotation = keyframes`
   }
 `;
 
+const reverseRotation = keyframes`
+  0% {
+    transform: perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0);
+
+  }
+  50% {
+    transform: perspective(1500px) translateZ(-50px) rotate3d(0, 1, 0, -30deg);
+  }
+  100%{
+    transform: perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0);
+
+  }
+`;
+
 const CoverImageWrap = styled.div`
   height: ${coverHeight}px;
   position: relative;
@@ -144,6 +162,13 @@ const CoverImageWrap = styled.div`
   animation: ${rotation} 2.5s;
   margin: 0 ${coverWidth}px 0 0;
   z-index: 1;
+  ${(props) => {
+    if (props.isReverse) {
+      return css`
+        animation: ${reverseRotation} 2.5s;
+      `;
+    }
+  }};
   div {
     position: absolute;
     display: flex;
