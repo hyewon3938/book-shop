@@ -31,7 +31,8 @@ const ProductInfo = () => {
   };
 
   const onChangeCountHandler = () => {
-    const value = Number(countInput.current.value);
+    const value = countInput.current.value;
+
     if (value < 0 || value > 999) return setItemCount(itemCount);
     setItemCount(value);
   };
@@ -75,7 +76,6 @@ const ProductInfo = () => {
                   <InputNumber
                     ref={countInput}
                     value={itemCount}
-                    type="number"
                     onChange={onChangeCountHandler}
                     onBlur={checkCountValue}
                   />
