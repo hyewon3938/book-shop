@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
+import { throttle } from "lodash";
 
 // Components
 import Book from "@/components/ProductDetailsPage/Book";
@@ -14,25 +15,30 @@ const ProductInfo = () => {
   const price = 15800;
 
   const countInput = React.createRef();
+
   const [itemCount, setItemCount] = useState(1);
   const [isShownCount, setIsShownCount] = useState(false);
+  const [isMobileMode, setIsMobileMode] = useState();
+
+  window.onresize = throttle(() => {
+    window.innerWidth > 991.98 ? setIsMobileMode(false) : setIsMobileMode(true);
+  }, 300);
 
   const mobileButtonStyle = isShownCount
     ? { mobileCounter: { display: "flex" }, arrowButton: { top: "-115px" } }
     : { mobileCounter: { display: "none" }, arrowButton: { top: "-35px" } };
 
   const increaseButtonClickHandler = () => {
-    setItemCount(itemCount + 1);
+    setItemCount(Number(itemCount) + 1);
   };
 
   const decreaseButtonClickHandler = () => {
-    if (itemCount === 1) return;
-    setItemCount(itemCount - 1);
+    if (Number(itemCount) === 1) return;
+    setItemCount(Number(itemCount) - 1);
   };
 
   const onChangeCountHandler = () => {
     const value = countInput.current.value;
-
     if (value < 0 || value > 999) return setItemCount(itemCount);
     setItemCount(value);
   };
@@ -69,25 +75,62 @@ const ProductInfo = () => {
               {numberWithCommas(price)} 원
             </PriceWrap>
             <CounterButtonWrap>
-              <Counter>
-                <FlexBox>
-                  <span>수량</span>
-                  <button onClick={decreaseButtonClickHandler}>-</button>
-                  <InputNumber
-                    ref={countInput}
-                    value={itemCount}
-                    onChange={onChangeCountHandler}
-                    onBlur={checkCountValue}
-                  />
-                  <button onClick={increaseButtonClickHandler}>+</button>
-                </FlexBox>
-                <FlexBox>
-                  <TotalPrice>
-                    <p>합계</p> {numberWithCommas(price * itemCount)} 원
-                  </TotalPrice>
-                </FlexBox>
-              </Counter>
+              {isMobileMode ? (
+                <CounterWrap style={mobileButtonStyle.mobileCounter}>
+                  <Counter>
+                    <FlexBox>
+                      <span>수량</span>
+                      <button onClick={decreaseButtonClickHandler}>-</button>
+                      <InputNumber
+                        ref={countInput}
+                        value={itemCount}
+                        type="number"
+                        onChange={onChangeCountHandler}
+                        onBlur={checkCountValue}
+                      />
+                      <button onClick={increaseButtonClickHandler}>+</button>
+                    </FlexBox>
+                    <FlexBox>
+                      <TotalPrice>
+                        <p>합계</p> {numberWithCommas(price * itemCount)} 원
+                      </TotalPrice>
+                    </FlexBox>
+                  </Counter>
+                </CounterWrap>
+              ) : (
+                <CounterWrap>
+                  <Counter>
+                    <FlexBox>
+                      <span>수량</span>
+                      <button onClick={decreaseButtonClickHandler}>-</button>
+                      <InputNumber
+                        ref={countInput}
+                        value={itemCount}
+                        type="number"
+                        onChange={onChangeCountHandler}
+                        onBlur={checkCountValue}
+                      />
+                      <button onClick={increaseButtonClickHandler}>+</button>
+                    </FlexBox>
+                    <FlexBox>
+                      <TotalPrice>
+                        <p>합계</p> {numberWithCommas(price * itemCount)} 원
+                      </TotalPrice>
+                    </FlexBox>
+                  </Counter>
+                </CounterWrap>
+              )}
               <ButtonWrap>
+                <OpenMobileCounterButton
+                  onClick={mobileArrowButtonClickHandler}
+                  style={mobileButtonStyle.arrowButton}
+                >
+                  {isShownCount ? (
+                    <i className="fas fa-chevron-down"></i>
+                  ) : (
+                    <i className="fas fa-chevron-up"></i>
+                  )}
+                </OpenMobileCounterButton>
                 <BuyCartButton cart>카트에 담기</BuyCartButton>
                 <BuyCartButton>바로 구매하기</BuyCartButton>
               </ButtonWrap>
@@ -95,43 +138,6 @@ const ProductInfo = () => {
           </ColumnFlexBox>
         </InfoBuyButtonWrap>
       </ImageInfoWrap>
-      <MobileCounterButtonWrap>
-        <ButtonWrap>
-          <OpenMobileCounterButton
-            onClick={mobileArrowButtonClickHandler}
-            style={mobileButtonStyle.arrowButton}
-          >
-            {isShownCount ? (
-              <i className="fas fa-chevron-down"></i>
-            ) : (
-              <i className="fas fa-chevron-up"></i>
-            )}
-          </OpenMobileCounterButton>
-          <BuyCartButton cart>카트에 담기</BuyCartButton>
-          <BuyCartButton>바로 구매하기</BuyCartButton>
-          <MobileCounterWrap style={mobileButtonStyle.mobileCounter}>
-            <Counter>
-              <FlexBox>
-                <span>수량</span>
-                <button onClick={decreaseButtonClickHandler}>-</button>
-                <InputNumber
-                  ref={countInput}
-                  value={itemCount}
-                  type="number"
-                  onChange={onChangeCountHandler}
-                  onBlur={checkCountValue}
-                />
-                <button onClick={increaseButtonClickHandler}>+</button>
-              </FlexBox>
-              <FlexBox>
-                <TotalPrice>
-                  <p>합계</p> {numberWithCommas(price * itemCount)} 원
-                </TotalPrice>
-              </FlexBox>
-            </Counter>
-          </MobileCounterWrap>
-        </ButtonWrap>
-      </MobileCounterButtonWrap>
     </>
   );
 };
@@ -141,7 +147,6 @@ export default ProductInfo;
 const ImageInfoWrap = styled.div`
   display: flex;
   margin: 40px 0;
-  transform: rotate3d(0, 0, 0, 0);
   @media (max-width: ${device.large}) {
     flex-direction: column;
     margin: 40px 0 0 0;
@@ -166,6 +171,7 @@ const BookWrap = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
+  transform: rotate3d(0, 0, 0, 0);
   @media (max-width: ${device.extraLarge}) {
     flex: 0.4;
   }
@@ -271,6 +277,22 @@ const InfoWrap = styled.div`
   }
 `;
 
+const CounterWrap = styled.div`
+  display: flex;
+  @media (max-width: ${device.large}) {
+    display: none;
+    align-items: center;
+    height: 80px;
+    position: absolute;
+    top: -80px;
+    background: #f0f0f0;
+    width: 100%;
+    align-items: center;
+    padding: 0 25px;
+    border-bottom: solid 1px #cccccc;
+  }
+`;
+
 const Counter = styled.div`
   width: 100%;
   display: flex;
@@ -368,7 +390,17 @@ const CounterButtonWrap = styled.div`
   display: flex;
   flex-direction: column;
   @media (max-width: ${device.large}) {
-    display: none;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background: #f0f0f0;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    padding: 20px 5px;
+  }
+  @media (max-width: ${device.small}) {
+    padding: 20px 5px;
   }
 `;
 
@@ -424,25 +456,8 @@ const BuyCartButton = styled.div`
   }
 `;
 
-const MobileCounterButtonWrap = styled.div`
-  display: none;
-  position: fixed;
-  bottom: 0;
-  background: #f0f0f0;
-  width: 100%;
-  align-items: center;
-  z-index: 3;
-  @media (max-width: ${device.large}) {
-    display: flex;
-    padding: 20px 5px;
-  }
-  @media (max-width: ${device.small}) {
-    padding: 20px 5px;
-  }
-`;
-
 const OpenMobileCounterButton = styled.div`
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   position: absolute;
@@ -453,20 +468,7 @@ const OpenMobileCounterButton = styled.div`
   background: #f0f0f0;
   cursor: pointer;
   border-radius: 10px 10px 0 0;
-`;
-
-const MobileCounterWrap = styled.div`
-  display: flex;
-  align-items: center;
-  height: 80px;
-  position: absolute;
-  top: -80px;
-  background: #f0f0f0;
-  width: 100%;
-  align-items: center;
-  padding: 0 25px;
-  border-bottom: solid 1px #cccccc;
-  @media (max-width: ${device.small}) {
-    padding: 0 10px;
+  @media (max-width: ${device.large}) {
+    display: flex;
   }
 `;
