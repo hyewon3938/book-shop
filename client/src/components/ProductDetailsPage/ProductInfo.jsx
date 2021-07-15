@@ -283,6 +283,9 @@ const Counter = styled.div`
     margin: 0 30px 0 0;
   }
   button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 30px;
     height: 30px;
     cursor: pointer;
@@ -304,7 +307,6 @@ const Counter = styled.div`
     padding: 10px;
     border: none;
     background: white;
-
     span {
       display: none;
     }
@@ -341,8 +343,11 @@ const InputNumber = styled.input`
   text-align: center;
   -moz-appearance: textfield;
   border-style: 1px solid #c2c2c2;
+  border-radius: 0;
   &:focus {
     outline: none;
+    border-style: 1px solid #c2c2c2;
+    border-radius: 0;
   }
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
