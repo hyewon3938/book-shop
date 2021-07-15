@@ -26,7 +26,7 @@ const Book = () => {
       }
     : {
         transform: `perspective(1500px) translateZ(-50px) ${
-          window.innerWidth <= 1300 ? `translateX(${mCoverWidth}px)` : `translateX(${coverWidth}px)`
+          window.innerWidth <= 1200 ? `translateX(${mCoverWidth}px)` : `translateX(${coverWidth}px)`
         } rotate3d(0, 1, 0, ${sideCoverImageUrl ? "" : "-"}180deg)`,
       };
 
