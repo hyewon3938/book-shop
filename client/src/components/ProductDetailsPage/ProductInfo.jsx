@@ -288,8 +288,11 @@ const CounterWrap = styled.div`
     background: #f0f0f0;
     width: 100%;
     align-items: center;
-    padding: 0 25px;
+    padding: 0 20px;
     border-bottom: solid 1px #cccccc;
+  }
+  @media (max-width: ${device.small}px) {
+    padding: 0 15px;
   }
 `;
 
@@ -397,9 +400,6 @@ const CounterButtonWrap = styled.div`
     width: 100%;
     align-items: center;
     display: flex;
-    padding: 20px 5px;
-  }
-  @media (max-width: ${device.small}px) {
     padding: 20px 5px;
   }
 `;
