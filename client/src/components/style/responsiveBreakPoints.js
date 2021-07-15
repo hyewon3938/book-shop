@@ -1,7 +1,7 @@
 export const device = Object.freeze({
-  extraLarge: "1199.98px",
-  large: "991.98px",
-  medium: "767.98px",
-  small: "575.98px",
-  extraSmall: "319.98px",
+  extraLarge: 1199.98,
+  large: 991.98,
+  medium: 767.98,
+  small: 575.98,
+  extraSmall: 319.98,
 });
