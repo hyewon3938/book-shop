@@ -335,6 +335,10 @@ const TotalPrice = styled.div`
 `;
 
 const InputNumber = styled.input`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: none;
   width: 60px;
   height: 30px;
   border: 1px solid #c2c2c2;
@@ -345,6 +349,7 @@ const InputNumber = styled.input`
   border-style: 1px solid #c2c2c2;
   border-radius: 0;
   &:focus {
+    box-shadow: inset none;
     outline: none;
     border-style: 1px solid #c2c2c2;
     border-radius: 0;
