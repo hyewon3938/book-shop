@@ -78,7 +78,7 @@ const Wrap = styled.div`
   border-bottom: lightgray solid 1px;
   padding: 0 1.5rem 1rem 1.5rem;
   z-index: 10000;
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.small}px) {
     padding: 0 1rem 0 1rem;
     height: 65px;
   }
@@ -89,11 +89,11 @@ const Logo = styled.div`
   img {
     height: 60px;
 
-    @media (max-width: ${device.small}) {
+    @media (max-width: ${device.small}px) {
       height: 40px;
     }
 
-    @media (max-width: ${device.extraSmall}) {
+    @media (max-width: ${device.extraSmall}px) {
       height: 35px;
     }
   }
@@ -111,7 +111,7 @@ const HamburgerMenu = styled.div`
     border-radius: 3px;
     background: black;
   }
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.small}px) {
     height: 15px;
     div {
       width: 20px;
@@ -165,7 +165,7 @@ const Menu = styled.div`
   :last-child {
     margin: 0;
   }
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.small}px) {
     button {
       font-size: 0.8rem;
       margin: 0 3px 0 0;

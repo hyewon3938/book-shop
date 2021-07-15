@@ -18,7 +18,7 @@ const Book = () => {
   const [isFrontCover, setIsFrontCover] = useState(true);
   const [isAnimationEnd, setIsAnimationEnd] = useState(false);
 
-  const sideCoverImageUrl = "";
+  const sideCoverImageUrl = "0";
 
   const coverStyle = isFrontCover
     ? {
@@ -26,7 +26,9 @@ const Book = () => {
       }
     : {
         transform: `perspective(1500px) translateZ(-50px) ${
-          window.innerWidth <= 1200 ? `translateX(${mCoverWidth}px)` : `translateX(${coverWidth}px)`
+          window.innerWidth <= device.extraLarge
+            ? `translateX(${mCoverWidth}px)`
+            : `translateX(${coverWidth}px)`
         } rotate3d(0, 1, 0, ${sideCoverImageUrl ? "" : "-"}180deg)`,
       };
 
@@ -81,7 +83,7 @@ const Front = styled.div`
   transform: rotateY(0deg) translateZ(${depth / 2}px);
   box-shadow: 15px 5px 15px rgba(0, 0, 0, 0.4);
   background: #383838;
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     width: ${mCoverWidth}px;
     height: ${mCoverHeight}px;
     transform: rotateY(0deg) translateZ(${mDepth / 2}px);
@@ -92,7 +94,7 @@ const Back = styled.div`
   height: ${coverHeight}px;
   transform: rotateY(180deg) translateZ(${depth / 2}px);
   background: #383838;
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     width: ${mCoverWidth}px;
     height: ${mCoverHeight}px;
     transform: rotateY(180deg) translateZ(${mDepth / 2}px);
@@ -104,7 +106,7 @@ const Left = styled.div`
   height: ${coverHeight}px;
   transform: rotateY(-90deg) translateZ(${coverWidth / 2}px);
   background: #383838;
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     left: ${mCoverWidth / 2 - mDepth / 2}px;
     width: ${mDepth}px;
     height: ${mCoverHeight}px;
@@ -117,7 +119,7 @@ const Right = styled.div`
   height: ${coverHeight}px;
   background: #f3f3f3;
   transform: rotateY(90deg) translateZ(${coverWidth / 2 - coverWidth * 0.01}px);
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     left: ${mCoverWidth / 2 - mDepth / 2}px;
     width: ${mDepth}px;
     height: ${mCoverHeight}px;
@@ -183,7 +185,7 @@ const CoverImageWrap = styled.div`
       pointer;
   }
 
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     height: ${mCoverHeight}px;
     margin: 0 ${mCoverWidth}px 0 0;
   }

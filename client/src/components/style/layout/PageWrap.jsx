@@ -15,7 +15,7 @@ const Wrap = styled.div`
   flex-direction: column;
   max-width: 1300px;
   margin: 80px auto;
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.small}px) {
     margin: 65px auto;
   }
 `;
