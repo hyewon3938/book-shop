@@ -115,13 +115,13 @@ const Right = styled.div`
   left: ${coverWidth / 2 - depth / 2}px;
   width: ${depth}px;
   height: ${coverHeight}px;
-  background: #ebebeb;
-  transform: rotateY(90deg) translateZ(${coverWidth / 2}px);
+  background: #f3f3f3;
+  transform: rotateY(90deg) translateZ(${coverWidth / 2 - coverWidth * 0.01}px);
   @media (max-width: ${device.extraLarge}) {
     left: ${mCoverWidth / 2 - mDepth / 2}px;
     width: ${mDepth}px;
     height: ${mCoverHeight}px;
-    transform: rotateY(90deg) translateZ(${mCoverWidth / 2}px);
+    transform: rotateY(90deg) translateZ(${mCoverWidth / 2 - coverWidth * 0.01}px);
   }
 `;
 
@@ -161,7 +161,6 @@ const CoverImageWrap = styled.div`
   transition: 1s;
   animation: ${rotation} 2.5s;
   margin: 0 ${coverWidth}px 0 0;
-  z-index: 1;
   ${(props) => {
     if (props.isReverse) {
       return css`
