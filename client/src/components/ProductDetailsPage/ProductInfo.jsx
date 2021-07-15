@@ -18,7 +18,7 @@ const ProductInfo = () => {
 
   const [itemCount, setItemCount] = useState(1);
   const [isShownCount, setIsShownCount] = useState(false);
-  const [isMobileMode, setIsMobileMode] = useState();
+  const [isMobileMode, setIsMobileMode] = useState(window.innerWidth > 991.98 ? false : true);
 
   window.onresize = throttle(() => {
     window.innerWidth > 991.98 ? setIsMobileMode(false) : setIsMobileMode(true);
