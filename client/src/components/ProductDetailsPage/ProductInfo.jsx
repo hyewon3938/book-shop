@@ -340,6 +340,7 @@ const InputNumber = styled.input`
   border-right: none;
   text-align: center;
   -moz-appearance: textfield;
+  border-style: 1px solid #c2c2c2;
   &:focus {
     outline: none;
   }
@@ -386,18 +387,21 @@ const BuyCartButton = styled.div`
   padding: 20px 30px;
   text-align: center;
   cursor: pointer;
-  background: #cacba8;
-  border: 1.5px solid #cacba8;
-  border-radius: 3px;
+  background: #3d3d3d;
+  color: white;
+  border: 1.5px solid #3d3d3d;
+  font-size: 15px;
+  font-weight: bold;
   &:hover {
-    background: black;
+    background: #cacba8;
     color: white;
-    border: 1.5px solid black;
+    border: 1.5px solid #cacba8;
   }
   ${(props) => {
     if (props.cart) {
       return css`
         background: white;
+        color: black;
       `;
     }
   }}
@@ -405,7 +409,7 @@ const BuyCartButton = styled.div`
     padding: 15px 25px;
   }
   @media (max-width: ${device.small}) {
-    font-size: 12px;
+    font-size: 15px;
     padding: 20px 20px;
   }
 `;

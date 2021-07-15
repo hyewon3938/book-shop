@@ -106,6 +106,7 @@ const ContentTitle = styled.h1`
   @media (max-width: ${device.large}) {
     justify-content: flex-start;
     font-size: 18px;
+    color: #4b4b20;
   }
   @media (max-width: ${device.small}) {
     font-size: 15px;
