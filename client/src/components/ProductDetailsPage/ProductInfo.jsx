@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { throttle } from "lodash";
 
@@ -21,7 +21,7 @@ const ProductInfo = () => {
   const [isMobileMode, setIsMobileMode] = useState(window.innerWidth > 991.98 ? false : true);
 
   window.onresize = throttle(() => {
-    window.innerWidth > 991.98 ? setIsMobileMode(false) : setIsMobileMode(true);
+    window.innerWidth > device.large ? setIsMobileMode(false) : setIsMobileMode(true);
   }, 300);
 
   const mobileButtonStyle = isShownCount
@@ -147,7 +147,7 @@ export default ProductInfo;
 const ImageInfoWrap = styled.div`
   display: flex;
   margin: 40px 0;
-  @media (max-width: ${device.large}) {
+  @media (max-width: ${device.large}px) {
     flex-direction: column;
     margin: 40px 0 0 0;
     padding: 0 0.5rem;
@@ -172,7 +172,7 @@ const BookWrap = styled.div`
   justify-content: center;
   align-items: center;
   transform: rotate3d(0, 0, 0, 0);
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     flex: 0.4;
   }
 `;
@@ -199,7 +199,7 @@ const InfoBuyButtonWrap = styled.div`
     line-height: 20px;
   }
 
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     flex: 0.6;
     margin: 0;
     h1 {
@@ -211,12 +211,12 @@ const InfoBuyButtonWrap = styled.div`
     }
   }
 
-  @media (max-width: ${device.large}) {
+  @media (max-width: ${device.large}px) {
     h1 {
       margin: 20px 0 15px 0;
     }
   }
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.small}px) {
     padding: 0;
   }
 `;
@@ -230,11 +230,11 @@ const Category = styled.p`
   color: #fff;
   border-radius: 3px 3px 0 0;
 
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     font-size: 13px;
     margin: 0 0 15px 0;
   }
-  @media (max-width: ${device.large}) {
+  @media (max-width: ${device.large}px) {
     margin: 40px 0 0 0;
   }
 `;
@@ -248,7 +248,7 @@ const PriceWrap = styled.div`
   p {
     margin: 0 30px 0 0;
   }
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     padding: 10px 0;
     font-size: 15px;
   }
@@ -263,10 +263,10 @@ const InfoWrap = styled.div`
   span {
     margin: 0 7px 0 0;
   }
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     font-size: 13px;
   }
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.small}px) {
     flex-direction: column;
     span {
       display: none;
@@ -279,7 +279,7 @@ const InfoWrap = styled.div`
 
 const CounterWrap = styled.div`
   display: flex;
-  @media (max-width: ${device.large}) {
+  @media (max-width: ${device.large}px) {
     display: none;
     align-items: center;
     height: 80px;
@@ -317,14 +317,14 @@ const Counter = styled.div`
     text-align: center;
   }
 
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     margin: 15px 0 0 0;
     button {
       width: 25px;
       height: 25px;
     }
   }
-  @media (max-width: ${device.large}) {
+  @media (max-width: ${device.large}px) {
     margin: 0;
     padding: 10px;
     border: none;
@@ -345,10 +345,10 @@ const TotalPrice = styled.div`
     font-weight: normal;
     margin: 0 30px 0 0;
   }
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     font-size: 16px;
   }
-  @media (max-width: ${device.large}) {
+  @media (max-width: ${device.large}px) {
     margin: 0;
     p {
       margin: 0 15px 0 0;
@@ -380,7 +380,7 @@ const InputNumber = styled.input`
     -webkit-appearance: none;
     margin: 0;
   }
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     width: 50px;
     height: 25px;
   }
@@ -389,7 +389,7 @@ const InputNumber = styled.input`
 const CounterButtonWrap = styled.div`
   display: flex;
   flex-direction: column;
-  @media (max-width: ${device.large}) {
+  @media (max-width: ${device.large}px) {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -399,7 +399,7 @@ const CounterButtonWrap = styled.div`
     display: flex;
     padding: 20px 5px;
   }
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.small}px) {
     padding: 20px 5px;
   }
 `;
@@ -410,16 +410,16 @@ const ButtonWrap = styled.div`
   justify-content: space-between;
   margin: 40px 0 0 0;
 
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     margin: 30px 0 0 0;
   }
-  @media (max-width: ${device.large}) {
+  @media (max-width: ${device.large}px) {
     margin: 0;
     width: 100%;
     height: 50px;
     justify-content: space-around;
   }
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.small}px) {
     padding: 0;
   }
 `;
@@ -447,7 +447,7 @@ const BuyCartButton = styled.div`
       `;
     }
   }}
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     padding: 15px 25px;
   }
   @media (max-width: ${device.small}) {
@@ -468,7 +468,7 @@ const OpenMobileCounterButton = styled.div`
   background: #f0f0f0;
   cursor: pointer;
   border-radius: 10px 10px 0 0;
-  @media (max-width: ${device.large}) {
+  @media (max-width: ${device.large}px) {
     display: flex;
   }
 `;

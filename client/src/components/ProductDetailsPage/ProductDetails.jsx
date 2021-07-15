@@ -68,18 +68,12 @@ const Wrap = styled.div`
   justify-content: center;
   margin: 100px 0 0 0;
   border-top: solid 1px grey;
-  @media (max-width: ${device.extraLarge}) {
+  @media (max-width: ${device.extraLarge}px) {
     margin: 50px 0 0 0;
   }
-  @media (max-width: ${device.large}) {
+  @media (max-width: ${device.large}px) {
     margin: 15px 0 0 0;
     padding: 20px 0.5rem;
-  }
-  @media (max-width: ${device.medium}) {
-  }
-  @media (max-width: ${device.small}) {
-  }
-  @media (max-width: ${device.extraSmall}) {
   }
 `;
 
@@ -87,11 +81,11 @@ const ContentWrap = styled.div`
   display: flex;
   width: 100%;
   padding: 30px 20px;
-  @media (max-width: ${device.large}) {
+  @media (max-width: ${device.large}px) {
     flex-direction: column;
     padding: 0 20px 30px 20px;
   }
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.small}px) {
     padding: 20px 10px;
   }
 `;
@@ -103,12 +97,12 @@ const ContentTitle = styled.h1`
   justify-content: center;
   flex: 0.3;
   margin: 20px;
-  @media (max-width: ${device.large}) {
+  @media (max-width: ${device.large}px) {
     justify-content: flex-start;
     font-size: 18px;
     color: #4b4b20;
   }
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.small}px) {
     font-size: 15px;
     margin: 0;
   }
@@ -125,12 +119,12 @@ const Content = styled.div`
   span {
     margin: 0 10px 0 0;
   }
-  @media (max-width: ${device.large}) {
+  @media (max-width: ${device.large}px) {
     border-left: none;
     border-bottom: solid 1px #cecece;
     padding: 30px 20px;
   }
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.small}px) {
     padding: 30px 0;
   }
 `;

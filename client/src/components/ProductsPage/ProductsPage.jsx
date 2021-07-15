@@ -59,11 +59,11 @@ const CategoryTitle = styled.h2`
   margin: 0 3.5rem 1rem 3.5rem;
   font-family: "NotoSerifKR";
 
-  @media (max-width: ${device.medium}) {
+  @media (max-width: ${device.medium}px) {
     font-size: 15px;
     margin: 0 3rem 1.5rem 3rem;
   }
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.small}px) {
     width: 100%;
     display: flex;
     justify-content: center;

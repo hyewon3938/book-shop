@@ -89,10 +89,10 @@ const Wrap = styled.div`
   align-items: center;
   padding: 20px 30px;
 
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.small}px) {
     width: 280px;
   }
-  @media (max-width: ${device.extraSmall}) {
+  @media (max-width: ${device.extraSmall}px) {
     width: 200px;
     padding: 10px 20px;
   }
@@ -116,7 +116,7 @@ const LogoImage = styled.div`
   img {
     width: 100px;
   }
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.small}px) {
     display: none;
   }
 `;
@@ -138,7 +138,7 @@ const MenuWrap = styled.ul`
       transition: all 0.2s ease-out;
     }
   }
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.small}px) {
     div {
       font-size: 20px;
     }
@@ -146,7 +146,7 @@ const MenuWrap = styled.ul`
       font-size: 15px;
     }
   }
-  @media (max-width: ${device.extraSmall}) {
+  @media (max-width: ${device.extraSmall}px) {
     div {
       font-size: 18px;
     }
@@ -162,7 +162,7 @@ const LogInTitle = styled.div`
   margin: 0 0 20px 0;
   padding: 5px 0;
   line-height: 25px;
-  @media (max-width: ${device.extraSmall}) {
+  @media (max-width: ${device.extraSmall}px) {
     margin: 0 0 15px 0;
   }
 `;
@@ -177,7 +177,7 @@ const LogInInfo = styled.div`
     &:hover {
       color: gray;
     }
-    @media (max-width: ${device.extraSmall}) {
+    @media (max-width: ${device.extraSmall}px) {
       font-size: 10px;
     }
   }
@@ -192,7 +192,7 @@ const Bar = styled.div`
   height: 1.5px;
   background: #cacba8;
   margin: 30px 0;
-  @media (max-width: ${device.extraSmall}) {
+  @media (max-width: ${device.extraSmall}px) {
     margin: 20px 0;
   }
 `;
