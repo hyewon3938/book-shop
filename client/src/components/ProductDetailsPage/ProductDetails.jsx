@@ -22,9 +22,9 @@ const ProductDetails = () => {
       <ContentWrap>
         <ContentTitle>책소개</ContentTitle>
         <Content>
-          {descriptionValue.split("\n").map((line) => {
+          {descriptionValue.split("\n").map((line, index) => {
             return (
-              <span>
+              <span key={index}>
                 {line}
                 <br />
               </span>
@@ -35,9 +35,9 @@ const ProductDetails = () => {
       <ContentWrap>
         <ContentTitle>목차</ContentTitle>
         <Content>
-          {contentValue.split("\n").map((line) => {
+          {contentValue.split("\n").map((line, index) => {
             return (
-              <span>
+              <span key={index}>
                 {line}
                 <br />
               </span>
@@ -73,7 +73,7 @@ const Wrap = styled.div`
   }
   @media (max-width: ${device.large}) {
     margin: 15px 0 0 0;
-    padding: 20px 0 0 0;
+    padding: 20px 0.5rem;
   }
   @media (max-width: ${device.medium}) {
   }

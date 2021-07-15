@@ -12,18 +12,10 @@ import ProductDetails from "@/components/ProductDetailsPage/ProductDetails";
 const ProductDetailsPage = () => {
   return (
     <PageWrap>
-      <Wrap>
-        <ProductInfo />
-        <ProductDetails />
-      </Wrap>
+      <ProductInfo />
+      <ProductDetails />
     </PageWrap>
   );
 };
 
 export default ProductDetailsPage;
-
-const Wrap = styled.div`
-  @media (max-width: ${device.large}) {
-    padding: 0.5rem 0.5rem 50px 0.5rem;
-  }
-`;

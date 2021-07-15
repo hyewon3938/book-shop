@@ -138,6 +138,17 @@ const ProductInfo = () => {
 
 export default ProductInfo;
 
+const ImageInfoWrap = styled.div`
+  display: flex;
+  margin: 40px 0;
+  transform: rotate3d(0, 0, 0, 0);
+  @media (max-width: ${device.large}) {
+    flex-direction: column;
+    margin: 40px 0 0 0;
+    padding: 0 0.5rem;
+  }
+`;
+
 const FlexBox = styled.div`
   display: flex;
   align-items: center;
@@ -147,17 +158,6 @@ const ColumnFlexBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
-`;
-
-const ImageInfoWrap = styled.div`
-  display: flex;
-  margin: 40px 0;
-  transform: rotate3d(0, 0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
-  @media (max-width: ${device.large}) {
-    flex-direction: column;
-    margin: 40px 0 0 0;
-  }
 `;
 
 const BookWrap = styled.div`
