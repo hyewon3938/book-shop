@@ -115,8 +115,8 @@ const Right = styled.div`
   left: ${coverWidth / 2 - depth / 2}px;
   width: ${depth}px;
   height: ${coverHeight}px;
-  background: #ebebeb;
-  transform: rotateY(90deg) translateZ(${coverWidth / 2}px);
+  background: #fff;
+  transform: rotateY(90deg) translateZ(${coverWidth / 2 - coverWidth * 0.005}px);
   @media (max-width: ${device.extraLarge}) {
     left: ${mCoverWidth / 2 - mDepth / 2}px;
     width: ${mDepth}px;

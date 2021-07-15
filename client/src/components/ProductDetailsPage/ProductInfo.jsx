@@ -152,6 +152,7 @@ const ColumnFlexBox = styled.div`
 const ImageInfoWrap = styled.div`
   display: flex;
   margin: 40px 0;
+  z-index: 1;
   @media (max-width: ${device.large}) {
     flex-direction: column;
     margin: 40px 0 0 0;
