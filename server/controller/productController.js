@@ -2,7 +2,7 @@ const Product = require("../models/Products");
 
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find({});
+    const products = await Product.find({}).select("name price coverImageUrl writer category");
 
     res.json(products);
   } catch (error) {
@@ -24,7 +24,9 @@ const getProductById = async (req, res) => {
 
 const getProductByCategory = async (req, res) => {
   try {
-    const product = await Product.find({ category: req.params.category });
+    const product = await Product.find({ category: req.params.category }).select(
+      "name price coverImageUrl writer category"
+    );
 
     res.json(product);
   } catch (error) {
