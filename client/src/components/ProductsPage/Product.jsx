@@ -11,7 +11,7 @@ import { device } from "@/components/style/responsiveBreakPoints";
 const Product = ({ data }) => {
   const history = useHistory();
 
-  const { _id, name, price, imageUrl, writer, category } = data;
+  const { _id, name, price, coverImageUrl, writer, category } = data;
 
   const productClickHandler = () => {
     history.push(`/product/${category}/${_id}`);
@@ -19,7 +19,7 @@ const Product = ({ data }) => {
 
   return (
     <Wrap>
-      <Book src={imageUrl} alt={name} onClick={productClickHandler}></Book>
+      <Book src={coverImageUrl} alt={name} onClick={productClickHandler}></Book>
       <Shelf>
         <div />
         <BookCategory>

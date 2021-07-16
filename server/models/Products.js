@@ -5,6 +5,9 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  subtitle: {
+    type: String,
+  },
   price: {
     type: Number,
     required: true,
@@ -29,11 +32,34 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  pages: {
+    type: Number,
+    required: true,
+  },
+  size: {
+    type: String,
+    required: true,
+  },
+  weight: {
+    type: Number,
+    required: true,
+  },
   description: {
     type: String,
     required: true,
   },
-  imageUrl: {
+  contents: {
+    type: String,
+    required: true,
+  },
+  coverImageUrl: {
+    type: String,
+    required: true,
+  },
+  sideImageUrl: {
+    type: String,
+  },
+  backImageUrl: {
     type: String,
     required: true,
   },
