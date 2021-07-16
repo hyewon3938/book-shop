@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { throttle } from "lodash";
 
@@ -20,9 +20,16 @@ const ProductInfo = () => {
   const [isShownCount, setIsShownCount] = useState(false);
   const [isMobileMode, setIsMobileMode] = useState(window.innerWidth > 991.98 ? false : true);
 
-  window.onresize = throttle(() => {
+  const resizeEventHandler = throttle(() => {
     window.innerWidth > device.large ? setIsMobileMode(false) : setIsMobileMode(true);
   }, 300);
+
+  useEffect(() => {
+    window.addEventListener("resize", resizeEventHandler);
+    return () => {
+      window.removeEventListener("resize", resizeEventHandler);
+    };
+  }, [innerWidth]);
 
   const mobileButtonStyle = isShownCount
     ? { mobileCounter: { display: "flex" }, arrowButton: { top: "-115px" } }
