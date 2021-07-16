@@ -121,16 +121,20 @@ const ProductInfo = () => {
                 </CounterWrap>
               )}
               <ButtonWrap>
-                <OpenMobileCounterButton
-                  onClick={mobileArrowButtonClickHandler}
-                  style={mobileButtonStyle.arrowButton}
-                >
-                  {isShownCount ? (
-                    <i className="fas fa-chevron-down"></i>
-                  ) : (
-                    <i className="fas fa-chevron-up"></i>
-                  )}
-                </OpenMobileCounterButton>
+                {isMobileMode ? (
+                  <OpenMobileCounterButton
+                    onClick={mobileArrowButtonClickHandler}
+                    style={mobileButtonStyle.arrowButton}
+                  >
+                    {isShownCount ? (
+                      <i className="fas fa-chevron-down"></i>
+                    ) : (
+                      <i className="fas fa-chevron-up"></i>
+                    )}
+                  </OpenMobileCounterButton>
+                ) : (
+                  ""
+                )}
                 <BuyCartButton cart>카트에 담기</BuyCartButton>
                 <BuyCartButton>바로 구매하기</BuyCartButton>
               </ButtonWrap>
