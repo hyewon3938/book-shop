@@ -37,8 +37,9 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   size: {
-    type: String,
-    required: true,
+    width: { type: Number, required: true },
+    height: { type: Number, required: true },
+    depth: { type: Number, required: true },
   },
   weight: {
     type: Number,
