@@ -11,7 +11,14 @@ import { device } from "@/components/style/responsiveBreakPoints";
 const Product = ({ data }) => {
   const history = useHistory();
 
-  const { _id, name, price, coverImageUrl, writer, category } = data;
+  const {
+    _id,
+    title,
+    price,
+    coverImage: { front },
+    writer,
+    category,
+  } = data;
 
   const productClickHandler = () => {
     history.push(`/product/${category}/${_id}`);
@@ -19,7 +26,7 @@ const Product = ({ data }) => {
 
   return (
     <Wrap>
-      <Book src={coverImageUrl} alt={name} onClick={productClickHandler}></Book>
+      <Book src={front} alt={title} onClick={productClickHandler}></Book>
       <Shelf>
         <div />
         <BookCategory>
@@ -27,7 +34,7 @@ const Product = ({ data }) => {
         </BookCategory>
       </Shelf>
       <BookInfo>
-        <BookTitle onClick={productClickHandler}>{name}</BookTitle>
+        <BookTitle onClick={productClickHandler}>{title}</BookTitle>
         <span>{writer}</span>
 
         <BookPrice>{price}원</BookPrice>
