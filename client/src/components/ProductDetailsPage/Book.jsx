@@ -14,11 +14,13 @@ const mCoverWidth = 230;
 const mCoverHeight = 330;
 const mDepth = 30;
 
-const Book = () => {
+const Book = ({ coverImage, size, title }) => {
+  const { front, back, side } = coverImage;
+  const { width, height, depth } = size;
+  const left = side ? side : "";
+
   const [isFrontCover, setIsFrontCover] = useState(true);
   const [isAnimationEnd, setIsAnimationEnd] = useState(false);
-
-  const sideCoverImageUrl = "0";
 
   const coverStyle = isFrontCover
     ? {
@@ -29,7 +31,7 @@ const Book = () => {
           window.innerWidth <= device.extraLarge
             ? `translateX(${mCoverWidth}px)`
             : `translateX(${coverWidth}px)`
-        } rotate3d(0, 1, 0, ${sideCoverImageUrl ? "" : "-"}180deg)`,
+        } rotate3d(0, 1, 0, ${side ? "" : "-"}180deg)`,
       };
 
   const bookCoverClickHandler = () => {
@@ -37,7 +39,7 @@ const Book = () => {
     setIsFrontCover(!isFrontCover);
   };
 
-  const isReverse = sideCoverImageUrl ? "" : "reverse";
+  const isReverse = left ? "" : "reverse";
 
   return (
     <>
@@ -49,23 +51,14 @@ const Book = () => {
         style={coverStyle}
       >
         <Front>
-          <img
-            src="https://image.aladin.co.kr/product/27514/85/cover500/k032733196_1.jpg"
-            alt="bookName"
-          />
+          <img src={front} alt={title} />
         </Front>
         <Left>
-          <img
-            src="https://image.aladin.co.kr/product/27514/85/spineflip/K032733196_d.jpg"
-            alt="BookName"
-          />
+          <img src={left} alt={title} />
         </Left>
         <Right></Right>
         <Back>
-          <img
-            src="https://image.aladin.co.kr/product/27514/85/letslook/K032733196_b.jpg"
-            alt="BookName"
-          />
+          <img src={back} alt={title} />
         </Back>
       </CoverImageWrap>
     </>

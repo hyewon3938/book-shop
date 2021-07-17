@@ -7,7 +7,7 @@ import PageWrap from "@/components/style/layout/PageWrap";
 import Product from "@/components/ProductsPage/Product";
 
 // Actions
-import { getProducts as listProducts } from "@/redux/actions/productActions";
+import { getProducts } from "@/redux/actions/productActions";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
@@ -15,12 +15,12 @@ import { device } from "@/components/style/responsiveBreakPoints";
 const ProductsPage = ({ match }) => {
   const dispatch = useDispatch();
 
-  const getProducts = useSelector((state) => state.getProducts);
-  const { products, loading, error } = getProducts;
+  const productsData = useSelector((state) => state.getProducts);
+  const { products, loading, error } = productsData;
 
   useEffect(() => {
     const categoryParam = match.params.category === "전체보기" ? "" : match.params.category;
-    dispatch(listProducts(categoryParam));
+    dispatch(getProducts(categoryParam));
   }, [dispatch, match.params.category]);
 
   return (
