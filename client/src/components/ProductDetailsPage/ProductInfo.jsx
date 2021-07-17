@@ -11,14 +11,25 @@ import { numberWithCommas } from "@/lib/utils";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
-const ProductInfo = () => {
-  const price = 15800;
+const ProductInfo = ({ data }) => {
+  const {
+    title,
+    subtitle,
+    writer,
+    category,
+    coverImage,
+    price,
+    publishDate,
+    publisher,
+    size,
+    countInStock,
+  } = data;
 
   const countInput = React.createRef();
 
   const [itemCount, setItemCount] = useState(1);
   const [isShownCount, setIsShownCount] = useState(false);
-  const [isMobileMode, setIsMobileMode] = useState(window.innerWidth > 991.98 ? false : true);
+  const [isMobileMode, setIsMobileMode] = useState(window.innerWidth > device.large ? false : true);
 
   const resizeEventHandler = throttle(() => {
     window.innerWidth > device.large ? setIsMobileMode(false) : setIsMobileMode(true);
@@ -64,18 +75,18 @@ const ProductInfo = () => {
     <>
       <ImageInfoWrap>
         <BookWrap>
-          <Book />
+          <Book size={size} coverImage={coverImage} title={title} />
         </BookWrap>
         <InfoBuyButtonWrap>
-          <Category>철학</Category>
+          <Category>{category}</Category>
           <ColumnFlexBox>
-            <h1>소크라테스 익스프레스</h1>
-            <h2>: 철학이 우리 인생에 스며드는 순간</h2>
+            <h1>{title}</h1>
+            {subtitle ? <h2>: {subtitle}</h2> : ""}
             <InfoWrap>
-              <p>에릭 와이너 저</p>
+              <p>{writer} 저</p>
               <span>|</span>
-              <p> 해냄 </p>
-              <span>|</span> <p> 2021년 04월 28일</p>
+              <p> {publisher} </p>
+              <span>|</span> <p> {publishDate}</p>
             </InfoWrap>
             <PriceWrap>
               <p>판매가</p>
@@ -180,9 +191,9 @@ const BookWrap = styled.div`
   flex: 0.5;
   display: flex;
   width: 100%;
+  height: auto;
   justify-content: center;
   align-items: center;
-  transform: rotate3d(0, 0, 0, 0);
   @media (max-width: ${device.extraLarge}px) {
     flex: 0.4;
   }
