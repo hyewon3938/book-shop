@@ -4,16 +4,6 @@ import styled, { keyframes, css } from "styled-components";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
-// BookCover
-const coverWidth = 300;
-const coverHeight = 450;
-const depth = 50;
-
-// MobileBookCover
-const mCoverWidth = 230;
-const mCoverHeight = 330;
-const mDepth = 30;
-
 const Book = ({ coverImage, size, title }) => {
   const { front, back, side } = coverImage;
   const { width, height, depth } = size;
@@ -29,9 +19,9 @@ const Book = ({ coverImage, size, title }) => {
     : {
         transform: `perspective(1500px) translateZ(-50px) ${
           window.innerWidth <= device.extraLarge
-            ? `translateX(${mCoverWidth}px)`
-            : `translateX(${coverWidth}px)`
-        } rotate3d(0, 1, 0, ${side ? "" : "-"}180deg)`,
+            ? `translateX(${width * 2 * 0.75}px)`
+            : `translateX(${width * 2}px)`
+        } rotate3d(0, 1, 0, ${left ? "" : "-"}180deg)`,
       };
 
   const bookCoverClickHandler = () => {
@@ -42,81 +32,125 @@ const Book = ({ coverImage, size, title }) => {
   const isReverse = left ? "" : "reverse";
 
   return (
-    <>
+    <Wrap>
       <CoverImageWrap
+        width={width * 2}
+        height={height * 2}
+        depth={depth * 2}
         isReverse={isReverse}
         onClick={bookCoverClickHandler}
         onAnimationEnd={() => setIsAnimationEnd(true)}
         onAnimationStart={() => setIsAnimationEnd(false)}
         style={coverStyle}
       >
-        <Front>
+        <Front width={width * 2} height={height * 2} depth={depth * 2}>
           <img src={front} alt={title} />
         </Front>
-        <Left>
+        <Left width={width * 2} height={height * 2} depth={depth * 2}>
           <img src={left} alt={title} />
         </Left>
-        <Right></Right>
-        <Back>
+        <Right width={width * 2} height={height * 2} depth={depth * 2}></Right>
+        <Back width={width * 2} height={height * 2} depth={depth * 2}>
           <img src={back} alt={title} />
         </Back>
       </CoverImageWrap>
-    </>
+    </Wrap>
   );
 };
 
 export default Book;
 
+const mobileRatio = 0.75;
+
+const Wrap = styled.div`
+  transform: rotate3d(0, 0, 0, 0);
+`;
+
 const Front = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${coverWidth}px;
-  height: ${coverHeight}px;
-  transform: rotateY(0deg) translateZ(${depth / 2}px);
   box-shadow: 15px 5px 15px rgba(0, 0, 0, 0.4);
   background: #383838;
+  ${(props) => {
+    return css`
+      width: ${props.width}px;
+      height: ${props.height}px;
+      transform: rotateY(0deg) translateZ(${props.depth / 2}px);
+    `;
+  }};
   @media (max-width: ${device.extraLarge}px) {
-    width: ${mCoverWidth}px;
-    height: ${mCoverHeight}px;
-    transform: rotateY(0deg) translateZ(${mDepth / 2}px);
+    ${(props) => {
+      return css`
+        width: ${props.width * mobileRatio}px;
+        height: ${props.height * mobileRatio}px;
+        transform: rotateY(0deg) translateZ(${(props.depth * mobileRatio) / 2}px);
+      `;
+    }};
   }
 `;
+
 const Back = styled.div`
-  width: ${coverWidth}px;
-  height: ${coverHeight}px;
-  transform: rotateY(180deg) translateZ(${depth / 2}px);
   background: #383838;
+  ${(props) => {
+    return css`
+      width: ${props.width}px;
+      height: ${props.height}px;
+      transform: rotateY(180deg) translateZ(${props.depth / 2}px);
+    `;
+  }};
   @media (max-width: ${device.extraLarge}px) {
-    width: ${mCoverWidth}px;
-    height: ${mCoverHeight}px;
-    transform: rotateY(180deg) translateZ(${mDepth / 2}px);
+    ${(props) => {
+      return css`
+        width: ${props.width * mobileRatio}px;
+        height: ${props.height * mobileRatio}px;
+        transform: rotateY(180deg) translateZ(${(props.depth * mobileRatio) / 2}px);
+      `;
+    }};
   }
 `;
 const Left = styled.div`
-  left: ${coverWidth / 2 - depth / 2}px;
-  width: ${depth}px;
-  height: ${coverHeight}px;
-  transform: rotateY(-90deg) translateZ(${coverWidth / 2}px);
   background: #383838;
+  ${(props) => {
+    return css`
+      width: ${props.depth}px;
+      height: ${props.height}px;
+      transform: rotateY(-90deg) translateZ(${props.width / 2}px);
+      left: ${props.width / 2 - props.depth / 2}px;
+    `;
+  }};
   @media (max-width: ${device.extraLarge}px) {
-    left: ${mCoverWidth / 2 - mDepth / 2}px;
-    width: ${mDepth}px;
-    height: ${mCoverHeight}px;
-    transform: rotateY(-90deg) translateZ(${mCoverWidth / 2}px);
+    ${(props) => {
+      return css`
+        width: ${props.depth * mobileRatio}px;
+        height: ${props.height * mobileRatio}px;
+        transform: rotateY(-90deg) translateZ(${(props.width * mobileRatio) / 2}px);
+        left: ${(props.width * mobileRatio) / 2 - (props.depth * mobileRatio) / 2}px;
+      `;
+    }};
   }
 `;
+
 const Right = styled.div`
-  left: ${coverWidth / 2 - depth / 2}px;
-  width: ${depth}px;
-  height: ${coverHeight}px;
-  background: #f3f3f3;
-  transform: rotateY(90deg) translateZ(${coverWidth / 2 - coverWidth * 0.01}px);
+  ${(props) => {
+    return css`
+      width: ${props.depth}px;
+      height: ${props.height}px;
+      transform: rotateY(90deg) translateZ(${props.width / 2 - props.width * 0.01}px);
+      left: ${props.width / 2 - props.depth / 2}px;
+      background: #f3f3f3;
+    `;
+  }};
   @media (max-width: ${device.extraLarge}px) {
-    left: ${mCoverWidth / 2 - mDepth / 2}px;
-    width: ${mDepth}px;
-    height: ${mCoverHeight}px;
-    transform: rotateY(90deg) translateZ(${mCoverWidth / 2 - coverWidth * 0.01}px);
+    ${(props) => {
+      return css`
+        width: ${props.depth * mobileRatio}px;
+        height: ${props.height * mobileRatio}px;
+        transform: rotateY(90deg)
+          translateZ(${(props.width * mobileRatio) / 2 - props.width * mobileRatio * 0.01}px);
+        left: ${(props.width * mobileRatio) / 2 - (props.depth * mobileRatio) / 2}px;
+      `;
+    }};
   }
 `;
 
@@ -149,20 +183,26 @@ const reverseRotation = keyframes`
 `;
 
 const CoverImageWrap = styled.div`
-  height: ${coverHeight}px;
   position: relative;
   transform-style: preserve-3d;
   transform: perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0);
   transition: 1s;
   animation: ${rotation} 2.5s;
-  margin: 0 ${coverWidth}px 0 0;
   ${(props) => {
     if (props.isReverse) {
       return css`
         animation: ${reverseRotation} 2.5s;
+        height: ${props.height}px;
+        margin: 0 ${props.width}px 0 0;
+      `;
+    } else {
+      return css`
+        height: ${props.height}px;
+        margin: 0 ${props.width}px 0 0;
       `;
     }
   }};
+
   div {
     position: absolute;
     display: flex;
@@ -179,7 +219,11 @@ const CoverImageWrap = styled.div`
   }
 
   @media (max-width: ${device.extraLarge}px) {
-    height: ${mCoverHeight}px;
-    margin: 0 ${mCoverWidth}px 0 0;
+    ${(props) => {
+      return css`
+        height: ${props.height * mobileRatio}px;
+        margin: 0 ${props.width * mobileRatio}px 0 0;
+      `;
+    }};
   }
 `;

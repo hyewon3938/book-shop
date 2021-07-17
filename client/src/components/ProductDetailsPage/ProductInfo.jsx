@@ -191,9 +191,9 @@ const BookWrap = styled.div`
   flex: 0.5;
   display: flex;
   width: 100%;
+  height: auto;
   justify-content: center;
   align-items: center;
-  transform: rotate3d(0, 0, 0, 0);
   @media (max-width: ${device.extraLarge}px) {
     flex: 0.4;
   }
