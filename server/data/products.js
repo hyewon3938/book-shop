@@ -1,11 +1,13 @@
 const products = [
   {
-    name: "불펜의 시간",
+    title: "불펜의 시간",
     subtitle: "제26회 한겨레문학상 수상작",
     price: 13800,
-    coverImageUrl: "https://image.aladin.co.kr/product/27546/82/cover500/k302733492_1.jpg",
-    sideImageUrl: "https://image.aladin.co.kr/product/27546/82/spineflip/K302733492_d.jpg",
-    backImageUrl: "https://image.aladin.co.kr/product/27546/82/letslook/K302733492_b.jpg",
+    coverImage: {
+      front: "https://image.aladin.co.kr/product/27546/82/cover500/k302733492_1.jpg",
+      back: "https://image.aladin.co.kr/product/27546/82/letslook/K302733492_b.jpg",
+      side: "https://image.aladin.co.kr/product/27546/82/spineflip/K302733492_d.jpg",
+    },
     writer: "김유원",
     publishDate: "2021년 7월 15일",
     publisher: "한겨레출판",
@@ -25,12 +27,14 @@ const products = [
     descriptionImageUrl: "",
   },
   {
-    name: "나는 오늘 나에게 ADHD라는 이름을 주었다",
+    title: "나는 오늘 나에게 ADHD라는 이름을 주었다",
     subtitle: "서른에야 진단받은 임상심리학자의 여성 ADHD 탐구기",
     price: 16000,
-    coverImageUrl: "https://image.aladin.co.kr/product/24790/62/cover500/k392732321_1.jpg",
-    sideImageUrl: "https://image.aladin.co.kr/product/24790/62/spineflip/K392732321_d.jpg",
-    backImageUrl: "https://image.aladin.co.kr/product/24790/62/letslook/K392732321_b.jpg",
+    coverImage: {
+      front: "https://image.aladin.co.kr/product/24790/62/cover500/k392732321_1.jpg",
+      back: "https://image.aladin.co.kr/product/24790/62/letslook/K392732321_b.jpg",
+      side: "https://image.aladin.co.kr/product/24790/62/spineflip/K392732321_d.jpg",
+    },
     writer: "신지수",
     publishDate: "2021년 06월 21일",
     publisher: "휴머니스트",
