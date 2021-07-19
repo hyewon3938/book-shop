@@ -81,7 +81,7 @@ const ProductInfo = ({ data }) => {
           <Category>{category}</Category>
           <ColumnFlexBox>
             <h1>{title}</h1>
-            {subtitle ? <h2>: {subtitle}</h2> : ""}
+            {subtitle ? <h2>- {subtitle}</h2> : ""}
             <InfoWrap>
               <p>{writer} 저</p>
               <span>|</span>
@@ -216,7 +216,7 @@ const InfoBuyButtonWrap = styled.div`
   }
   h2 {
     font-family: "NotoSerifKR";
-    font-size: 18px;
+    font-size: 15px;
     word-break: keep-all;
     line-height: 20px;
   }
@@ -229,7 +229,7 @@ const InfoBuyButtonWrap = styled.div`
       margin: 5px 0 15px 0;
     }
     h2 {
-      font-size: 15px;
+      font-size: 13px;
     }
   }
 
@@ -267,6 +267,7 @@ const PriceWrap = styled.div`
   font-size: 18px;
   display: flex;
   align-items: center;
+  font-weight: bold;
   p {
     margin: 0 30px 0 0;
   }
