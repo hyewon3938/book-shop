@@ -4,6 +4,8 @@ import styled, { keyframes, css } from "styled-components";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
+const mobileRatio = 0.75;
+
 const Book = ({ coverImage, size, title }) => {
   const { front, back, side } = coverImage;
   const { width, height, depth } = size;
@@ -19,7 +21,7 @@ const Book = ({ coverImage, size, title }) => {
     : {
         transform: `perspective(1500px) translateZ(-50px) ${
           window.innerWidth <= device.extraLarge
-            ? `translateX(${width * 2 * 0.75}px)`
+            ? `translateX(${width * 2 * mobileRatio}px)`
             : `translateX(${width * 2}px)`
         } rotate3d(0, 1, 0, ${left ? "" : "-"}180deg)`,
       };
@@ -54,16 +56,32 @@ const Book = ({ coverImage, size, title }) => {
           <img src={back} alt={title} />
         </Back>
       </CoverImageWrap>
+      <Message>클릭해서 책을 확인해보세요</Message>
     </Wrap>
   );
 };
 
 export default Book;
 
-const mobileRatio = 0.75;
-
 const Wrap = styled.div`
+  position: relative;
   transform: rotate3d(0, 0, 0, 0);
+`;
+
+const Message = styled.div`
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-size: 12px;
+  color: #8b8b8b;
+  @media (max-width: ${device.large}px) {
+    bottom: -20px;
+    font-size: 10px;
+  }
 `;
 
 const Front = styled.div`
@@ -157,9 +175,11 @@ const Right = styled.div`
 const rotation = keyframes`
   0% {
     transform: perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0);
-
   }
-  50% {
+  30% {
+    transform: perspective(1500px) translateZ(-50px) rotate3d(0, 1, 0, 30deg);
+  }
+  70% {
     transform: perspective(1500px) translateZ(-50px) rotate3d(0, 1, 0, 30deg);
   }
   100%{
@@ -171,9 +191,11 @@ const rotation = keyframes`
 const reverseRotation = keyframes`
   0% {
     transform: perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0);
-
   }
-  50% {
+  30% {
+    transform: perspective(1500px) translateZ(-50px) rotate3d(0, 1, 0, -30deg);
+  }
+  70% {
     transform: perspective(1500px) translateZ(-50px) rotate3d(0, 1, 0, -30deg);
   }
   100%{
