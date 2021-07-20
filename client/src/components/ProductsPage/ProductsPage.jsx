@@ -29,7 +29,7 @@ const ProductsPage = ({ match }) => {
       <Wrap>
         {loading ? (
           <>
-            <CategoryTitle>{match.params.category} (0)</CategoryTitle>
+            <CategoryTitle>{match.params.category} (　)</CategoryTitle>
             <LoadingIndicator />
           </>
         ) : error ? (
