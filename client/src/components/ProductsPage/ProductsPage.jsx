@@ -5,6 +5,7 @@ import styled from "styled-components";
 // Components
 import PageWrap from "@/components/style/layout/PageWrap";
 import Product from "@/components/ProductsPage/Product";
+import LoadingIndicator from "@/components/LoadingIndicator";
 
 // Actions
 import { getProducts } from "@/redux/actions/productActions";
@@ -27,7 +28,10 @@ const ProductsPage = ({ match }) => {
     <PageWrap>
       <Wrap>
         {loading ? (
-          <h2>loading...</h2>
+          <>
+            <CategoryTitle>{match.params.category} (0)</CategoryTitle>
+            <LoadingIndicator />
+          </>
         ) : error ? (
           <h2>{error}</h2>
         ) : (
@@ -83,4 +87,10 @@ const ProductsWrap = styled.div`
   @media (max-width: 800px) {
     grid-template-columns: repeat(2, 1fr);
   }
+`;
+
+const LoadingWrap = styled.div`
+  width: 100%;
+  height: 80vh;
+  background: rgba(0, 0, 0, 0.2);
 `;
