@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import PageWrap from "@/components/style/layout/PageWrap";
 import ProductInfo from "@/components/ProductDetailsPage/ProductInfo";
 import ProductDetails from "@/components/ProductDetailsPage/ProductDetails";
-import LoadingIndicator from "@/components/LoadingIndicator";
 
 // Actions
 import { getProductDetails } from "@/redux/actions/productActions";
@@ -25,7 +24,9 @@ const ProductDetailsPage = ({ match }) => {
   return (
     <PageWrap>
       {loading ? (
-        <LoadingIndicator />
+        <>
+          <ProductInfo />
+        </>
       ) : error ? (
         <h2>{error}</h2>
       ) : productDetails ? (
