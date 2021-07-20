@@ -12,19 +12,6 @@ import { numberWithCommas } from "@/lib/utils";
 import { device } from "@/components/style/responsiveBreakPoints";
 
 const ProductInfo = ({ data }) => {
-  const {
-    title,
-    subtitle,
-    writer,
-    category,
-    coverImage,
-    price,
-    publishDate,
-    publisher,
-    size,
-    countInStock,
-  } = data;
-
   const countInput = React.createRef();
 
   const [itemCount, setItemCount] = useState(1);
@@ -73,93 +60,159 @@ const ProductInfo = ({ data }) => {
 
   return (
     <>
-      <ImageInfoWrap>
-        <BookWrap>
-          <Book size={size} coverImage={coverImage} title={title} />
-        </BookWrap>
-        <InfoBuyButtonWrap>
-          <Category>{category}</Category>
-          <ColumnFlexBox>
-            <h1>{title}</h1>
-            {subtitle ? <h2>- {subtitle}</h2> : ""}
-            <InfoWrap>
-              <p>{writer} 저</p>
-              <span>|</span>
-              <p> {publisher} </p>
-              <span>|</span> <p> {publishDate}</p>
-            </InfoWrap>
-            <PriceWrap>
-              <p>판매가</p>
-              {numberWithCommas(price)} 원
-            </PriceWrap>
-            <CounterButtonWrap>
-              {isMobileMode ? (
-                <CounterWrap style={mobileButtonStyle.mobileCounter}>
-                  <Counter>
-                    <FlexBox>
-                      <span>수량</span>
-                      <button onClick={decreaseButtonClickHandler}>-</button>
-                      <InputNumber
-                        ref={countInput}
-                        value={itemCount}
-                        type="number"
-                        onChange={onChangeCountHandler}
-                        onBlur={checkCountValue}
-                      />
-                      <button onClick={increaseButtonClickHandler}>+</button>
-                    </FlexBox>
-                    <FlexBox>
-                      <TotalPrice>
-                        <p>합계</p> {numberWithCommas(price * itemCount)} 원
-                      </TotalPrice>
-                    </FlexBox>
-                  </Counter>
-                </CounterWrap>
-              ) : (
-                <CounterWrap>
-                  <Counter>
-                    <FlexBox>
-                      <span>수량</span>
-                      <button onClick={decreaseButtonClickHandler}>-</button>
-                      <InputNumber
-                        ref={countInput}
-                        value={itemCount}
-                        type="number"
-                        onChange={onChangeCountHandler}
-                        onBlur={checkCountValue}
-                      />
-                      <button onClick={increaseButtonClickHandler}>+</button>
-                    </FlexBox>
-                    <FlexBox>
-                      <TotalPrice>
-                        <p>합계</p> {numberWithCommas(price * itemCount)} 원
-                      </TotalPrice>
-                    </FlexBox>
-                  </Counter>
-                </CounterWrap>
-              )}
-              <ButtonWrap>
+      {!data ? (
+        <ImageInfoWrap>
+          <BookWrap loading="true"></BookWrap>
+          <InfoBuyButtonWrap>
+            <Category>　</Category>
+            <ColumnFlexBox>
+              <h1>　　　</h1>
+              <InfoWrap>
+                <p>　　　 저</p>
+                <span>|</span>
+                <p> 　　　</p>
+                <span>|</span> <p> 　　　</p>
+              </InfoWrap>
+              <PriceWrap>
+                <p>판매가</p>　　　원
+              </PriceWrap>
+              <CounterButtonWrap>
                 {isMobileMode ? (
-                  <OpenMobileCounterButton
-                    onClick={mobileArrowButtonClickHandler}
-                    style={mobileButtonStyle.arrowButton}
-                  >
-                    {isShownCount ? (
-                      <i className="fas fa-chevron-down"></i>
-                    ) : (
-                      <i className="fas fa-chevron-up"></i>
-                    )}
-                  </OpenMobileCounterButton>
-                ) : (
                   ""
+                ) : (
+                  <CounterWrap>
+                    <Counter>
+                      <FlexBox>
+                        <span>수량</span>
+                        <button onClick={decreaseButtonClickHandler}>-</button>
+                        <InputNumber
+                          ref={countInput}
+                          value={itemCount}
+                          type="number"
+                          onChange={onChangeCountHandler}
+                          onBlur={checkCountValue}
+                        />
+                        <button onClick={increaseButtonClickHandler}>+</button>
+                      </FlexBox>
+                      <FlexBox>
+                        <TotalPrice>
+                          <p>합계</p> 　　　원
+                        </TotalPrice>
+                      </FlexBox>
+                    </Counter>
+                  </CounterWrap>
                 )}
-                <BuyCartButton cart>카트에 담기</BuyCartButton>
-                <BuyCartButton>바로 구매하기</BuyCartButton>
-              </ButtonWrap>
-            </CounterButtonWrap>
-          </ColumnFlexBox>
-        </InfoBuyButtonWrap>
-      </ImageInfoWrap>
+                <ButtonWrap>
+                  {isMobileMode ? (
+                    <OpenMobileCounterButton
+                      onClick={mobileArrowButtonClickHandler}
+                      style={mobileButtonStyle.arrowButton}
+                    >
+                      {isShownCount ? (
+                        <i className="fas fa-chevron-down"></i>
+                      ) : (
+                        <i className="fas fa-chevron-up"></i>
+                      )}
+                    </OpenMobileCounterButton>
+                  ) : (
+                    ""
+                  )}
+                  <BuyCartButton cart>카트에 담기</BuyCartButton>
+                  <BuyCartButton>바로 구매하기</BuyCartButton>
+                </ButtonWrap>
+              </CounterButtonWrap>
+            </ColumnFlexBox>
+          </InfoBuyButtonWrap>
+        </ImageInfoWrap>
+      ) : (
+        <ImageInfoWrap>
+          <BookWrap>
+            <Book size={data.size} coverImage={data.coverImage} title={data.title} />
+          </BookWrap>
+          <InfoBuyButtonWrap>
+            <Category>{data.category}</Category>
+            <ColumnFlexBox>
+              <h1>{data.title}</h1>
+              {data.subtitle ? <h2>- {data.subtitle}</h2> : ""}
+              <InfoWrap>
+                <p>{data.writer} 저</p>
+                <span>|</span>
+                <p> {data.publisher} </p>
+                <span>|</span> <p> {data.publishDate}</p>
+              </InfoWrap>
+              <PriceWrap>
+                <p>판매가</p>
+                {numberWithCommas(data.price)} 원
+              </PriceWrap>
+              <CounterButtonWrap>
+                {isMobileMode ? (
+                  <CounterWrap style={mobileButtonStyle.mobileCounter}>
+                    <Counter>
+                      <FlexBox>
+                        <span>수량</span>
+                        <button onClick={decreaseButtonClickHandler}>-</button>
+                        <InputNumber
+                          ref={countInput}
+                          value={itemCount}
+                          type="number"
+                          onChange={onChangeCountHandler}
+                          onBlur={checkCountValue}
+                        />
+                        <button onClick={increaseButtonClickHandler}>+</button>
+                      </FlexBox>
+                      <FlexBox>
+                        <TotalPrice>
+                          <p>합계</p> {numberWithCommas(data.price * itemCount)} 원
+                        </TotalPrice>
+                      </FlexBox>
+                    </Counter>
+                  </CounterWrap>
+                ) : (
+                  <CounterWrap>
+                    <Counter>
+                      <FlexBox>
+                        <span>수량</span>
+                        <button onClick={decreaseButtonClickHandler}>-</button>
+                        <InputNumber
+                          ref={countInput}
+                          value={itemCount}
+                          type="number"
+                          onChange={onChangeCountHandler}
+                          onBlur={checkCountValue}
+                        />
+                        <button onClick={increaseButtonClickHandler}>+</button>
+                      </FlexBox>
+                      <FlexBox>
+                        <TotalPrice>
+                          <p>합계</p> {numberWithCommas(data.price * itemCount)} 원
+                        </TotalPrice>
+                      </FlexBox>
+                    </Counter>
+                  </CounterWrap>
+                )}
+                <ButtonWrap>
+                  {isMobileMode ? (
+                    <OpenMobileCounterButton
+                      onClick={mobileArrowButtonClickHandler}
+                      style={mobileButtonStyle.arrowButton}
+                    >
+                      {isShownCount ? (
+                        <i className="fas fa-chevron-down"></i>
+                      ) : (
+                        <i className="fas fa-chevron-up"></i>
+                      )}
+                    </OpenMobileCounterButton>
+                  ) : (
+                    ""
+                  )}
+                  <BuyCartButton cart>카트에 담기</BuyCartButton>
+                  <BuyCartButton>바로 구매하기</BuyCartButton>
+                </ButtonWrap>
+              </CounterButtonWrap>
+            </ColumnFlexBox>
+          </InfoBuyButtonWrap>
+        </ImageInfoWrap>
+      )}
     </>
   );
 };
@@ -192,6 +245,7 @@ const BookWrap = styled.div`
   display: flex;
   width: 100%;
   height: auto;
+  min-height: 400px;
   justify-content: center;
   align-items: center;
   @media (max-width: ${device.extraLarge}px) {

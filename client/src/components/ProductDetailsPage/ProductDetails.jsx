@@ -8,26 +8,25 @@ import { device } from "@/components/style/responsiveBreakPoints";
 import Content from "@/components/ProductDetailsPage/Content";
 
 const ProductDetails = ({ data }) => {
-  const {
-    title,
-    pages,
-    size: { width, height, depth },
-    weight,
-    contents,
-    description,
-    descriptionImageUrl,
-    countInStock,
-  } = data;
-
   return (
     <Wrap>
       <Content
         title="책정보"
-        contents={{ pages: pages, weight: weight, width: width, height: height, depth: depth }}
+        contents={{
+          pages: data.pages,
+          weight: data.weight,
+          width: data.width,
+          height: data.height,
+          depth: data.depth,
+        }}
       />
-      <Content title="책소개" contents={description} />
-      <Content title="목차" contents={contents} />
-      {descriptionImageUrl ? <Content title="소개 이미지" contents={descriptionImageUrl} /> : ""}
+      <Content title="책소개" contents={data.description} />
+      <Content title="목차" contents={data.contents} />
+      {!data.descriptionImageUrl ? (
+        ""
+      ) : (
+        <Content title="소개 이미지" contents={data.descriptionImageUrl} />
+      )}
     </Wrap>
   );
 };
