@@ -25,7 +25,7 @@ const getProductById = async (req, res) => {
 const getProductByCategory = async (req, res) => {
   try {
     const product = await Product.find({ category: req.params.category }).select(
-      "name price coverImage writer category"
+      "title price coverImage writer category"
     );
 
     res.json(product);
