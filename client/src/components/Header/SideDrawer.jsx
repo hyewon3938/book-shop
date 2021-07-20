@@ -95,10 +95,12 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 50px 30px 0 30px;
+  padding: 10px 30px 0 30px;
 
   @media (max-width: ${device.small}px) {
     width: 280px;
+    justify-content: flex-start;
+    padding: 50px 0 0 0;
   }
   @media (max-width: ${device.extraSmall}px) {
     width: 200px;
@@ -134,7 +136,6 @@ const MenuWrap = styled.ul`
   display: flex;
   flex-direction: column;
   padding: 0 0 20px 0;
-
   li {
     font-family: "NotoSerifKR";
     display: flex;
