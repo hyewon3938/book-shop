@@ -17,11 +17,13 @@ const SideDrawer = ({ show, click }) => {
     "시",
     "에세이",
     "자기계발",
-    "사회 정치",
+    "사회·정치",
     "예술",
     "여행",
     "과학",
     "철학",
+    "가정·요리·뷰티",
+    "잡지",
   ];
   const isLogin = true;
 
@@ -93,20 +95,21 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 30px;
+  padding: 50px 30px 0 30px;
 
   @media (max-width: ${device.small}px) {
     width: 280px;
   }
   @media (max-width: ${device.extraSmall}px) {
     width: 200px;
-    padding: 10px 20px;
+    padding: 10px 20px 0 10px;
   }
 `;
 
 const ScrollWrap = styled.div`
   overflow-y: scroll;
   overflow-x: hidden;
+
   ::-webkit-scrollbar {
     display: none;
     width: 0 !important;
@@ -130,12 +133,13 @@ const LogoImage = styled.div`
 const MenuWrap = styled.ul`
   display: flex;
   flex-direction: column;
+  padding: 0 0 20px 0;
 
   li {
     font-family: "NotoSerifKR";
     display: flex;
     width: 100%;
-    font-size: 20px;
+    font-size: 18px;
     margin: 0 0 20px 0;
     cursor: pointer;
     &:hover {
@@ -144,6 +148,7 @@ const MenuWrap = styled.ul`
       transition: all 0.2s ease-out;
     }
   }
+
   @media (max-width: ${device.small}px) {
     div {
       font-size: 20px;
