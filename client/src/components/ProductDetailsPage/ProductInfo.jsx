@@ -472,11 +472,11 @@ const BuyCartButton = styled.div`
     }
   }}
   @media (max-width: ${device.extraLarge}px) {
-    padding: 15px 25px;
+    padding: 15px 20px;
   }
-  @media (max-width: ${device.small}) {
+  @media (max-width: ${device.extraSmall}px) {
     font-size: 15px;
-    padding: 20px 20px;
+    padding: 15px 10px;
   }
 `;
 
