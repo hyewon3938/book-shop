@@ -18,7 +18,6 @@ const Wrap = styled.div`
   align-items: center;
   width: 100%;
   height: 70vh;
-  font-size: 10px;
   div {
     letter-spacing: -2px;
     display: flex;
@@ -29,5 +28,6 @@ const Wrap = styled.div`
     border-radius: 150px;
     border: solid 3px black;
     font-size: 18px;
+    font-weight: bold;
   }
 `;

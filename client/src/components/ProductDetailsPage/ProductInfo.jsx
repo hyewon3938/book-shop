@@ -267,6 +267,7 @@ const BookWrap = styled.div`
           border-radius: 150px;
           border: solid 3px black;
           font-size: 18px;
+          font-weight: bold;
         }
       `;
     }
