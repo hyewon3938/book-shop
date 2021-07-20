@@ -88,7 +88,7 @@ const Front = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 15px 5px 15px rgba(0, 0, 0, 0.4);
+  box-shadow: 15px 5px 15px rgba(0, 0, 0, 0.2);
   background: #383838;
   ${(props) => {
     return css`
@@ -110,6 +110,7 @@ const Front = styled.div`
 
 const Back = styled.div`
   background: #383838;
+  box-shadow: -15px -5px 15px rgba(0, 0, 0, 0.1);
   ${(props) => {
     return css`
       width: ${props.width}px;
