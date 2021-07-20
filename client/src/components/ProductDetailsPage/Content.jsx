@@ -155,9 +155,9 @@ const ContentBackground = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  top: 0;
+  bottom: 0;
   left: 0;
-  background: linear-gradient(transparent, 80%, white);
+  background: linear-gradient(rgba(255, 255, 255, 0), 80%, rgba(255, 255, 255, 1));
 `;
 
 const MoreButton = styled.button`
