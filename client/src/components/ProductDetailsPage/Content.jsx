@@ -76,7 +76,7 @@ const Content = ({ title, contents }) => {
           <ContentWrap>
             <ContentTitle>목차</ContentTitle>
             <ContentValue>
-              <div style={{ height: maxHeight }}></div>
+              <div style={{ height: "400px" }}></div>
             </ContentValue>
           </ContentWrap>
         </>

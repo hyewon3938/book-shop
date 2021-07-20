@@ -21,9 +21,9 @@ const ProductDetails = ({ data }) => {
             contents={{
               pages: data.pages,
               weight: data.weight,
-              width: data.width,
-              height: data.height,
-              depth: data.depth,
+              width: data.size.width,
+              height: data.size.height,
+              depth: data.size.depth,
             }}
           />
           <Content title="책소개" contents={data.description} />
