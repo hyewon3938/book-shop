@@ -16,6 +16,7 @@ const Content = ({ title, contents }) => {
   const contentsComponent = useRef();
 
   useEffect(() => {
+    if (!title) return;
     if (title === "소개 이미지" || title === "책정보") return;
     setOffsetHeight(contentsComponent.current.offsetHeight);
   }, []);
@@ -55,41 +56,68 @@ const Content = ({ title, contents }) => {
   };
 
   return (
-    <ContentWrap>
-      <ContentTitle>{title}</ContentTitle>
-      {title === "책정보" ? (
-        <ContentValue>
-          <span>{contents.pages}쪽</span>
-          <span>{contents.weight}g</span>
-          <span>
-            {contents.width}mmX{contents.height}mmX{contents.depth}mm
-          </span>
-        </ContentValue>
-      ) : title === "소개 이미지" ? (
-        <ContentValue>
-          <img src={contents} alt={title + " 소개이미지"} />
-        </ContentValue>
+    <>
+      {!contents ? (
+        <>
+          <ContentWrap>
+            <ContentTitle>책정보</ContentTitle>
+            <ContentValue>
+              <span>　　</span>
+              <span>　　</span>
+              <span>　　</span>
+            </ContentValue>
+          </ContentWrap>
+          <ContentWrap>
+            <ContentTitle>책소개</ContentTitle>
+            <ContentValue>
+              <div style={{ height: maxHeight }}></div>
+            </ContentValue>
+          </ContentWrap>
+          <ContentWrap>
+            <ContentTitle>목차</ContentTitle>
+            <ContentValue>
+              <div style={{ height: maxHeight }}></div>
+            </ContentValue>
+          </ContentWrap>
+        </>
       ) : (
-        <ContentValue ref={contentsComponent} style={contentsStyle.contents}>
-          <MoreButton onClick={moreModeClickHandler} style={contentsStyle.moreButton}>
-            {isMoreMode ? (
-              <Icon className="fas fa-angle-up"></Icon>
-            ) : (
-              <Icon className="fas fa-angle-down"></Icon>
-            )}
-          </MoreButton>
-          <ContentBackground style={contentsStyle.contentsBackground} />
-          {contents.split("\n").map((line, index) => {
-            return (
-              <span key={index}>
-                {line}
-                <br />
+        <ContentWrap>
+          <ContentTitle>{title}</ContentTitle>
+          {title === "책정보" ? (
+            <ContentValue>
+              <span>{contents.pages}쪽</span>
+              <span>{contents.weight}g</span>
+              <span>
+                {contents.width}mmX{contents.height}mmX{contents.depth}mm
               </span>
-            );
-          })}
-        </ContentValue>
+            </ContentValue>
+          ) : title === "소개 이미지" ? (
+            <ContentValue>
+              <img src={contents} alt={title + " 소개이미지"} />
+            </ContentValue>
+          ) : (
+            <ContentValue ref={contentsComponent} style={contentsStyle.contents}>
+              <MoreButton onClick={moreModeClickHandler} style={contentsStyle.moreButton}>
+                {isMoreMode ? (
+                  <Icon className="fas fa-angle-up"></Icon>
+                ) : (
+                  <Icon className="fas fa-angle-down"></Icon>
+                )}
+              </MoreButton>
+              <ContentBackground style={contentsStyle.contentsBackground} />
+              {contents.split("\n").map((line, index) => {
+                return (
+                  <span key={index}>
+                    {line}
+                    <br />
+                  </span>
+                );
+              })}
+            </ContentValue>
+          )}
+        </ContentWrap>
       )}
-    </ContentWrap>
+    </>
   );
 };
 

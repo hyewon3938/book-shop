@@ -9,25 +9,35 @@ import Content from "@/components/ProductDetailsPage/Content";
 
 const ProductDetails = ({ data }) => {
   return (
-    <Wrap>
-      <Content
-        title="책정보"
-        contents={{
-          pages: data.pages,
-          weight: data.weight,
-          width: data.width,
-          height: data.height,
-          depth: data.depth,
-        }}
-      />
-      <Content title="책소개" contents={data.description} />
-      <Content title="목차" contents={data.contents} />
-      {!data.descriptionImageUrl ? (
-        ""
+    <>
+      {!data ? (
+        <Wrap>
+          <Content />
+        </Wrap>
       ) : (
-        <Content title="소개 이미지" contents={data.descriptionImageUrl} />
+        <Wrap>
+          <Content
+            title="책정보"
+            contents={{
+              pages: data.pages,
+              weight: data.weight,
+              width: data.width,
+              height: data.height,
+              depth: data.depth,
+            }}
+          />
+          <Content title="책소개" contents={data.description} />
+          <Content title="목차" contents={data.contents} />
+          {!data.descriptionImageUrl ? (
+            ""
+          ) : (
+            <>
+              <Content title="소개 이미지" contents={data.descriptionImageUrl} />
+            </>
+          )}
+        </Wrap>
       )}
-    </Wrap>
+    </>
   );
 };
 

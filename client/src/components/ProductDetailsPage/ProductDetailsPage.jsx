@@ -26,6 +26,7 @@ const ProductDetailsPage = ({ match }) => {
       {loading ? (
         <>
           <ProductInfo />
+          <ProductDetails />
         </>
       ) : error ? (
         <h2>{error}</h2>

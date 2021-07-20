@@ -62,16 +62,18 @@ const ProductInfo = ({ data }) => {
     <>
       {!data ? (
         <ImageInfoWrap>
-          <BookWrap loading="true"></BookWrap>
+          <BookWrap loading="true">
+            <div>bookshop'.'</div>
+          </BookWrap>
           <InfoBuyButtonWrap>
             <Category>　</Category>
             <ColumnFlexBox>
               <h1>　　　</h1>
               <InfoWrap>
-                <p>　　　 저</p>
-                <span>|</span>
+                <p>　　　 </p>
+                <span></span>
                 <p> 　　　</p>
-                <span>|</span> <p> 　　　</p>
+                <span></span> <p> 　　　</p>
               </InfoWrap>
               <PriceWrap>
                 <p>판매가</p>　　　원
@@ -248,9 +250,27 @@ const BookWrap = styled.div`
   min-height: 400px;
   justify-content: center;
   align-items: center;
+
   @media (max-width: ${device.extraLarge}px) {
     flex: 0.4;
   }
+  ${(props) => {
+    if (props.loading) {
+      return css`
+        div {
+          letter-spacing: -2px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 150px;
+          height: 150px;
+          border-radius: 150px;
+          border: solid 3px black;
+          font-size: 18px;
+        }
+      `;
+    }
+  }}
 `;
 
 const InfoBuyButtonWrap = styled.div`
