@@ -59,11 +59,17 @@ const SideDrawer = ({ show, click }) => {
 
           <Bar />
 
-          {category.map((item, index) => (
-            <li key={index} onClick={() => menuClickHandler(item)}>
-              {item}
-            </li>
-          ))}
+          {category.map((item, index) =>
+            index === 0 ? (
+              <li style={{ fontWeight: "bold" }} key={index} onClick={() => menuClickHandler(item)}>
+                {item}
+              </li>
+            ) : (
+              <li key={index} onClick={() => menuClickHandler(item)}>
+                {item}
+              </li>
+            )
+          )}
         </MenuWrap>
       </ScrollWrap>
     </Wrap>
