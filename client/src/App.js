@@ -1,6 +1,6 @@
 import React from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
-import CacheRoute, { CacheSwitch } from 'react-router-cache-route'
+import CacheRoute, { CacheSwitch } from "react-router-cache-route";
 
 // Components
 import GlobalStyleProvider from "@/components/style/GlobalStyleProvider";
@@ -9,6 +9,7 @@ import HomePage from "@/components/HomePage/HomePage";
 import ProductsPage from "@/components/ProductsPage/ProductsPage";
 import ProductDetailsPage from "@/components/ProductDetailsPage/ProductDetailsPage";
 import CartPage from "@/components/CartPage/CartPage";
+import ScrollTopButton from "@/components/ScrollTopButton";
 
 // Lib
 import ScrollReset from "@/lib/ScrollReset";
@@ -18,6 +19,7 @@ const App = () => {
     <GlobalStyleProvider>
       <Router>
         <Header />
+        <ScrollTopButton />
         <main>
           <CacheSwitch>
             <ScrollReset>

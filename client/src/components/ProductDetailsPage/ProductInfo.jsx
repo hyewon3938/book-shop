@@ -415,6 +415,7 @@ const InputNumber = styled.input`
 const CounterButtonWrap = styled.div`
   display: flex;
   flex-direction: column;
+  z-index: 100;
   @media (max-width: ${device.large}px) {
     position: fixed;
     left: 0;
