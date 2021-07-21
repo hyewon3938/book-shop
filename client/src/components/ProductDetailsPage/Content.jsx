@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
-import { shine } from "@/components/style/skeletonLoadingAnimation";
+import { shine, animationSec } from "@/components/style/skeletonLoadingAnimation";
 
 const lineLimit = 18;
 const lineHeight = 24;
@@ -157,7 +157,7 @@ const ContentTitle = styled.h1`
       return css`
         width: 200px;
         background-color: #e2e5e7;
-        animation: ${shine} 1.2s ease infinite;
+        animation: ${shine} ${animationSec}s ease infinite;
       `;
     }
   }}
@@ -189,7 +189,7 @@ const ContentValue = styled.div`
         div {
           width: 100%;
           background-color: #e2e5e7;
-          animation: ${shine} 1.2s ease infinite;
+          animation: ${shine} ${animationSec}s ease infinite;
         }
       `;
     }

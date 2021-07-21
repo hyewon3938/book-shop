@@ -10,7 +10,7 @@ import { numberWithCommas } from "@/lib/utils";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
-import { shine } from "@/components/style/skeletonLoadingAnimation";
+import { shine, animationSec } from "@/components/style/skeletonLoadingAnimation";
 
 const ProductInfo = ({ data }) => {
   const countInput = React.createRef();
@@ -270,7 +270,7 @@ const BookWrap = styled.div`
           width: 300px;
           height: 400px;
           background-color: #e2e5e7;
-          animation: ${shine} 1.2s ease infinite;
+          animation: ${shine} ${animationSec}s ease infinite;
         }
         @media (max-width: ${device.extraLarge}px) {
           div {
@@ -342,7 +342,7 @@ const Title = styled.h1`
       return css`
         width: 100%;
         background-color: #e2e5e7;
-        animation: ${shine} 1.2s ease infinite;
+        animation: ${shine} ${animationSec}s ease infinite;
       `;
     }
   }}
@@ -361,7 +361,7 @@ const Subtitle = styled.h2`
       return css`
         width: 100%;
         background-color: #e2e5e7;
-        animation: ${shine} 1.2s ease infinite;
+        animation: ${shine} ${animationSec}s ease infinite;
       `;
     }
   }}
@@ -384,14 +384,14 @@ const BookInfoWrap = styled.div`
       return css`
         width: 100%;
         background-color: #e2e5e7;
-        animation: ${shine} 1.2s ease infinite;
+        animation: ${shine} ${animationSec}s ease infinite;
         @media (max-width: ${device.small}px) {
           background: white;
           height: auto;
           p {
             width: 100%;
             background-color: #e2e5e7;
-            animation: ${shine} 1.2s ease infinite;
+            animation: ${shine} ${animationSec}s ease infinite;
           }
         }
       `;
@@ -428,7 +428,7 @@ const PriceWrap = styled.div`
       return css`
         width: 100%;
         background-color: #e2e5e7;
-        animation: ${shine} 1.2s ease infinite;
+        animation: ${shine} ${animationSec}s ease infinite;
       `;
     }
   }}

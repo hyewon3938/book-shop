@@ -11,3 +11,5 @@ export const shine = keyframes`
     opacity  : 0.4;
   }
 `;
+
+export const animationSec = 1;
