@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { throttle } from "lodash";
 
 // Components
@@ -10,6 +10,7 @@ import { numberWithCommas } from "@/lib/utils";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
+import { shine } from "@/components/style/skeletonLoadingAnimation";
 
 const ProductInfo = ({ data }) => {
   const countInput = React.createRef();
@@ -61,26 +62,46 @@ const ProductInfo = ({ data }) => {
   return (
     <>
       {!data ? (
-        <ImageInfoWrap>
+        <Wrap>
           <BookWrap loading="true">
-            <div>bookshop'.'</div>
+            <div />
           </BookWrap>
-          <InfoBuyButtonWrap>
+          <InfoWrap>
             <Category>　</Category>
-            <ColumnFlexBox>
-              <h1>　　　</h1>
-              <InfoWrap>
-                <p>　　　 </p>
-                <span></span>
-                <p> 　　　</p>
-                <span></span> <p> 　　　</p>
-              </InfoWrap>
-              <PriceWrap>
-                <p>판매가</p>　　　원
+            <InfoColumnBox>
+              <Title loading="true">　</Title>
+              <Subtitle loading="true">　</Subtitle>
+              <BookInfoWrap loading="true">
+                <BookInfo>　</BookInfo>
+                <BookInfo>　</BookInfo>
+                <BookInfo>　</BookInfo>
+              </BookInfoWrap>
+              <PriceWrap loading="true">
+                <span>　　　</span> 　　
               </PriceWrap>
               <CounterButtonWrap>
                 {isMobileMode ? (
-                  ""
+                  <CounterWrap style={mobileButtonStyle.mobileCounter}>
+                    <Counter>
+                      <FlexBox>
+                        <span>수량</span>
+                        <button onClick={decreaseButtonClickHandler}>-</button>
+                        <InputNumber
+                          ref={countInput}
+                          value={itemCount}
+                          type="number"
+                          onChange={onChangeCountHandler}
+                          onBlur={checkCountValue}
+                        />
+                        <button onClick={increaseButtonClickHandler}>+</button>
+                      </FlexBox>
+                      <FlexBox>
+                        <TotalPrice>
+                          <p>합계</p> 원
+                        </TotalPrice>
+                      </FlexBox>
+                    </Counter>
+                  </CounterWrap>
                 ) : (
                   <CounterWrap>
                     <Counter>
@@ -98,7 +119,7 @@ const ProductInfo = ({ data }) => {
                       </FlexBox>
                       <FlexBox>
                         <TotalPrice>
-                          <p>합계</p> 　　　원
+                          <p>　　</p>　
                         </TotalPrice>
                       </FlexBox>
                     </Counter>
@@ -123,27 +144,27 @@ const ProductInfo = ({ data }) => {
                   <BuyCartButton>바로 구매하기</BuyCartButton>
                 </ButtonWrap>
               </CounterButtonWrap>
-            </ColumnFlexBox>
-          </InfoBuyButtonWrap>
-        </ImageInfoWrap>
+            </InfoColumnBox>
+          </InfoWrap>
+        </Wrap>
       ) : (
-        <ImageInfoWrap>
+        <Wrap>
           <BookWrap>
             <Book size={data.size} coverImage={data.coverImage} title={data.title} />
           </BookWrap>
-          <InfoBuyButtonWrap>
+          <InfoWrap>
             <Category>{data.category}</Category>
-            <ColumnFlexBox>
-              <h1>{data.title}</h1>
-              {data.subtitle ? <h2>- {data.subtitle}</h2> : ""}
-              <InfoWrap>
-                <p>{data.writer} 저</p>
+            <InfoColumnBox>
+              <Title>{data.title}</Title>
+              {data.subtitle ? <Subtitle>- {data.subtitle}</Subtitle> : ""}
+              <BookInfoWrap>
+                <BookInfo>{data.writer} 저</BookInfo>
                 <span>|</span>
-                <p> {data.publisher} </p>
-                <span>|</span> <p> {data.publishDate}</p>
-              </InfoWrap>
+                <BookInfo> {data.publisher} </BookInfo>
+                <span>|</span> <BookInfo> {data.publishDate}</BookInfo>
+              </BookInfoWrap>
               <PriceWrap>
-                <p>판매가</p>
+                <span>판매가</span>
                 {numberWithCommas(data.price)} 원
               </PriceWrap>
               <CounterButtonWrap>
@@ -211,9 +232,9 @@ const ProductInfo = ({ data }) => {
                   <BuyCartButton>바로 구매하기</BuyCartButton>
                 </ButtonWrap>
               </CounterButtonWrap>
-            </ColumnFlexBox>
-          </InfoBuyButtonWrap>
-        </ImageInfoWrap>
+            </InfoColumnBox>
+          </InfoWrap>
+        </Wrap>
       )}
     </>
   );
@@ -221,7 +242,7 @@ const ProductInfo = ({ data }) => {
 
 export default ProductInfo;
 
-const ImageInfoWrap = styled.div`
+const Wrap = styled.div`
   display: flex;
   margin: 40px 0;
   @media (max-width: ${device.large}px) {
@@ -229,17 +250,6 @@ const ImageInfoWrap = styled.div`
     margin: 40px 0 0 0;
     padding: 0 0.5rem;
   }
-`;
-
-const FlexBox = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const ColumnFlexBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
 `;
 
 const BookWrap = styled.div`
@@ -250,7 +260,6 @@ const BookWrap = styled.div`
   min-height: 400px;
   justify-content: center;
   align-items: center;
-
   @media (max-width: ${device.extraLarge}px) {
     flex: 0.4;
   }
@@ -258,60 +267,32 @@ const BookWrap = styled.div`
     if (props.loading) {
       return css`
         div {
-          letter-spacing: -2px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 150px;
-          height: 150px;
-          border-radius: 150px;
-          border: solid 3px black;
-          font-size: 18px;
-          font-weight: bold;
+          width: 300px;
+          height: 400px;
+          background-color: #e2e5e7;
+          animation: ${shine} 1.2s ease infinite;
+        }
+        @media (max-width: ${device.extraLarge}px) {
+          div {
+            width: ${300 * 0.75}px;
+            height: ${400 * 0.75}px;
+          }
         }
       `;
     }
   }}
 `;
 
-const InfoBuyButtonWrap = styled.div`
+const InfoWrap = styled.div`
   display: flex;
   flex-direction: column;
   flex: 0.5;
   margin: 0 0 0 30px;
   padding: 10px 30px;
 
-  h1 {
-    font-family: "NotoSerifKR";
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0 0 20px 0;
-    word-break: keep-all;
-    line-height: 28px;
-  }
-  h2 {
-    font-family: "NotoSerifKR";
-    font-size: 15px;
-    word-break: keep-all;
-    line-height: 20px;
-  }
-
   @media (max-width: ${device.extraLarge}px) {
     flex: 0.6;
     margin: 0;
-    h1 {
-      font-size: 20px;
-      margin: 5px 0 15px 0;
-    }
-    h2 {
-      font-size: 13px;
-    }
-  }
-
-  @media (max-width: ${device.large}px) {
-    h1 {
-      margin: 20px 0 15px 0;
-    }
   }
   @media (max-width: ${device.small}px) {
     padding: 0;
@@ -336,6 +317,98 @@ const Category = styled.p`
   }
 `;
 
+const InfoColumnBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+`;
+
+const Title = styled.h1`
+  font-family: "NotoSerifKR";
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+  word-break: keep-all;
+  line-height: 28px;
+  @media (max-width: ${device.extraLarge}px) {
+    font-size: 20px;
+    margin: 5px 0 15px 0;
+  }
+  @media (max-width: ${device.large}px) {
+    margin: 20px 0 15px 0;
+  }
+  ${(props) => {
+    if (props.loading) {
+      return css`
+        width: 100%;
+        background-color: #e2e5e7;
+        animation: ${shine} 1.2s ease infinite;
+      `;
+    }
+  }}
+`;
+
+const Subtitle = styled.h2`
+  font-family: "NotoSerifKR";
+  font-size: 15px;
+  word-break: keep-all;
+  line-height: 20px;
+  @media (max-width: ${device.extraLarge}px) {
+    font-size: 13px;
+  }
+  ${(props) => {
+    if (props.loading) {
+      return css`
+        width: 100%;
+        background-color: #e2e5e7;
+        animation: ${shine} 1.2s ease infinite;
+      `;
+    }
+  }}
+`;
+
+const BookInfoWrap = styled.div`
+  margin: 20px 0;
+  display: flex;
+  span {
+    margin: 0 7px 0 0;
+  }
+  @media (max-width: ${device.small}px) {
+    flex-direction: column;
+    span {
+      display: none;
+    }
+  }
+  ${(props) => {
+    if (props.loading) {
+      return css`
+        width: 100%;
+        background-color: #e2e5e7;
+        animation: ${shine} 1.2s ease infinite;
+        @media (max-width: ${device.small}px) {
+          background: white;
+          height: auto;
+          p {
+            width: 100%;
+            background-color: #e2e5e7;
+            animation: ${shine} 1.2s ease infinite;
+          }
+        }
+      `;
+    }
+  }}
+`;
+
+const BookInfo = styled.p`
+  margin: 0 5px 0 0;
+  @media (max-width: ${device.extraLarge}px) {
+    font-size: 13px;
+  }
+  @media (max-width: ${device.small}px) {
+    margin: 10px 0 0 0;
+  }
+`;
+
 const PriceWrap = styled.div`
   flex: 0.5;
   padding: 20px 0;
@@ -343,40 +416,43 @@ const PriceWrap = styled.div`
   display: flex;
   align-items: center;
   font-weight: bold;
-  p {
+  span {
     margin: 0 30px 0 0;
   }
   @media (max-width: ${device.extraLarge}px) {
     padding: 10px 0;
     font-size: 15px;
   }
+  ${(props) => {
+    if (props.loading) {
+      return css`
+        width: 100%;
+        background-color: #e2e5e7;
+        animation: ${shine} 1.2s ease infinite;
+      `;
+    }
+  }}
 `;
 
-const InfoWrap = styled.div`
-  margin: 20px 0;
+const CounterButtonWrap = styled.div`
   display: flex;
-  p {
-    margin: 0 5px 0 0;
-  }
-  span {
-    margin: 0 7px 0 0;
-  }
-  @media (max-width: ${device.extraLarge}px) {
-    font-size: 13px;
-  }
-  @media (max-width: ${device.small}px) {
-    flex-direction: column;
-    span {
-      display: none;
-    }
-    p {
-      margin: 10px 0 0 0;
-    }
+  flex-direction: column;
+  z-index: 100;
+  @media (max-width: ${device.large}px) {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background: #f0f0f0;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    padding: 20px 5px;
   }
 `;
 
 const CounterWrap = styled.div`
   display: flex;
+
   @media (max-width: ${device.large}px) {
     display: none;
     align-items: center;
@@ -436,6 +512,11 @@ const Counter = styled.div`
   }
 `;
 
+const FlexBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const TotalPrice = styled.div`
   font-size: 18px;
   font-weight: bold;
@@ -484,22 +565,6 @@ const InputNumber = styled.input`
   @media (max-width: ${device.extraLarge}px) {
     width: 50px;
     height: 25px;
-  }
-`;
-
-const CounterButtonWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  z-index: 100;
-  @media (max-width: ${device.large}px) {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    background: #f0f0f0;
-    width: 100%;
-    align-items: center;
-    display: flex;
-    padding: 20px 5px;
   }
 `;
 

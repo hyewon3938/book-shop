@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
+import { shine } from "@/components/style/skeletonLoadingAnimation";
 
 const lineLimit = 18;
 const lineHeight = 24;
@@ -60,23 +61,21 @@ const Content = ({ title, contents }) => {
       {!contents ? (
         <>
           <ContentWrap>
-            <ContentTitle>책정보</ContentTitle>
-            <ContentValue>
-              <span>　　</span>
-              <span>　　</span>
-              <span>　　</span>
+            <ContentTitle loading="true">　　　</ContentTitle>
+            <ContentValue loading="true">
+              <div>　</div>
             </ContentValue>
           </ContentWrap>
           <ContentWrap>
-            <ContentTitle>책소개</ContentTitle>
-            <ContentValue>
-              <div style={{ height: maxHeight }}></div>
+            <ContentTitle loading="true">　　　</ContentTitle>
+            <ContentValue loading="true">
+              <div style={{ height: "370px" }} />
             </ContentValue>
           </ContentWrap>
           <ContentWrap>
-            <ContentTitle>목차</ContentTitle>
-            <ContentValue>
-              <div style={{ height: "400px" }}></div>
+            <ContentTitle loading="true">　　</ContentTitle>
+            <ContentValue loading="true">
+              <div style={{ height: "370px" }} />
             </ContentValue>
           </ContentWrap>
         </>
@@ -153,6 +152,15 @@ const ContentTitle = styled.h1`
     font-size: 15px;
     margin: 0;
   }
+  ${(props) => {
+    if (props.loading) {
+      return css`
+        width: 200px;
+        background-color: #e2e5e7;
+        animation: ${shine} 1.2s ease infinite;
+      `;
+    }
+  }}
 `;
 
 const ContentValue = styled.div`
@@ -168,7 +176,6 @@ const ContentValue = styled.div`
   span {
     margin: 0 10px 0 0;
   }
-
   @media (max-width: ${device.large}px) {
     border-left: none;
     padding: 30px 20px;
@@ -176,6 +183,17 @@ const ContentValue = styled.div`
   @media (max-width: ${device.small}px) {
     padding: 20px 0;
   }
+  ${(props) => {
+    if (props.loading) {
+      return css`
+        div {
+          width: 100%;
+          background-color: #e2e5e7;
+          animation: ${shine} 1.2s ease infinite;
+        }
+      `;
+    }
+  }}
 `;
 
 const ContentBackground = styled.div`
