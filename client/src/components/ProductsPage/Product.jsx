@@ -124,6 +124,9 @@ const BookInfo = styled.div`
   @media (max-width: ${device.small}px) {
     width: 130px;
     margin: 20px 0;
+    span {
+      width: 130px;
+    }
   }
   ${(props) => {
     if (props.loading) {
