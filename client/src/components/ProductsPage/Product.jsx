@@ -75,12 +75,14 @@ const Shelf = styled.div`
 `;
 
 const Book = styled.img`
+  min-width: 150px;
   height: 228px;
   margin: 0 10px;
   cursor: pointer;
   box-shadow: 10px 2px 10px rgba(0, 0, 0, 0.4);
-  background: #cacba8c8;
+  background-color: #e2e5e7;
   @media (max-width: ${device.small}px) {
+    min-width: 130px;
     height: 152px;
   }
 `;
