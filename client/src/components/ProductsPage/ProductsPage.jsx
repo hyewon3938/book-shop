@@ -5,7 +5,6 @@ import styled from "styled-components";
 // Components
 import PageWrap from "@/components/style/layout/PageWrap";
 import Product from "@/components/ProductsPage/Product";
-import LoadingIndicator from "@/components/LoadingIndicator";
 
 // Actions
 import { getProducts } from "@/redux/actions/productActions";
@@ -24,12 +23,23 @@ const ProductsPage = ({ match }) => {
     dispatch(getProducts(categoryParam));
   }, [dispatch, match.params.category]);
 
+  let emptyArray = [];
+
+  for (var i = 0; i < 20; i++) {
+    emptyArray.push(i);
+  }
+
   return (
     <PageWrap>
       <Wrap>
         {loading ? (
           <>
-            <LoadingIndicator />
+            <CategoryTitle>{match.params.category}</CategoryTitle>
+            <ProductsWrap>
+              {emptyArray.map((index) => {
+                return <Product key={index} />;
+              })}
+            </ProductsWrap>
           </>
         ) : error ? (
           <h2>{error}</h2>

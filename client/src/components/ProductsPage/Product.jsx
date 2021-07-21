@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useHistory } from "react-router-dom";
 
 // Images
@@ -7,38 +7,49 @@ import woodTexture from "@/image/woodTexture.jpg";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
+import { shine, animationSec } from "@/components/style/skeletonLoadingAnimation";
 
 const Product = ({ data }) => {
   const history = useHistory();
 
-  const {
-    _id,
-    title,
-    price,
-    coverImage: { front },
-    writer,
-    category,
-  } = data;
-
   const productClickHandler = () => {
-    history.push(`/product/${category}/${_id}`);
+    history.push(`/product/${data.category}/${_id}`);
   };
 
   return (
-    <Wrap>
-      <Book src={front} alt={title} onClick={productClickHandler}></Book>
-      <Shelf>
-        <div />
-        <BookCategory>
-          <p>{category}</p>
-        </BookCategory>
-      </Shelf>
-      <BookInfo>
-        <BookTitle onClick={productClickHandler}>{title}</BookTitle>
-        <span>{writer}</span>
-        <BookPrice>{price}원</BookPrice>
-      </BookInfo>
-    </Wrap>
+    <>
+      {!data ? (
+        <Wrap>
+          <SkeletonBook></SkeletonBook>
+          <Shelf>
+            <div />
+            <BookCategory>
+              <p>　</p>
+            </BookCategory>
+          </Shelf>
+          <BookInfo loading="true">
+            <BookTitle loading="true">　</BookTitle>
+            <span>　</span>
+            <BookPrice loading="true">　</BookPrice>
+          </BookInfo>
+        </Wrap>
+      ) : (
+        <Wrap>
+          <Book src={data.coverImage.front} alt={data.title} onClick={productClickHandler}></Book>
+          <Shelf>
+            <div />
+            <BookCategory>
+              <p>{data.category}</p>
+            </BookCategory>
+          </Shelf>
+          <BookInfo>
+            <BookTitle onClick={productClickHandler}>{data.title}</BookTitle>
+            <span>{data.writer}</span>
+            <BookPrice>{data.price}원</BookPrice>
+          </BookInfo>
+        </Wrap>
+      )}
+    </>
   );
 };
 
@@ -64,14 +75,12 @@ const Shelf = styled.div`
 `;
 
 const Book = styled.img`
-  /* width: 150px; */
   height: 228px;
   margin: 0 10px;
   cursor: pointer;
   box-shadow: 10px 2px 10px rgba(0, 0, 0, 0.4);
   background: #cacba8c8;
   @media (max-width: ${device.small}px) {
-    /* width: 100px; */
     height: 152px;
   }
 `;
@@ -114,6 +123,17 @@ const BookInfo = styled.div`
     width: 130px;
     margin: 20px 0;
   }
+  ${(props) => {
+    if (props.loading) {
+      return css`
+        span {
+          width: 200px;
+          background-color: #e2e5e7;
+          animation: ${shine} ${animationSec}s ease infinite;
+        }
+      `;
+    }
+  }}
 `;
 
 const BookTitle = styled.div`
@@ -130,10 +150,18 @@ const BookTitle = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
-
   @media (max-width: ${device.small}px) {
     font-size: 13px;
   }
+  ${(props) => {
+    if (props.loading) {
+      return css`
+        width: 100%;
+        background-color: #e2e5e7;
+        animation: ${shine} ${animationSec}s ease infinite;
+      `;
+    }
+  }}
 `;
 
 const BookPrice = styled.p`
@@ -143,6 +171,15 @@ const BookPrice = styled.p`
   width: 100%;
   display: flex;
   justify-content: center;
+  ${(props) => {
+    if (props.loading) {
+      return css`
+        width: 100%;
+        background-color: #e2e5e7;
+        animation: ${shine} ${animationSec}s ease infinite;
+      `;
+    }
+  }}
 `;
 
 const BookCategory = styled.span`
@@ -169,5 +206,19 @@ const BookCategory = styled.span`
     p {
       padding: 4px 7px;
     }
+  }
+`;
+
+const SkeletonBook = styled.div`
+  width: 150px;
+  height: 228px;
+  margin: 0 10px;
+  box-shadow: 10px 2px 10px rgba(0, 0, 0, 0.4);
+  background-color: #e2e5e7;
+  animation: ${shine} ${animationSec}s ease infinite;
+  cursor: pointer;
+  @media (max-width: ${device.small}px) {
+    width: 100px;
+    height: 152px;
   }
 `;
