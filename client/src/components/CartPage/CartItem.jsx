@@ -145,15 +145,14 @@ const ProductInfoWrap = styled.div`
   }
   @media (max-width: ${device.small}px) {
     img {
-      width: 80px;
+      min-width: 100px;
     }
   }
   @media (max-width: ${device.extraSmall}px) {
     height: 100%;
     align-items: center;
     img {
-      width: auto;
-      height: 90px;
+      min-width: 60px;
     }
   }
 `;
@@ -291,6 +290,7 @@ const MobileDeleteButton = styled.div`
     }
   }
   @media (max-width: ${device.small}px) {
+    margin: 10px 0 0 0px;
     div {
       width: 18px;
     }
