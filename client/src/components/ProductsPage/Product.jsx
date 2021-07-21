@@ -36,7 +36,6 @@ const Product = ({ data }) => {
       <BookInfo>
         <BookTitle onClick={productClickHandler}>{title}</BookTitle>
         <span>{writer}</span>
-
         <BookPrice>{price}원</BookPrice>
       </BookInfo>
     </Wrap>
@@ -101,11 +100,15 @@ const BookInfo = styled.div`
   width: 200px;
   margin: 20px 0;
   span {
-    margin: 10px 0 0 0;
+    margin: 10px 0 5px 0;
     font-size: 13px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    width: 200px;
+    text-align: center;
+    line-height: 15px;
+    height: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   @media (max-width: ${device.small}px) {
     width: 130px;
@@ -113,7 +116,7 @@ const BookInfo = styled.div`
   }
 `;
 
-const BookTitle = styled.p`
+const BookTitle = styled.div`
   font-family: "NotoSerifKR";
   font-size: 15px;
   font-weight: bold;
@@ -127,6 +130,7 @@ const BookTitle = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
+
   @media (max-width: ${device.small}px) {
     font-size: 13px;
   }
