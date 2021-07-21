@@ -5,11 +5,11 @@ export const shine = keyframes`
     opacity : 0.4;
   }
   50% {
-    opacity : 0.7;
+    opacity : 1;
   }
   to {
     opacity  : 0.4;
   }
 `;
 
-export const animationSec = 1;
+export const animationSec = 0.8;
