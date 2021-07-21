@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 
 // Components
-import Checkbox from "@/components/style/UIComponent/Checkbox";
+import Checkbox from "@/components/CartPage/Checkbox";
 
 // Utils
 import { numberWithCommas } from "@/lib/utils";
