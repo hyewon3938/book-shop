@@ -136,6 +136,11 @@ const BookInfo = styled.div`
           background-color: #e2e5e7;
           animation: ${shine} ${animationSec}s ease infinite;
         }
+        @media (max-width: ${device.small}px) {
+          span {
+            width: 130px;
+          }
+        }
       `;
     }
   }}
