@@ -82,7 +82,7 @@ const Book = styled.img`
   box-shadow: 10px 2px 10px rgba(0, 0, 0, 0.4);
   background-color: #e2e5e7;
   @media (max-width: ${device.small}px) {
-    min-width: 130px;
+    min-width: 100px;
     height: 152px;
   }
 `;
