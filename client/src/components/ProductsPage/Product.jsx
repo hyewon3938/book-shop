@@ -13,7 +13,7 @@ const Product = ({ data }) => {
   const history = useHistory();
 
   const productClickHandler = () => {
-    history.push(`/product/${data.category}/${_id}`);
+    history.push(`/product/${data.category}/${data._id}`);
   };
 
   return (
