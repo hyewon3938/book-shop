@@ -34,7 +34,7 @@ const CartItem = ({ data }) => {
   };
 
   const onChangeCountHandler = (ref) => {
-    const value = ref.current.value;
+    const value = Number(ref.current.value);
     if (value < 0 || value > 999) return setItemCount(1);
     setItemCount(value);
   };
@@ -54,8 +54,7 @@ const CartItem = ({ data }) => {
   };
 
   const changeCartItemCount = () => {
-    console.log("dispatch@");
-    dispatch(addToCart(data._id, itemCount));
+    dispatch(addToCart(data._id, Number(itemCount)));
   };
 
   const itemClickHandler = () => {
@@ -102,9 +101,9 @@ const CartItem = ({ data }) => {
       </Item>
       <MobileItem>
         <ProductInfoWrap>
-          <img src={data.imageUrl} alt={data.title} />
+          <img onClick={itemClickHandler} src={data.imageUrl} alt={data.title} />
           <TitleWrap>
-            <p>
+            <p onClick={itemClickHandler}>
               [{data.category}] {data.title}
             </p>
             <PriceWrap>{numberWithCommas(data.price)}원</PriceWrap>

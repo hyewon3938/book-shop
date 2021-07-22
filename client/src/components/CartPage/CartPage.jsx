@@ -13,8 +13,8 @@ import { numberWithCommas } from "@/lib/utils";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
-// Constants
-import { CART_RESET } from "@/redux/constants/cartConstants";
+// Actions
+import { removeAllCart } from "@/redux/actions/cartActions";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const CartPage = () => {
   }, 0);
 
   const deleteListHandler = () => {
-    dispatch({ type: CART_RESET });
+    dispatch(removeAllCart());
   };
 
   return (
@@ -57,7 +57,7 @@ const CartPage = () => {
             <ListHeaderItem style={{ flex: "0.1" }}>주문</ListHeaderItem>
           </ListHeader>
           {cartItems.length === 0 ? (
-            <div>카트가 비어있습니다.</div>
+            <EmptyCart>카트가 비어있습니다.</EmptyCart>
           ) : (
             cartItems.map((item, index) => {
               return <CartItem data={item} key={index} />;
@@ -150,6 +150,21 @@ const ListHeaderItem = styled.div`
   display: flex;
   justify-content: center;
   font-size: 12px;
+`;
+
+const EmptyCart = styled.div`
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: solid 1px lightgray;
+  color: grey;
+  @media (max-width: ${device.medium}px) {
+    border-bottom: none;
+    border-top: solid 1px lightgray;
+    font-size: 12px;
+  }
 `;
 
 const ListFooter = styled.div`
