@@ -33,7 +33,7 @@ const CheckBoxIcon = styled.div`
   div {
     width: 100%;
     height: 100%;
-    border: solid 0.5px lightgray;
+    border: solid 0.5px #919191;
     background: white;
   }
   cursor: pointer;

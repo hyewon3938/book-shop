@@ -116,18 +116,20 @@ const CartItem = ({ data }) => {
               [{data.category}] {data.title}
             </p>
             <PriceWrap>{numberWithCommas(data.price)}원</PriceWrap>
-            <Count>
-              <button onClick={decreaseButtonClickHandler}>-</button>
-              <InputNumber
-                ref={mobileCountInput}
-                value={itemCount}
-                type="number"
-                onChange={() => onChangeCountHandler(mobileCountInput)}
-                onBlur={() => checkCountValue(mobileCountInput)}
-              />
-              <button onClick={increaseButtonClickHandler}>+</button>
-            </Count>
-            <ChangeItemCountButton onClick={changeCartItemCount}>변경</ChangeItemCountButton>
+            <CounterWrap>
+              <Count>
+                <button onClick={decreaseButtonClickHandler}>-</button>
+                <InputNumber
+                  ref={mobileCountInput}
+                  value={itemCount}
+                  type="number"
+                  onChange={() => onChangeCountHandler(mobileCountInput)}
+                  onBlur={() => checkCountValue(mobileCountInput)}
+                />
+                <button onClick={increaseButtonClickHandler}>+</button>
+              </Count>
+              <ChangeItemCountButton onClick={changeCartItemCount}>변경</ChangeItemCountButton>
+            </CounterWrap>
           </TitleWrap>
         </ProductInfoWrap>
         <MobileDeleteButton onClick={deleteItemHandler}>
@@ -244,7 +246,11 @@ const CounterWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: ${device.medium}px) {
+    display: block;
+  }
 `;
+
 const Count = styled.div`
   display: flex;
   width: 100%;
