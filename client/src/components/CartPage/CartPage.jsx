@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import PageWrap from "@/components/style/layout/PageWrap";
@@ -12,15 +13,42 @@ import { numberWithCommas } from "@/lib/utils";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
+// Actions
+import { addToCart, removeFromCart } from "@/redux/actions/cartActions";
+import { CART_RESET } from "@/redux/constants/cartConstants";
+
 const CartPage = () => {
+  const dispatch = useDispatch();
+
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
+  const totalPrice = cartItems.reduce((acc, cur, i) => {
+    return acc + Number(cur.price) * cur.qty;
+  }, 0);
+
+  const totalCount = cartItems.reduce((acc, cur, i) => {
+    return acc + cur.qty;
+  }, 0);
+
+  const deleteListHandler = () => {
+    dispatch({ type: CART_RESET });
+  };
+
   return (
     <PageWrap>
       <Wrap>
-        <CartTitle>북샵 카트</CartTitle>
+        <CartTitle>북샵 카트 ({totalCount})</CartTitle>
+        <RemoveCartListWrap>
+          <RemoveCartListButton onClick={deleteListHandler}>선택 상품 삭제</RemoveCartListButton>
+        </RemoveCartListWrap>
         <CartListWrap>
           <MobileAllCheckboxWrap>
-            <Checkbox />
-            <span>전체선택</span>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <Checkbox />
+              <span>전체선택</span>
+            </div>
+            <RemoveCartListButton onClick={deleteListHandler}>선택 상품 삭제</RemoveCartListButton>
           </MobileAllCheckboxWrap>
           <ListHeader>
             <Checkbox />
@@ -29,25 +57,20 @@ const CartPage = () => {
             <ListHeaderItem style={{ flex: "0.15" }}>수량</ListHeaderItem>
             <ListHeaderItem style={{ flex: "0.1" }}>주문</ListHeaderItem>
           </ListHeader>
-          <CartItem
-            img="https://image.aladin.co.kr/product/24682/10/cover500/8936424467_1.jpg"
-            title="[시] 우리가 장마를 한번 더 볼 수 있을까요"
-          />
-          <CartItem
-            img="https://image.aladin.co.kr/product/27358/28/cover500/k102732526_1.jpg"
-            title="[뷰티.생활.요리] 나나"
-          />
-          <CartItem
-            img="https://image.aladin.co.kr/product/27567/95/cover500/k682733018_1.jpg"
-            title="[뷰티.생활.요리] 나나"
-          />
+          {cartItems.length === 0 ? (
+            <div>카트가 비어있습니다.</div>
+          ) : (
+            cartItems.map((item, index) => {
+              return <CartItem data={item} key={index} />;
+            })
+          )}
           <ListFooter>
             <TotalCount>
-              <span>총 상품 수</span> 3개
+              <span>총 상품 수</span> {cartItems.length}종 {totalCount}개
             </TotalCount>
             <TotalPrice>
               <span>총 결제금액</span>
-              {numberWithCommas(13500)}원
+              {numberWithCommas(totalPrice)}원
             </TotalPrice>
           </ListFooter>
         </CartListWrap>
@@ -64,7 +87,7 @@ export default CartPage;
 
 const Wrap = styled.div`
   width: 100%;
-  margin: 2rem 0;
+  margin: 1rem 0;
   padding: 0 10rem;
   @media (max-width: ${device.extraLarge}px) {
     padding: 0 5rem;
@@ -83,10 +106,13 @@ const Wrap = styled.div`
 const CartTitle = styled.h1`
   font-size: 20px;
   font-weight: bold;
-  margin: 30px;
+  margin: 30px 30px 10px 30px;
   @media (max-width: ${device.medium}px) {
-    margin: 10px 10px 30px 10px;
+    margin: 10px;
     font-size: 18px;
+  }
+  @media (max-width: ${device.small}px) {
+    margin: 0px 10px 10px 10px;
   }
 `;
 
@@ -102,6 +128,7 @@ const ListHeader = styled.div`
   height: 35px;
   border-top: solid 2px lightgray;
   border-bottom: solid 2px lightgray;
+  background: #cacba82f;
   @media (max-width: ${device.medium}px) {
     display: none;
   }
@@ -116,6 +143,7 @@ const MobileAllCheckboxWrap = styled.div`
     display: flex;
     margin: 0 0 20px 0;
     align-items: center;
+    justify-content: space-between;
   }
 `;
 
@@ -133,6 +161,7 @@ const ListFooter = styled.div`
   width: 100%;
   border-bottom: solid 2px lightgray;
   padding: 30px 20px;
+
   @media (max-width: ${device.medium}px) {
     border-top: solid 2px lightgray;
     padding: 20px 10px;
@@ -148,17 +177,14 @@ const TotalCount = styled.div`
   justify-content: space-between;
   margin: 0 0 15px 0;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
+  color: #464646;
   span {
     font-weight: normal;
     margin: 0 10px 0 0;
   }
   @media (max-width: ${device.medium}px) {
     width: 100%;
-    font-size: 18px;
-  }
-  @media (max-width: ${device.small}px) {
-    font-size: 15px;
   }
 `;
 
@@ -172,13 +198,13 @@ const TotalPrice = styled.div`
     margin: 0 10px 0 0;
     font-weight: normal;
   }
+  @media (max-width: ${device.medium}px) {
+    width: 100%;
+  }
   @media (max-width: ${device.small}px) {
     span {
       font-size: 13px;
     }
-  }
-  @media (max-width: ${device.medium}px) {
-    width: 100%;
   }
 `;
 
@@ -201,6 +227,7 @@ const BuyCartButton = styled.div`
   color: white;
   border: 1px solid #3d3d3d;
   font-size: 15px;
+  font-weight: bold;
   &:hover {
     background: #cacba8;
     color: white;
@@ -218,9 +245,28 @@ const BuyCartButton = styled.div`
   @media (max-width: ${device.medium}px) {
     width: 100%;
     margin: 0 0 10px 0;
-    font-weight: normal;
   }
   @media (max-width: ${device.small}px) {
-    font-size: 13px;
+    font-size: 15px;
+  }
+`;
+
+const RemoveCartListWrap = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 10px;
+  @media (max-width: ${device.medium}px) {
+    display: none;
+  }
+`;
+
+const RemoveCartListButton = styled.button`
+  padding: 5px 10px;
+  border: 1px solid grey;
+  cursor: pointer;
+  font-size: 12px;
+  @media (max-width: ${device.medium}px) {
+    padding: 5px;
   }
 `;

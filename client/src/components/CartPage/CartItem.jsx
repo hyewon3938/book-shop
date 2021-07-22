@@ -10,8 +10,8 @@ import { numberWithCommas } from "@/lib/utils";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
-const CartItem = ({ img, title }) => {
-  const [itemCount, setItemCount] = useState(1);
+const CartItem = ({ data }) => {
+  const [itemCount, setItemCount] = useState(data.qty);
 
   const countInput = React.createRef();
   const mobileCountInput = React.createRef();
@@ -42,14 +42,16 @@ const CartItem = ({ img, title }) => {
       <Checkbox />
       <Item style={{ flex: "0.55" }}>
         <ProductInfoWrap>
-          <img src={img} alt="" />
+          <img src={data.imageUrl} alt={data.title} />
           <TitleWrap>
-            <p>{title}</p>
+            <p>
+              [{data.category}] {data.title}
+            </p>
           </TitleWrap>
         </ProductInfoWrap>
       </Item>
       <Item style={{ flex: "0.1" }}>
-        <PriceWrap>{numberWithCommas(13500)}원</PriceWrap>
+        <PriceWrap>{numberWithCommas(data.price)}원</PriceWrap>
       </Item>
       <Item style={{ flex: "0.15" }}>
         <Count>
@@ -72,10 +74,12 @@ const CartItem = ({ img, title }) => {
       </Item>
       <MobileItem>
         <ProductInfoWrap>
-          <img src={img} alt="" />
+          <img src={data.imageUrl} alt={data.title} />
           <TitleWrap>
-            <p>{title}</p>
-            <PriceWrap>{numberWithCommas(13500)}원</PriceWrap>
+            <p>
+              [{data.category}] {data.title}
+            </p>
+            <PriceWrap>{numberWithCommas(data.price)}원</PriceWrap>
             <Count>
               <button onClick={decreaseButtonClickHandler}>-</button>
               <InputNumber
@@ -139,6 +143,7 @@ const ProductInfoWrap = styled.div`
   img {
     width: 100px;
     cursor: pointer;
+    border: 1px solid lightgrey;
   }
   @media (max-width: ${device.medium}px) {
     margin: 0 0 0 10px;

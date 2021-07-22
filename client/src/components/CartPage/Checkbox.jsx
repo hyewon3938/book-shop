@@ -40,6 +40,7 @@ const CheckBoxIcon = styled.div`
     width: 100%;
     height: 100%;
     border: solid 0.5px lightgray;
+    background: white;
   }
   cursor: pointer;
   @media (max-width: ${device.small}px) {
