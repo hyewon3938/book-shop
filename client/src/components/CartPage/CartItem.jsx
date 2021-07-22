@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // Components
 import Checkbox from "@/components/CartPage/Checkbox";
@@ -24,13 +24,11 @@ const CartItem = ({ data }) => {
 
   const increaseButtonClickHandler = () => {
     setItemCount(Number(itemCount) + 1);
-    changeCartItemCount(Number(itemCount) + 1);
   };
 
   const decreaseButtonClickHandler = () => {
     if (Number(itemCount) === 1) return;
     setItemCount(Number(itemCount) - 1);
-    changeCartItemCount(Number(itemCount) - 1);
   };
 
   const onChangeCountHandler = (ref) => {
@@ -47,21 +45,21 @@ const CartItem = ({ data }) => {
       return;
     }
     ref.current.value = Number(ref.current.value);
-    changeCartItemCount(value);
   };
 
   const deleteItemHandler = () => {
     dispatch(removeFromCart(data._id));
   };
 
-  const changeCartItemCount = (changedCount) => {
-    dispatch(addToCart(data._id, changedCount));
+  const changeCartItemCount = () => {
+    console.log("dispatch@");
+    dispatch(addToCart(data._id, itemCount));
   };
 
   return (
     <Wrap>
       <Checkbox />
-      <Item style={{ flex: "0.55" }}>
+      <Item style={{ flex: "0.5" }}>
         <ProductInfoWrap>
           <img src={data.imageUrl} alt={data.title} />
           <TitleWrap>
@@ -74,18 +72,21 @@ const CartItem = ({ data }) => {
       <Item style={{ flex: "0.1" }}>
         <PriceWrap>{numberWithCommas(data.price)}원</PriceWrap>
       </Item>
-      <Item style={{ flex: "0.15" }}>
-        <Count>
-          <button onClick={decreaseButtonClickHandler}>-</button>
-          <InputNumber
-            ref={countInput}
-            value={itemCount}
-            type="number"
-            onChange={() => onChangeCountHandler(countInput)}
-            onBlur={() => checkCountValue(countInput)}
-          />
-          <button onClick={increaseButtonClickHandler}>+</button>
-        </Count>
+      <Item style={{ flex: "0.2" }}>
+        <CounterWrap>
+          <Count>
+            <button onClick={decreaseButtonClickHandler}>-</button>
+            <InputNumber
+              ref={countInput}
+              value={itemCount}
+              type="number"
+              onChange={() => onChangeCountHandler(countInput)}
+              onBlur={() => checkCountValue(countInput)}
+            />
+            <button onClick={increaseButtonClickHandler}>+</button>
+          </Count>
+          <ChangeItemCountButton onClick={changeCartItemCount}>변경</ChangeItemCountButton>
+        </CounterWrap>
       </Item>
       <Item style={{ flex: "0.1" }}>
         <OrderWrap>
@@ -112,6 +113,7 @@ const CartItem = ({ data }) => {
               />
               <button onClick={increaseButtonClickHandler}>+</button>
             </Count>
+            <ChangeItemCountButton onClick={changeCartItemCount}>변경</ChangeItemCountButton>
           </TitleWrap>
         </ProductInfoWrap>
         <MobileDeleteButton onClick={deleteItemHandler}>
@@ -222,6 +224,13 @@ const PriceWrap = styled.div`
   }
 `;
 
+const CounterWrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 const Count = styled.div`
   display: flex;
   width: 100%;
@@ -243,6 +252,15 @@ const Count = styled.div`
     justify-content: flex-start;
     margin: 5px 0 0 0;
   }
+`;
+
+const ChangeItemCountButton = styled.button`
+  width: 90px;
+  height: 25px;
+  border: solid 1px lightgrey;
+  font-size: 12px;
+  margin: 5px 0 0 0;
+  cursor: pointer;
 `;
 
 const InputNumber = styled.input`
@@ -283,7 +301,7 @@ const OrderWrap = styled.div`
 
 const Button = styled.button`
   font-size: 12px;
-  border: solid 1px #575757;
+  border: solid 1px lightgrey;
   padding: 5px 15px;
   margin: 0 0 5px 0;
   cursor: pointer;
@@ -304,7 +322,7 @@ const Button = styled.button`
 `;
 
 const MobileDeleteButton = styled.div`
-  margin: 10px 0 0 10px;
+  margin: 10px 0 0px 10px;
   position: relative;
   cursor: pointer;
   &:hover {

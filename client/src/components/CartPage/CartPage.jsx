@@ -51,9 +51,9 @@ const CartPage = () => {
           </MobileAllCheckboxWrap>
           <ListHeader>
             <Checkbox />
-            <ListHeaderItem style={{ flex: "0.55" }}>상품정보</ListHeaderItem>
+            <ListHeaderItem style={{ flex: "0.5" }}>상품정보</ListHeaderItem>
             <ListHeaderItem style={{ flex: "0.1" }}>가격</ListHeaderItem>
-            <ListHeaderItem style={{ flex: "0.15" }}>수량</ListHeaderItem>
+            <ListHeaderItem style={{ flex: "0.2" }}>수량</ListHeaderItem>
             <ListHeaderItem style={{ flex: "0.1" }}>주문</ListHeaderItem>
           </ListHeader>
           {cartItems.length === 0 ? (
@@ -105,13 +105,13 @@ const Wrap = styled.div`
 const CartTitle = styled.h1`
   font-size: 20px;
   font-weight: bold;
-  margin: 30px 30px 10px 30px;
+  margin: 30px 20px 10px 20px;
   @media (max-width: ${device.medium}px) {
     margin: 10px;
     font-size: 18px;
   }
   @media (max-width: ${device.small}px) {
-    margin: 0px 10px 10px 10px;
+    margin: 0px 10px 18px 10px;
   }
 `;
 
@@ -181,6 +181,7 @@ const TotalCount = styled.div`
   span {
     font-weight: normal;
     margin: 0 10px 0 0;
+    color: black;
   }
   @media (max-width: ${device.medium}px) {
     width: 100%;
