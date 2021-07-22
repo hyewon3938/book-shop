@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -23,6 +23,10 @@ const CartItem = ({ data }) => {
 
   const countInput = React.createRef();
   const mobileCountInput = React.createRef();
+
+  useEffect(() => {
+    setItemCount(data.qty);
+  }, [data]);
 
   const increaseButtonClickHandler = () => {
     setItemCount(Number(itemCount) + 1);
