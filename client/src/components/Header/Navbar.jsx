@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import { throttle } from "lodash";
+import { useSelector } from "react-redux";
 
 // Image
 import logo from "@/image/logo.png";
@@ -11,7 +12,13 @@ import { device } from "@/components/style/responsiveBreakPoints";
 
 const Navbar = ({ click }) => {
   const [isScrollTop, setIsScrollTop] = useState(true);
-  const cartItemCount = 90;
+
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
+  const cartItemCount = cartItems.reduce((acc, cur, i) => {
+    return acc + cur.qty;
+  }, 0);
 
   const wrapStyle = isScrollTop
     ? {
