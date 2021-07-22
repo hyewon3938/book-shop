@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,8 +13,7 @@ import { numberWithCommas } from "@/lib/utils";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
-// Actions
-import { addToCart, removeFromCart } from "@/redux/actions/cartActions";
+// Constants
 import { CART_RESET } from "@/redux/constants/cartConstants";
 
 const CartPage = () => {
@@ -210,11 +209,11 @@ const TotalPrice = styled.div`
 
 const ButtonWrap = styled.div`
   display: flex;
-  width: 100%;
   justify-content: center;
   margin: 30px 0 0 0;
   @media (max-width: ${device.medium}px) {
     flex-direction: column;
+    margin: 30px 10px;
   }
 `;
 

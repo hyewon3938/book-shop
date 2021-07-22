@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import Checkbox from "@/components/CartPage/Checkbox";
@@ -10,7 +11,12 @@ import { numberWithCommas } from "@/lib/utils";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
+// Actions
+import { addToCart, removeFromCart } from "@/redux/actions/cartActions";
+
 const CartItem = ({ data }) => {
+  const dispatch = useDispatch();
+
   const [itemCount, setItemCount] = useState(data.qty);
 
   const countInput = React.createRef();
@@ -35,6 +41,10 @@ const CartItem = ({ data }) => {
     const value = Number(ref.current.value);
     if (value === 0) return setItemCount(1);
     ref.current.value = Number(ref.current.value);
+  };
+
+  const deleteItemHandler = () => {
+    dispatch(removeFromCart(data._id));
   };
 
   return (
@@ -69,7 +79,7 @@ const CartItem = ({ data }) => {
       <Item style={{ flex: "0.1" }}>
         <OrderWrap>
           <Button order="true">주문</Button>
-          <Button>삭제</Button>
+          <Button onClick={deleteItemHandler}>삭제</Button>
         </OrderWrap>
       </Item>
       <MobileItem>
@@ -93,7 +103,7 @@ const CartItem = ({ data }) => {
             </Count>
           </TitleWrap>
         </ProductInfoWrap>
-        <MobileDeleteButton>
+        <MobileDeleteButton onClick={deleteItemHandler}>
           <Xbar1></Xbar1>
           <Xbar2></Xbar2>
         </MobileDeleteButton>
