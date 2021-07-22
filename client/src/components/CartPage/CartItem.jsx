@@ -26,7 +26,7 @@ const CartItem = ({ data }) => {
 
   useEffect(() => {
     setItemCount(data.qty);
-  }, [data]);
+  }, [data.qty]);
 
   const increaseButtonClickHandler = () => {
     setItemCount(Number(itemCount) + 1);
