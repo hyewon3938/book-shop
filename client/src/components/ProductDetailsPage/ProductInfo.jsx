@@ -1,23 +1,31 @@
 import React, { useState, useEffect } from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import { throttle } from "lodash";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // Components
 import Book from "@/components/ProductDetailsPage/Book";
-
-// Utils
-import { numberWithCommas } from "@/lib/utils";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 import { shine, animationSec } from "@/components/style/skeletonLoadingAnimation";
 
+// Utils
+import { numberWithCommas } from "@/lib/utils";
+
+// Actions
+import { addToCart } from "@/redux/actions/cartActions";
+
 const ProductInfo = ({ data }) => {
-  const countInput = React.createRef();
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const [itemCount, setItemCount] = useState(1);
-  const [isShownCount, setIsShownCount] = useState(false);
+  const [isShownCounter, setIsShownCounter] = useState(false);
   const [isMobileMode, setIsMobileMode] = useState(window.innerWidth > device.large ? false : true);
+
+  const countInput = React.createRef();
 
   const resizeEventHandler = throttle(() => {
     window.innerWidth > device.large ? setIsMobileMode(false) : setIsMobileMode(true);
@@ -30,7 +38,7 @@ const ProductInfo = ({ data }) => {
     };
   }, [innerWidth]);
 
-  const mobileButtonStyle = isShownCount
+  const mobileButtonStyle = isShownCounter
     ? { mobileCounter: { display: "flex" }, arrowButton: { top: "-115px" } }
     : { mobileCounter: { display: "none" }, arrowButton: { top: "-35px" } };
 
@@ -56,7 +64,12 @@ const ProductInfo = ({ data }) => {
   };
 
   const mobileArrowButtonClickHandler = () => {
-    setIsShownCount(!isShownCount);
+    setIsShownCounter(!isShownCounter);
+  };
+
+  const addCartButtonHandler = () => {
+    dispatch(addToCart(data._id, Number(itemCount)));
+    history.push("/cart");
   };
 
   return (
@@ -131,7 +144,7 @@ const ProductInfo = ({ data }) => {
                       onClick={mobileArrowButtonClickHandler}
                       style={mobileButtonStyle.arrowButton}
                     >
-                      {isShownCount ? (
+                      {isShownCounter ? (
                         <i className="fas fa-chevron-down"></i>
                       ) : (
                         <i className="fas fa-chevron-up"></i>
@@ -219,7 +232,7 @@ const ProductInfo = ({ data }) => {
                       onClick={mobileArrowButtonClickHandler}
                       style={mobileButtonStyle.arrowButton}
                     >
-                      {isShownCount ? (
+                      {isShownCounter ? (
                         <i className="fas fa-chevron-down"></i>
                       ) : (
                         <i className="fas fa-chevron-up"></i>
@@ -228,7 +241,9 @@ const ProductInfo = ({ data }) => {
                   ) : (
                     ""
                   )}
-                  <BuyCartButton cart>카트에 담기</BuyCartButton>
+                  <BuyCartButton cart onClick={addCartButtonHandler}>
+                    카트에 담기
+                  </BuyCartButton>
                   <BuyCartButton>바로 구매하기</BuyCartButton>
                 </ButtonWrap>
               </CounterButtonWrap>
