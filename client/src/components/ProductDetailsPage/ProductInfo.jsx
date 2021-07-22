@@ -369,6 +369,7 @@ const Subtitle = styled.h2`
   font-size: 15px;
   word-break: keep-all;
   line-height: 20px;
+  margin: 0 0 20px 0;
   @media (max-width: ${device.extraLarge}px) {
     font-size: 13px;
   }
@@ -384,7 +385,7 @@ const Subtitle = styled.h2`
 `;
 
 const BookInfoWrap = styled.div`
-  margin: 20px 0;
+  margin: 0 0 20px 0;
   display: flex;
   span {
     margin: 0 7px 0 0;
