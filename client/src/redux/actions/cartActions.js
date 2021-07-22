@@ -14,6 +14,7 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
       price: data.price,
       countInStock: data.countInStock,
       qty,
+      isSelected: true,
     },
   });
 
@@ -34,4 +35,23 @@ export const removeAllCart = () => (dispatch) => {
     type: actionTypes.CART_RESET,
   });
   localStorage.removeItem("cart");
+};
+
+export const selectAllCart = () => (dispatch) => {
+  dispatch({
+    type: actionTypes.SELECT_ALL_ITEMS,
+  });
+};
+
+export const unselectAllCart = () => (dispatch) => {
+  dispatch({
+    type: actionTypes.UNSELECT_ALL_ITEMS,
+  });
+};
+
+export const selectItem = (id) => (dispatch) => {
+  dispatch({
+    type: actionTypes.SELECT_ITEM,
+    payload: id,
+  });
 };

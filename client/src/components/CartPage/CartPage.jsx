@@ -1,5 +1,5 @@
-import React from "react";
-import styled, { css } from "styled-components";
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
 // Components
@@ -14,7 +14,7 @@ import { numberWithCommas } from "@/lib/utils";
 import { device } from "@/components/style/responsiveBreakPoints";
 
 // Actions
-import { removeAllCart } from "@/redux/actions/cartActions";
+import { removeAllCart, selectAllCart, unselectAllCart } from "@/redux/actions/cartActions";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -22,17 +22,30 @@ const CartPage = () => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  const totalPrice = cartItems.reduce((acc, cur, i) => {
+  const unselectedList = cartItems.filter((item) => !item.isSelected);
+
+  const [isAllChecked, setIsAllChecked] = useState(unselectedList.length === 0 ? true : false);
+
+  useEffect(() => {
+    dispatch(selectAllCart());
+  }, []);
+
+  const totalPrice = cartItems.reduce((acc, cur) => {
     return acc + Number(cur.price) * cur.qty;
   }, 0);
 
-  const totalCount = cartItems.reduce((acc, cur, i) => {
+  const totalCount = cartItems.reduce((acc, cur) => {
     return acc + cur.qty;
   }, 0);
 
   const deleteListHandler = () => {
     let result = confirm("선택한 상품을 삭제하시겠습니까?");
     result ? dispatch(removeAllCart()) : "";
+  };
+
+  const allCheckClickHandler = () => {
+    setIsAllChecked(!isAllChecked);
+    !isAllChecked ? dispatch(selectAllCart()) : dispatch(unselectAllCart());
   };
 
   return (
@@ -45,13 +58,19 @@ const CartPage = () => {
         <CartListWrap>
           <MobileAllCheckboxWrap>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <Checkbox />
+              <Checkbox
+                onClick={allCheckClickHandler}
+                isChecked={unselectedList.length === 0 ? true : false}
+              />
               <span>전체선택</span>
             </div>
             <RemoveCartListButton onClick={deleteListHandler}>선택 상품 삭제</RemoveCartListButton>
           </MobileAllCheckboxWrap>
           <ListHeader>
-            <Checkbox />
+            <Checkbox
+              onClick={allCheckClickHandler}
+              isChecked={unselectedList.length === 0 ? true : false}
+            />
             <ListHeaderItem style={{ flex: "0.5" }}>상품정보</ListHeaderItem>
             <ListHeaderItem style={{ flex: "0.1" }}>가격</ListHeaderItem>
             <ListHeaderItem style={{ flex: "0.2" }}>수량</ListHeaderItem>
@@ -75,7 +94,6 @@ const CartPage = () => {
           </ListFooter>
         </CartListWrap>
         <ButtonWrap>
-          <BuyCartButton cart="true">쇼핑 계속하기</BuyCartButton>
           <BuyCartButton>선택 상품 주문하기</BuyCartButton>
         </ButtonWrap>
       </Wrap>
@@ -249,15 +267,6 @@ const BuyCartButton = styled.div`
     color: white;
     border: 1px solid #cacba8;
   }
-  ${(props) => {
-    if (props.cart) {
-      return css`
-        background: white;
-        color: black;
-        margin: 0 10px 0 0;
-      `;
-    }
-  }}
   @media (max-width: ${device.medium}px) {
     width: 100%;
     margin: 0 0 10px 0;

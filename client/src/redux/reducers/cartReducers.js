@@ -5,7 +5,6 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
     case actionType.ADD_TO_CART:
       const item = action.payload;
       const existItem = state.cartItems.find((x) => x._id == item._id);
-
       if (existItem) {
         return {
           ...state,
@@ -26,6 +25,30 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
       return {
         ...state,
         cartItems: [],
+      };
+    case actionType.SELECT_ALL_ITEMS:
+      return {
+        ...state,
+        cartItems: state.cartItems.map((x) => {
+          x.isSelected = true;
+          return x;
+        }),
+      };
+    case actionType.UNSELECT_ALL_ITEMS:
+      return {
+        ...state,
+        cartItems: state.cartItems.map((x) => {
+          x.isSelected = false;
+          return x;
+        }),
+      };
+    case actionType.SELECT_ITEM:
+      return {
+        ...state,
+        cartItems: state.cartItems.map((x) => {
+          if (x._id === action.payload) x.isSelected = !x.isSelected;
+          return x;
+        }),
       };
     default:
       return state;

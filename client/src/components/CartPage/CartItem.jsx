@@ -13,7 +13,7 @@ import { numberWithCommas } from "@/lib/utils";
 import { device } from "@/components/style/responsiveBreakPoints";
 
 // Actions
-import { addToCart, removeFromCart } from "@/redux/actions/cartActions";
+import { addToCart, removeFromCart, selectItem } from "@/redux/actions/cartActions";
 
 const CartItem = ({ data }) => {
   const history = useHistory();
@@ -62,9 +62,13 @@ const CartItem = ({ data }) => {
     history.push(`/product/${data.category}/${data._id}`);
   };
 
+  const checkboxClickHandler = () => {
+    dispatch(selectItem(data._id));
+  };
+
   return (
     <Wrap>
-      <Checkbox />
+      <Checkbox onClick={checkboxClickHandler} isChecked={data.isSelected} />
       <Item style={{ flex: "0.5" }}>
         <ProductInfoWrap>
           <img onClick={itemClickHandler} src={data.imageUrl} alt={data.title} />

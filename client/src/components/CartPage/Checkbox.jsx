@@ -1,24 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 // Images
-import checked from "@/image/check.svg";
+import checkedImage from "@/image/check.svg";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
-const Checkbox = ({}) => {
-  const [isClicked, setIsClicked] = useState(true);
-
-  const clickHandler = () => {
-    setIsClicked(!isClicked);
-  };
-
+const Checkbox = ({ onClick, isChecked }) => {
   return (
     <>
       <CheckboxInput type="checkbox" id="allCheck" />
-      <CheckBoxLabel htmlFor="allCheck" onClick={clickHandler}>
-        <CheckBoxIcon>{isClicked ? <img src={checked} /> : <div></div>}</CheckBoxIcon>
+      <CheckBoxLabel htmlFor="allCheck" onClick={onClick}>
+        <CheckBoxIcon>{isChecked ? <img src={checkedImage} /> : <div></div>}</CheckBoxIcon>
       </CheckBoxLabel>
     </>
   );
