@@ -21,10 +21,10 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
         ...state,
         cartItems: state.cartItems.filter((x) => x._id !== action.payload),
       };
-    case actionType.CART_RESET:
+    case actionType.REMOVE_SELECTED_ITEMS:
       return {
         ...state,
-        cartItems: [],
+        cartItems: state.cartItems.filter((x) => !x.isSelected),
       };
     case actionType.SELECT_ALL_ITEMS:
       return {

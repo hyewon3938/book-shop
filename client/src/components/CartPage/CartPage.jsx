@@ -14,7 +14,7 @@ import { numberWithCommas } from "@/lib/utils";
 import { device } from "@/components/style/responsiveBreakPoints";
 
 // Actions
-import { removeAllCart, selectAllCart, unselectAllCart } from "@/redux/actions/cartActions";
+import { removeSelectedItem, selectAllCart, unselectAllCart } from "@/redux/actions/cartActions";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,9 @@ const CartPage = () => {
 
   const unselectedList = cartItems.filter((item) => !item.isSelected);
 
-  const [isAllChecked, setIsAllChecked] = useState(unselectedList.length === 0 ? true : false);
+  const [isAllChecked, setIsAllChecked] = useState(
+    unselectedList.length === 0 && cartItems.length !== 0 ? true : false
+  );
 
   useEffect(() => {
     dispatch(selectAllCart());
@@ -40,7 +42,7 @@ const CartPage = () => {
 
   const deleteListHandler = () => {
     let result = confirm("선택한 상품을 삭제하시겠습니까?");
-    result ? dispatch(removeAllCart()) : "";
+    result ? dispatch(removeSelectedItem()) : "";
   };
 
   const allCheckClickHandler = () => {
@@ -60,7 +62,7 @@ const CartPage = () => {
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
               <Checkbox
                 onClick={allCheckClickHandler}
-                isChecked={unselectedList.length === 0 ? true : false}
+                isChecked={unselectedList.length === 0 && cartItems.length !== 0 ? true : false}
               />
               <span>전체선택</span>
             </div>
@@ -69,7 +71,7 @@ const CartPage = () => {
           <ListHeader>
             <Checkbox
               onClick={allCheckClickHandler}
-              isChecked={unselectedList.length === 0 ? true : false}
+              isChecked={unselectedList.length === 0 && cartItems.length !== 0 ? true : false}
             />
             <ListHeaderItem style={{ flex: "0.5" }}>상품정보</ListHeaderItem>
             <ListHeaderItem style={{ flex: "0.1" }}>가격</ListHeaderItem>

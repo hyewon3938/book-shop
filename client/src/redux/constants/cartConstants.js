@@ -1,6 +1,6 @@
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
-export const CART_RESET = "CART_RESET";
+export const REMOVE_SELECTED_ITEMS = "REMOVE_SELECTED_ITEMS";
 
 export const SELECT_ALL_ITEMS = "SELECT_ALL_ITEMS";
 export const SELECT_ITEM = "SELECT_ITEM";
