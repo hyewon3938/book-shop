@@ -521,6 +521,9 @@ const Counter = styled.div`
     padding: 10px;
     border: none;
     background: white;
+    button {
+      font-size: 15px;
+    }
     span {
       display: none;
     }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 // Components
 import Checkbox from "@/components/CartPage/Checkbox";
@@ -15,6 +16,7 @@ import { device } from "@/components/style/responsiveBreakPoints";
 import { addToCart, removeFromCart } from "@/redux/actions/cartActions";
 
 const CartItem = ({ data }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const [itemCount, setItemCount] = useState(data.qty);
@@ -56,13 +58,17 @@ const CartItem = ({ data }) => {
     dispatch(addToCart(data._id, itemCount));
   };
 
+  const itemClickHandler = () => {
+    history.push(`/product/${data.category}/${data._id}`);
+  };
+
   return (
     <Wrap>
       <Checkbox />
       <Item style={{ flex: "0.5" }}>
         <ProductInfoWrap>
-          <img src={data.imageUrl} alt={data.title} />
-          <TitleWrap>
+          <img onClick={itemClickHandler} src={data.imageUrl} alt={data.title} />
+          <TitleWrap onClick={itemClickHandler}>
             <p>
               [{data.category}] {data.title}
             </p>
@@ -251,6 +257,9 @@ const Count = styled.div`
   @media (max-width: ${device.medium}px) {
     justify-content: flex-start;
     margin: 5px 0 0 0;
+    button {
+      font-size: 15px;
+    }
   }
 `;
 
