@@ -24,13 +24,16 @@ const CartPage = () => {
 
   const unselectedList = cartItems.filter((item) => !item.isSelected);
 
-  const [isAllChecked, setIsAllChecked] = useState(
-    unselectedList.length === 0 && cartItems.length !== 0 ? true : false
-  );
+  const [isAllChecked, setIsAllChecked] = useState(unselectedList.length === 0 ? true : false);
 
   useEffect(() => {
     dispatch(selectAllCart());
   }, []);
+
+  useEffect(() => {
+    if (cartItems.length === 0) return setIsAllChecked(false);
+    setIsAllChecked(unselectedList.length === 0 ? true : false);
+  }, [cartItems]);
 
   const totalPrice = cartItems.reduce((acc, cur) => {
     return acc + Number(cur.price) * cur.qty;
@@ -60,19 +63,13 @@ const CartPage = () => {
         <CartListWrap>
           <MobileAllCheckboxWrap>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <Checkbox
-                onClick={allCheckClickHandler}
-                isChecked={unselectedList.length === 0 && cartItems.length !== 0 ? true : false}
-              />
+              <Checkbox onClick={allCheckClickHandler} isChecked={isAllChecked} />
               <span>전체선택</span>
             </div>
             <RemoveCartListButton onClick={deleteListHandler}>선택 상품 삭제</RemoveCartListButton>
           </MobileAllCheckboxWrap>
           <ListHeader>
-            <Checkbox
-              onClick={allCheckClickHandler}
-              isChecked={unselectedList.length === 0 && cartItems.length !== 0 ? true : false}
-            />
+            <Checkbox onClick={allCheckClickHandler} isChecked={isAllChecked} />
             <ListHeaderItem style={{ flex: "0.5" }}>상품정보</ListHeaderItem>
             <ListHeaderItem style={{ flex: "0.1" }}>가격</ListHeaderItem>
             <ListHeaderItem style={{ flex: "0.2" }}>수량</ListHeaderItem>
