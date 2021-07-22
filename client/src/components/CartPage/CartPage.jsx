@@ -29,9 +29,18 @@ const CartPage = () => {
             <ListHeaderItem style={{ flex: "0.15" }}>수량</ListHeaderItem>
             <ListHeaderItem style={{ flex: "0.1" }}>주문</ListHeaderItem>
           </ListHeader>
-          <CartItem img="https://image.aladin.co.kr/product/27516/11/cover500/k152733299_1.jpg" />
-          <CartItem img="https://image.aladin.co.kr/product/27358/28/cover500/k102732526_1.jpg" />
-          <CartItem img="https://image.aladin.co.kr/product/27567/95/cover500/k682733018_1.jpg" />
+          <CartItem
+            img="https://image.aladin.co.kr/product/24682/10/cover500/8936424467_1.jpg"
+            title="[시] 우리가 장마를 한번 더 볼 수 있을까요"
+          />
+          <CartItem
+            img="https://image.aladin.co.kr/product/27358/28/cover500/k102732526_1.jpg"
+            title="[뷰티.생활.요리] 나나"
+          />
+          <CartItem
+            img="https://image.aladin.co.kr/product/27567/95/cover500/k682733018_1.jpg"
+            title="[뷰티.생활.요리] 나나"
+          />
           <ListFooter>
             <TotalCount>
               <span>총 상품 수</span> 3개
@@ -129,7 +138,7 @@ const ListFooter = styled.div`
     padding: 20px 10px;
   }
   @media (max-width: ${device.small}px) {
-    padding: 15px 5px;
+    padding: 20px 5px;
   }
 `;
 

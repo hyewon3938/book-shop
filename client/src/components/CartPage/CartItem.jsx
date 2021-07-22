@@ -10,7 +10,7 @@ import { numberWithCommas } from "@/lib/utils";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
-const CartItem = ({ img }) => {
+const CartItem = ({ img, title }) => {
   const [itemCount, setItemCount] = useState(1);
 
   const countInput = React.createRef();
@@ -44,7 +44,7 @@ const CartItem = ({ img }) => {
         <ProductInfoWrap>
           <img src={img} alt="" />
           <TitleWrap>
-            <p>[소설] 우리가 함께 장마를 볼 수도 있겠습니다</p>
+            <p>{title}</p>
           </TitleWrap>
         </ProductInfoWrap>
       </Item>
@@ -74,7 +74,7 @@ const CartItem = ({ img }) => {
         <ProductInfoWrap>
           <img src={img} alt="" />
           <TitleWrap>
-            <p>[소설] 우리가 함께 장마를 볼 수도 있겠습니다</p>
+            <p>{title}</p>
             <PriceWrap>{numberWithCommas(13500)}원</PriceWrap>
             <Count>
               <button onClick={decreaseButtonClickHandler}>-</button>
@@ -118,7 +118,6 @@ const Wrap = styled.div`
 const Item = styled.div`
   display: flex;
   align-items: center;
-  height: 100%;
   @media (max-width: ${device.medium}px) {
     display: none;
   }
@@ -136,6 +135,7 @@ const MobileItem = styled.div`
 const ProductInfoWrap = styled.div`
   display: flex;
   width: 100%;
+  align-items: flex-start;
   img {
     width: 100px;
     cursor: pointer;
@@ -145,15 +145,12 @@ const ProductInfoWrap = styled.div`
   }
   @media (max-width: ${device.small}px) {
     img {
-      width: 80px;
+      width: 100px;
     }
   }
   @media (max-width: ${device.extraSmall}px) {
-    height: 100%;
-    align-items: center;
     img {
-      width: auto;
-      height: 90px;
+      width: 60px;
     }
   }
 `;
@@ -161,7 +158,7 @@ const ProductInfoWrap = styled.div`
 const TitleWrap = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 10px 0 0 20px;
+  margin: 5px 0 0 20px;
   font-size: 13px;
   line-height: 20px;
   p {
@@ -171,7 +168,6 @@ const TitleWrap = styled.div`
     }
   }
   @media (max-width: ${device.medium}px) {
-    justify-content: space-around;
     p {
       font-size: 15px;
     }
@@ -192,7 +188,7 @@ const PriceWrap = styled.div`
   align-items: center;
   @media (max-width: ${device.medium}px) {
     justify-content: flex-start;
-    margin: 15px 0 0 0;
+    margin: 5px 0 0 0;
     font-size: 15px;
   }
   @media (max-width: ${device.small}px) {
@@ -219,7 +215,7 @@ const Count = styled.div`
   }
   @media (max-width: ${device.medium}px) {
     justify-content: flex-start;
-    margin: 15px 0 0 0;
+    margin: 5px 0 0 0;
   }
 `;
 
@@ -291,6 +287,7 @@ const MobileDeleteButton = styled.div`
     }
   }
   @media (max-width: ${device.small}px) {
+    margin: 10px 0 0 0px;
     div {
       width: 18px;
     }
