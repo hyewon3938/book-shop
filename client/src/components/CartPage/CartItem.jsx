@@ -24,27 +24,38 @@ const CartItem = ({ data }) => {
 
   const increaseButtonClickHandler = () => {
     setItemCount(Number(itemCount) + 1);
+    changeCartItemCount(Number(itemCount) + 1);
   };
 
   const decreaseButtonClickHandler = () => {
     if (Number(itemCount) === 1) return;
     setItemCount(Number(itemCount) - 1);
+    changeCartItemCount(Number(itemCount) - 1);
   };
 
   const onChangeCountHandler = (ref) => {
     const value = ref.current.value;
-    if (value < 0 || value > 999) return setItemCount(itemCount);
+    if (value < 0 || value > 999) return setItemCount(1);
     setItemCount(value);
   };
 
   const checkCountValue = (ref) => {
     const value = Number(ref.current.value);
-    if (value === 0) return setItemCount(1);
+    if (value === 0) {
+      setItemCount(1);
+      changeCartItemCount(1);
+      return;
+    }
     ref.current.value = Number(ref.current.value);
+    changeCartItemCount(value);
   };
 
   const deleteItemHandler = () => {
     dispatch(removeFromCart(data._id));
+  };
+
+  const changeCartItemCount = (changedCount) => {
+    dispatch(addToCart(data._id, changedCount));
   };
 
   return (
