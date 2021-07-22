@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
-import { throttle } from "lodash";
+import { debounce } from "lodash";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -27,7 +27,7 @@ const ProductInfo = ({ data }) => {
 
   const countInput = React.createRef();
 
-  const resizeEventHandler = throttle(() => {
+  const resizeEventHandler = debounce(() => {
     window.innerWidth > device.large ? setIsMobileMode(false) : setIsMobileMode(true);
   }, 300);
 
