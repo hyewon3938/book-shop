@@ -69,7 +69,8 @@ const ProductInfo = ({ data }) => {
 
   const addCartButtonHandler = () => {
     dispatch(addToCart(data._id, Number(itemCount)));
-    history.push("/cart");
+    let result = confirm("상품이 카트에 담겼습니다.\n바로 확인하시겠습니까?");
+    result ? history.push("/cart") : "";
   };
 
   return (

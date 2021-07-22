@@ -172,7 +172,7 @@ const ListHeaderItem = styled.div`
 
 const EmptyCart = styled.div`
   width: 100%;
-  height: 200px;
+  height: 180px;
   display: flex;
   justify-content: center;
   align-items: center;
