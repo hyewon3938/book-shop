@@ -158,7 +158,7 @@ const MobileAllCheckboxWrap = styled.div`
   }
   @media (max-width: ${device.medium}px) {
     display: flex;
-    margin: 0 0 20px 0;
+    margin: 25px 0 20px 0;
     align-items: center;
     justify-content: space-between;
   }
@@ -167,6 +167,7 @@ const MobileAllCheckboxWrap = styled.div`
 const ListHeaderItem = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   font-size: 12px;
 `;
 
