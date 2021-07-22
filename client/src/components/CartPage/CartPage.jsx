@@ -31,7 +31,8 @@ const CartPage = () => {
   }, 0);
 
   const deleteListHandler = () => {
-    dispatch(removeAllCart());
+    let result = confirm("선택한 상품을 삭제하시겠습니까?");
+    result ? dispatch(removeAllCart()) : "";
   };
 
   return (

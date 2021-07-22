@@ -50,7 +50,8 @@ const CartItem = ({ data }) => {
   };
 
   const deleteItemHandler = () => {
-    dispatch(removeFromCart(data._id));
+    let result = confirm("선택한 상품을 삭제하시겠습니까?");
+    result ? dispatch(removeFromCart(data._id)) : "";
   };
 
   const changeCartItemCount = () => {
