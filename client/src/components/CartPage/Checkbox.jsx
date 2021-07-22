@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 // Images
 import checkedImage from "@/image/check.svg";
+import uncheckedImage from "@/image/uncheck.svg";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
@@ -12,7 +13,9 @@ const Checkbox = ({ onClick, isChecked }) => {
     <>
       <CheckboxInput type="checkbox" id="allCheck" />
       <CheckBoxLabel htmlFor="allCheck" onClick={onClick}>
-        <CheckBoxIcon>{isChecked ? <img src={checkedImage} /> : <div></div>}</CheckBoxIcon>
+        <CheckBoxIcon>
+          {isChecked ? <img src={checkedImage} /> : <img src={uncheckedImage} />}
+        </CheckBoxIcon>
       </CheckBoxLabel>
     </>
   );
@@ -33,7 +36,6 @@ const CheckBoxIcon = styled.div`
   div {
     width: 100%;
     height: 100%;
-    border: solid 0.5px #919191;
     background: white;
   }
   cursor: pointer;
