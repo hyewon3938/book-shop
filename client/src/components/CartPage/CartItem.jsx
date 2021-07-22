@@ -186,6 +186,9 @@ const ProductInfoWrap = styled.div`
   }
   @media (max-width: ${device.medium}px) {
     margin: 0 0 0 10px;
+    img {
+      flex: 0.3;
+    }
   }
   @media (max-width: ${device.small}px) {
     img {
@@ -212,13 +215,10 @@ const TitleWrap = styled.div`
     }
   }
   @media (max-width: ${device.medium}px) {
+    flex: 0.8;
+
     p {
       font-size: 15px;
-    }
-  }
-  @media (max-width: ${device.small}px) {
-    p {
-      font-size: 12px;
     }
   }
 `;
@@ -247,13 +247,13 @@ const CounterWrap = styled.div`
   justify-content: center;
   align-items: center;
   @media (max-width: ${device.medium}px) {
-    display: block;
+    flex-direction: row;
+    justify-content: flex-start;
   }
 `;
 
 const Count = styled.div`
   display: flex;
-  width: 100%;
   justify-content: center;
   align-items: center;
   button {
@@ -284,11 +284,17 @@ const ChangeItemCountButton = styled.button`
   font-size: 12px;
   margin: 5px 0 0 0;
   cursor: pointer;
+  @media (max-width: ${device.medium}px) {
+    width: auto;
+    margin: 5px 0 0 2px;
+  }
+  @media (max-width: ${device.extraSmall}px) {
+    font-size: 10px;
+  }
 `;
 
 const InputNumber = styled.input`
   display: flex;
-  width: 100%;
   justify-content: center;
   align-items: center;
   box-shadow: none;
@@ -311,6 +317,9 @@ const InputNumber = styled.input`
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+  @media (max-width: ${device.extraSmall}px) {
+    width: 30px;
   }
 `;
 
@@ -346,6 +355,8 @@ const Button = styled.button`
 
 const MobileDeleteButton = styled.div`
   margin: 10px 0 0px 10px;
+  width: 22px;
+  height: 22px;
   position: relative;
   cursor: pointer;
   &:hover {
@@ -372,6 +383,9 @@ const Xbar1 = styled.div`
 `;
 
 const Xbar2 = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 22px;
   height: 1px;
   background: grey;
