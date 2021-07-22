@@ -129,7 +129,7 @@ const CartTitle = styled.h1`
     font-size: 18px;
   }
   @media (max-width: ${device.small}px) {
-    margin: 0px 10px 18px 10px;
+    margin: 0px 10px 0px 10px;
   }
 `;
 
@@ -167,6 +167,7 @@ const MobileAllCheckboxWrap = styled.div`
 const ListHeaderItem = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   font-size: 12px;
 `;
 
