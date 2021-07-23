@@ -66,7 +66,6 @@ const CartItem = ({ data }) => {
       category: data.category,
       imageUrl: data.imageUrl,
       price: data.price,
-      countInStock: data.countInStock,
       qty,
       isSelected: true,
     };

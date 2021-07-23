@@ -74,7 +74,6 @@ const ProductInfo = ({ data }) => {
       category: data.category,
       imageUrl: data.coverImage.front,
       price: data.price,
-      countInStock: data.countInStock,
       qty: Number(itemCount),
       isSelected: true,
     };
