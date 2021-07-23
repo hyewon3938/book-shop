@@ -24,21 +24,20 @@ const CartItem = ({ data }) => {
   const countInput = React.createRef();
   const mobileCountInput = React.createRef();
 
-  useEffect(() => {
-    setItemCount(data.qty);
-  }, [data.qty]);
-
   const increaseButtonClickHandler = () => {
+    if (data.qty === 999) return;
     setItemCount(Number(itemCount) + 1);
+    changeCartItemCount(data.qty + 1);
   };
 
   const decreaseButtonClickHandler = () => {
-    if (Number(itemCount) === 1) return;
+    if (data.qty === 1) return;
     setItemCount(Number(itemCount) - 1);
+    changeCartItemCount(data.qty - 1);
   };
 
   const onChangeCountHandler = (ref) => {
-    const value = Number(ref.current.value);
+    const value = ref.current.value;
     if (value < 0 || value > 999) return setItemCount(1);
     setItemCount(value);
   };
@@ -50,7 +49,9 @@ const CartItem = ({ data }) => {
       changeCartItemCount(1);
       return;
     }
-    ref.current.value = Number(ref.current.value);
+    ref.current.value = ref.current.value;
+    setItemCount(value);
+    changeCartItemCount(value);
   };
 
   const deleteItemHandler = () => {
@@ -58,8 +59,19 @@ const CartItem = ({ data }) => {
     result ? dispatch(removeFromCart(data._id)) : "";
   };
 
-  const changeCartItemCount = () => {
-    dispatch(addToCart(data._id, Number(itemCount)));
+  const changeCartItemCount = (qty) => {
+    const payload = {
+      _id: data._id,
+      title: data.title,
+      category: data.category,
+      imageUrl: data.imageUrl,
+      price: data.price,
+      countInStock: data.countInStock,
+      qty,
+      isSelected: true,
+    };
+
+    dispatch(addToCart(payload));
   };
 
   const itemClickHandler = () => {
@@ -87,20 +99,17 @@ const CartItem = ({ data }) => {
         <PriceWrap>{numberWithCommas(data.price)}원</PriceWrap>
       </Item>
       <Item style={{ flex: "0.2" }}>
-        <CounterWrap>
-          <Count>
-            <button onClick={decreaseButtonClickHandler}>-</button>
-            <InputNumber
-              ref={countInput}
-              value={itemCount}
-              type="number"
-              onChange={() => onChangeCountHandler(countInput)}
-              onBlur={() => checkCountValue(countInput)}
-            />
-            <button onClick={increaseButtonClickHandler}>+</button>
-          </Count>
-          <ChangeItemCountButton onClick={changeCartItemCount}>변경</ChangeItemCountButton>
-        </CounterWrap>
+        <Count>
+          <button onClick={decreaseButtonClickHandler}>-</button>
+          <InputNumber
+            ref={countInput}
+            value={itemCount}
+            type="number"
+            onChange={() => onChangeCountHandler(countInput)}
+            onBlur={() => checkCountValue(countInput)}
+          />
+          <button onClick={increaseButtonClickHandler}>+</button>
+        </Count>
       </Item>
       <Item style={{ flex: "0.1" }}>
         <OrderWrap>
@@ -116,20 +125,17 @@ const CartItem = ({ data }) => {
               [{data.category}] {data.title}
             </p>
             <PriceWrap>{numberWithCommas(data.price)}원</PriceWrap>
-            <CounterWrap>
-              <Count>
-                <button onClick={decreaseButtonClickHandler}>-</button>
-                <InputNumber
-                  ref={mobileCountInput}
-                  value={itemCount}
-                  type="number"
-                  onChange={() => onChangeCountHandler(mobileCountInput)}
-                  onBlur={() => checkCountValue(mobileCountInput)}
-                />
-                <button onClick={increaseButtonClickHandler}>+</button>
-              </Count>
-              <ChangeItemCountButton onClick={changeCartItemCount}>변경</ChangeItemCountButton>
-            </CounterWrap>
+            <Count>
+              <button onClick={decreaseButtonClickHandler}>-</button>
+              <InputNumber
+                ref={mobileCountInput}
+                value={itemCount}
+                type="number"
+                onChange={() => onChangeCountHandler(mobileCountInput)}
+                onBlur={() => checkCountValue(mobileCountInput)}
+              />
+              <button onClick={increaseButtonClickHandler}>+</button>
+            </Count>
           </TitleWrap>
         </ProductInfoWrap>
         <MobileDeleteButton onClick={deleteItemHandler}>
@@ -240,18 +246,6 @@ const PriceWrap = styled.div`
   }
 `;
 
-const CounterWrap = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  @media (max-width: ${device.medium}px) {
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-`;
-
 const Count = styled.div`
   display: flex;
   justify-content: center;
@@ -274,22 +268,6 @@ const Count = styled.div`
     button {
       font-size: 15px;
     }
-  }
-`;
-
-const ChangeItemCountButton = styled.button`
-  width: 90px;
-  height: 25px;
-  border: solid 1px lightgrey;
-  font-size: 12px;
-  margin: 5px 0 0 0;
-  cursor: pointer;
-  @media (max-width: ${device.medium}px) {
-    width: auto;
-    margin: 5px 0 0 2px;
-  }
-  @media (max-width: ${device.extraSmall}px) {
-    font-size: 10px;
   }
 `;
 

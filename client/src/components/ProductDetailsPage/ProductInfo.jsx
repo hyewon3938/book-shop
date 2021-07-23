@@ -68,7 +68,18 @@ const ProductInfo = ({ data }) => {
   };
 
   const addCartButtonHandler = () => {
-    dispatch(addToCart(data._id, Number(itemCount)));
+    const payload = {
+      _id: data._id,
+      title: data.title,
+      category: data.category,
+      imageUrl: data.coverImage.front,
+      price: data.price,
+      countInStock: data.countInStock,
+      qty: Number(itemCount),
+      isSelected: true,
+    };
+
+    dispatch(addToCart(payload));
     let result = confirm("상품이 카트에 담겼습니다.\n바로 확인하시겠습니까?");
     result ? history.push("/cart") : "";
   };
