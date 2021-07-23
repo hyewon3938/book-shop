@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // Images
 import woodTexture from "@/image/woodTexture.jpg";
@@ -9,11 +10,34 @@ import woodTexture from "@/image/woodTexture.jpg";
 import { device } from "@/components/style/responsiveBreakPoints";
 import { shine, animationSec } from "@/components/style/skeletonLoadingAnimation";
 
+// Utils
+import { numberWithCommas } from "@/lib/utils";
+
+// Actions
+import { addToCart } from "@/redux/actions/cartActions";
+
 const Product = ({ data }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const productClickHandler = () => {
     history.push(`/product/${data.category}/${data._id}`);
+  };
+
+  const addCartButtonHandler = () => {
+    const payload = {
+      _id: data._id,
+      title: data.title,
+      category: data.category,
+      imageUrl: data.coverImage.front,
+      price: data.price,
+      qty: 1,
+      isSelected: true,
+    };
+
+    dispatch(addToCart(payload));
+    let result = confirm("상품이 카트에 담겼습니다.\n바로 확인하시겠습니까?");
+    result ? history.push("/cart") : "";
   };
 
   return (
@@ -45,7 +69,10 @@ const Product = ({ data }) => {
           <BookInfo>
             <BookTitle onClick={productClickHandler}>{data.title}</BookTitle>
             <span>{data.writer}</span>
-            <BookPrice>{data.price}원</BookPrice>
+            <PriceCartWrap>
+              <BookPrice>{numberWithCommas(data.price)}원</BookPrice>
+              <Icon onClick={addCartButtonHandler} className="fas fa-shopping-cart"></Icon>
+            </PriceCartWrap>
           </BookInfo>
         </Wrap>
       )}
@@ -174,11 +201,22 @@ const BookTitle = styled.div`
   }}
 `;
 
+const PriceCartWrap = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0 0 0;
+`;
+
+const Icon = styled.i`
+  margin: 0 0 0 5px;
+  cursor: pointer;
+`;
+
 const BookPrice = styled.p`
   font-weight: bold;
   font-size: 15px;
-  margin: 5px 0 0 0;
-  width: 100%;
   display: flex;
   justify-content: center;
   ${(props) => {
