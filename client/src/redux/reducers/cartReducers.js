@@ -3,55 +3,34 @@ import * as actionType from "@/redux/constants/cartConstants";
 export const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
     case actionType.ADD_TO_CART:
-      const item = action.payload;
-      const existItem = state.cartItems.find((x) => x._id == item._id);
-      if (existItem) {
-        return {
-          ...state,
-          cartItems: state.cartItems.map((x) => {
-            x._id === existItem._id ? (x.qty = item.qty) : x;
-            return x;
-          }),
-        };
-      } else {
-        return {
-          ...state,
-          cartItems: [...state.cartItems, item],
-        };
-      }
+      return {
+        ...state,
+        cartItems: action.payload,
+      };
     case actionType.REMOVE_FROM_CART:
       return {
         ...state,
-        cartItems: state.cartItems.filter((x) => x._id !== action.payload),
+        cartItems: action.payload,
       };
     case actionType.REMOVE_SELECTED_ITEMS:
       return {
         ...state,
-        cartItems: state.cartItems.filter((x) => !x.isSelected),
+        cartItems: action.payload,
       };
     case actionType.SELECT_ALL_ITEMS:
       return {
         ...state,
-        cartItems: state.cartItems.map((x) => {
-          x.isSelected = true;
-          return x;
-        }),
+        cartItems: action.payload,
       };
     case actionType.UNSELECT_ALL_ITEMS:
       return {
         ...state,
-        cartItems: state.cartItems.map((x) => {
-          x.isSelected = false;
-          return x;
-        }),
+        cartItems: action.payload,
       };
     case actionType.SELECT_ITEM:
       return {
         ...state,
-        cartItems: state.cartItems.map((x) => {
-          if (x._id === action.payload) x.isSelected = !x.isSelected;
-          return x;
-        }),
+        cartItems: action.payload,
       };
     default:
       return state;

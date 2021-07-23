@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-size: ${theme.fontSize.base};
     font-family: "Roboto", "Apple SD Gothic Neo", "Helvetica", "Arial", sans-serif;
+    transition : 0.5s ease-in-out;
   }
   button {
     background: none;
