@@ -98,13 +98,13 @@ const Wrap = styled.div`
   padding: 10px 30px 0 30px;
 
   @media (max-width: ${device.small}px) {
-    width: 280px;
+    width: 250px;
     justify-content: flex-start;
     padding: 50px 0 0 0;
   }
   @media (max-width: ${device.extraSmall}px) {
-    width: 200px;
-    padding: 10px 20px 0 10px;
+    width: 220px;
+    padding: 30px 20px 0 10px;
   }
 `;
 

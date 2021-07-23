@@ -271,10 +271,10 @@ export default ProductInfo;
 
 const Wrap = styled.div`
   display: flex;
-  margin: 40px 0;
+  margin: 30px 0 40px 0;
   @media (max-width: ${device.large}px) {
     flex-direction: column;
-    margin: 40px 0 0 0;
+    margin: 10px 0 0 0;
     padding: 0 0.5rem;
   }
 `;
