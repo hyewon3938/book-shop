@@ -28,7 +28,7 @@ const ProductDetails = ({ data }) => {
           />
           <Content title="책소개" contents={data.description} />
           <Content title="목차" contents={data.contents} />
-          {!data.descriptionImageUrl ? (
+          {data.descriptionImageUrl.length === 0 ? (
             ""
           ) : (
             <>

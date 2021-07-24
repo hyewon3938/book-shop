@@ -92,7 +92,9 @@ const Content = ({ title, contents }) => {
             </ContentValue>
           ) : title === "소개 이미지" ? (
             <ContentValue>
-              <img src={contents} alt={title + " 소개이미지"} />
+              {contents.map((content, index) => {
+                return <img src={content} key={index} alt={title + " 소개이미지"} />;
+              })}
             </ContentValue>
           ) : (
             <ContentValue ref={contentsComponent} style={contentsStyle.contents}>

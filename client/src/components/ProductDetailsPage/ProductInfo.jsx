@@ -182,7 +182,7 @@ const ProductInfo = ({ data }) => {
               <Title>{data.title}</Title>
               {data.subtitle ? <Subtitle>- {data.subtitle}</Subtitle> : ""}
               <BookInfoWrap>
-                <BookInfo>{data.writer} 저</BookInfo>
+                <BookInfo>{data.writer}</BookInfo>
                 <span>|</span>
                 <BookInfo> {data.publisher} </BookInfo>
                 <span>|</span> <BookInfo> {data.publishDate}</BookInfo>
