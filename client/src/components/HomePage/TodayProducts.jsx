@@ -50,7 +50,7 @@ const Title = styled.div`
   margin: 0 0 30px 20px;
   @media (max-width: ${device.small}px) {
     font-size: 15px;
-    margin: 0 0 20px 15px;
+    margin: 0 0 20px 20px;
   }
 `;
 

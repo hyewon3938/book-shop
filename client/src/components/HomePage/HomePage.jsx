@@ -43,7 +43,7 @@ export default HomePage;
 
 const Wrap = styled.div`
   width: 100%;
-  height: 1500px;
+  overflow-x: hidden;
 `;
 
 const ContentsWrap = styled.div`
