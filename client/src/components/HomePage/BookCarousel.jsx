@@ -75,7 +75,7 @@ const BookCarousel = ({ data }) => {
           {dataList.map((item, index) => {
             if (index === currentIndex) {
               return (
-                <Book key={index} style={{ left: `${20 * index}%`, zIndex: "1" }}>
+                <Book key={index} style={{ left: `${20 * index}%`, zIndex: "2" }}>
                   <Cover
                     src={item.coverImage.front}
                     style={{ opacity: "1" }}
@@ -87,7 +87,7 @@ const BookCarousel = ({ data }) => {
             }
             if (index === currentIndex + 1 || index === currentIndex - 1) {
               return (
-                <Book key={index} style={{ left: `${20 * index}%` }}>
+                <Book key={index} style={{ left: `${20 * index}%`, zIndex: "1" }}>
                   <Cover
                     src={item.coverImage.front}
                     style={{ opacity: "0.5", transform: "scale(0.6)" }}
