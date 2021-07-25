@@ -64,6 +64,6 @@ const ProductList = styled.div`
     height: 500px;
   }
   @media (max-width: ${device.small}px) {
-    height: 600px;
+    height: 550px;
   }
 `;

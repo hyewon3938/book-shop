@@ -29,7 +29,7 @@ const HomePage = () => {
             <AdCarousel data={adList2} />
           </CarouselWrap>
           <Ad>
-            <img src="https://ifh.cc/g/7yF5nh.jpg" />
+            <img src="https://ifh.cc/g/d3lJ7S.png" />
           </Ad>
         </AdWrap>
         <NewArrival />
@@ -101,7 +101,7 @@ const Ad = styled.div`
   padding: 10px;
   background: #44381e;
   img {
-    height: 250px;
+    height: 300px;
   }
   @media (max-width: ${device.large}px) {
     width: 100%;

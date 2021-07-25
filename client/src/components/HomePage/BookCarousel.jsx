@@ -217,7 +217,7 @@ const Description = styled.div`
     padding: 20px 20px 10px 20px;
   }
   @media (max-width: ${device.small}px) {
-    height: 50%;
+    height: 45%;
 
     span {
       font-size: 18px;
