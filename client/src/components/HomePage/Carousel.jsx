@@ -1,15 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 
+// lib
+import Timer from "@/lib/Timer";
+
 const Carousel = ({ data }) => {
   const [currentIndex, setCurrentIndex] = useState(1);
 
   const imageList = [data[data.length - 1], ...data, data[0]];
   const imageLength = imageList.length;
   const carouselStyle = {
-    transform: `translateX(-${1300 * currentIndex}px)`,
+    transform: `translateX(-${100 * currentIndex}%)`,
   };
   const carouselImage = useRef();
+
+  const rightClickHandler = () => {
+    autoSlideTimer.pause();
+    if (currentIndex === imageLength - 1) return;
+    carouselImage.current.style.transition = "0.5s ease-in-out";
+    setCurrentIndex(currentIndex + 1);
+  };
+
+  const autoSlideTimer = new Timer(rightClickHandler, 2000);
 
   useEffect(() => {
     if (currentIndex === 0) {
@@ -28,28 +40,27 @@ const Carousel = ({ data }) => {
       }, 500);
       return;
     }
+    autoSlideTimer.start();
   }, [currentIndex]);
 
   const leftClickHandler = () => {
+    autoSlideTimer.pause();
     if (currentIndex === 0) return;
     carouselImage.current.style.transition = "0.5s ease-in-out";
     setCurrentIndex(currentIndex - 1);
   };
 
-  const rightClickHandler = () => {
-    if (currentIndex === imageLength - 1) return;
-    carouselImage.current.style.transition = "0.5s ease-in-out";
-    setCurrentIndex(currentIndex + 1);
-  };
-
   return (
-    <Contents>
+    <Contents
+      onMouseOver={() => autoSlideTimer.pause()}
+      onMouseLeave={() => autoSlideTimer.start()}
+    >
       <Icon className="fas fa-chevron-left" onClick={leftClickHandler}></Icon>
       <Icon className="fas fa-chevron-right" right onClick={rightClickHandler}></Icon>
       <AdImageWrap ref={carouselImage} style={carouselStyle}>
         {imageList.map((item, index) => {
           return (
-            <AdImage key={index} style={{ left: `${1300 * index}px` }}>
+            <AdImage key={index} style={{ left: `${100 * index}%` }}>
               <img src={item} alt={`메인광고${index}`} />
             </AdImage>
           );
