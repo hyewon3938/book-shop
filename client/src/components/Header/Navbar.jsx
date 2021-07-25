@@ -83,7 +83,7 @@ const Wrap = styled.div`
   align-items: center;
   background: white;
   border-bottom: lightgray solid 1px;
-  padding: 0 1.5rem 1rem 1.5rem;
+  padding: 0 1.5rem;
   z-index: 10000;
   @media (max-width: ${device.small}px) {
     padding: 0 1rem 0 1rem;

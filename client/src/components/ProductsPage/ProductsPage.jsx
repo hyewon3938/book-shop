@@ -97,9 +97,3 @@ const ProductsWrap = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
 `;
-
-const LoadingWrap = styled.div`
-  width: 100%;
-  height: 80vh;
-  background: rgba(0, 0, 0, 0.2);
-`;
