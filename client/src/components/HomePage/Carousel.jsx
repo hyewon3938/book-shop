@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 // lib
 import Timer from "@/lib/Timer";
 
-const Carousel = ({ data }) => {
+const Carousel = ({ data, width, height }) => {
   const [currentIndex, setCurrentIndex] = useState(1);
 
   const imageList = [data[data.length - 1], ...data, data[0]];
@@ -52,6 +52,7 @@ const Carousel = ({ data }) => {
 
   return (
     <Contents
+      style={{ width: width, height: height }}
       onMouseOver={() => autoSlideTimer.pause()}
       onMouseLeave={() => autoSlideTimer.start()}
     >
