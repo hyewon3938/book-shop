@@ -90,7 +90,7 @@ const BookCarousel = ({ data }) => {
                 <Book key={index} style={{ left: `${20 * index}%`, zIndex: "1" }}>
                   <Cover
                     src={item.coverImage.front}
-                    style={{ opacity: "0.5", transform: "scale(0.6)" }}
+                    style={{ opacity: "0.8", transform: "scale(0.6)" }}
                     ref={bookImage}
                     onClick={() => productClickHandler(item.category, item._id)}
                   />
