@@ -4,7 +4,10 @@ import styled, { css } from "styled-components";
 // lib
 import Timer from "@/lib/Timer";
 
-const Carousel = ({ data, width, height }) => {
+// Style
+import { device } from "@/components/style/responsiveBreakPoints";
+
+const AdCarousel = ({ data }) => {
   const [currentIndex, setCurrentIndex] = useState(1);
 
   const imageList = [data[data.length - 1], ...data, data[0]];
@@ -13,15 +16,17 @@ const Carousel = ({ data, width, height }) => {
     transform: `translateX(-${100 * currentIndex}%)`,
   };
   const carouselImage = useRef();
+  const transitionSec = 0.7;
+  const autoSlideDelay = 3000;
 
   const rightClickHandler = () => {
     autoSlideTimer.pause();
     if (currentIndex === imageLength - 1) return;
-    carouselImage.current.style.transition = "0.5s ease-in-out";
+    carouselImage.current.style.transition = `${transitionSec}s ease-in-out`;
     setCurrentIndex(currentIndex + 1);
   };
 
-  const autoSlideTimer = new Timer(rightClickHandler, 2000);
+  const autoSlideTimer = new Timer(rightClickHandler, autoSlideDelay);
 
   useEffect(() => {
     if (currentIndex === 0) {
@@ -29,7 +34,7 @@ const Carousel = ({ data, width, height }) => {
         carouselImage.current.style.transition = "none";
         setCurrentIndex(imageLength - 2);
         clearTimeout(timeId);
-      }, 500);
+      }, 1000);
       return;
     }
     if (currentIndex === imageLength - 1) {
@@ -37,22 +42,27 @@ const Carousel = ({ data, width, height }) => {
         carouselImage.current.style.transition = "none";
         setCurrentIndex(1);
         clearTimeout(timeId);
-      }, 500);
+      }, 1000);
       return;
     }
     autoSlideTimer.start();
   }, [currentIndex]);
 
+  useEffect(() => {
+    return () => {
+      autoSlideTimer.pause();
+    };
+  }, []);
+
   const leftClickHandler = () => {
     autoSlideTimer.pause();
     if (currentIndex === 0) return;
-    carouselImage.current.style.transition = "0.5s ease-in-out";
+    carouselImage.current.style.transition = `${transitionSec}s ease-in-out`;
     setCurrentIndex(currentIndex - 1);
   };
 
   return (
     <Contents
-      style={{ width: width, height: height }}
       onMouseOver={() => autoSlideTimer.pause()}
       onMouseLeave={() => autoSlideTimer.start()}
     >
@@ -71,7 +81,7 @@ const Carousel = ({ data, width, height }) => {
   );
 };
 
-export default Carousel;
+export default AdCarousel;
 
 const Icon = styled.i`
   display: none;
@@ -88,19 +98,24 @@ const Icon = styled.i`
   ${(props) => {
     if (props.right) {
       return css`
-        right: 0;
+        right: 20px;
       `;
     } else {
       return css`
-        left: 0;
+        left: 20px;
       `;
     }
   }}
+  @media (max-width: ${device.medium}px) {
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+  }
 `;
 
 const Contents = styled.div`
   width: 100%;
-  height: 480px;
+  height: inherit;
   position: relative;
   display: flex;
   align-items: center;
@@ -118,7 +133,6 @@ const AdImageWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.5s ease-in-out;
 `;
 
 const AdImage = styled.div`
@@ -128,7 +142,6 @@ const AdImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: #de3c15; */
   img {
     width: 100%;
   }
