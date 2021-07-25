@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
+import { useHistory } from "react-router-dom";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
 const BookCarousel = ({ data }) => {
+  const history = useHistory();
+
   const [currentIndex, setCurrentIndex] = useState(3);
 
   const dataList = [
@@ -23,8 +26,6 @@ const BookCarousel = ({ data }) => {
   };
   const bookWrap = useRef();
   const bookImage = useRef();
-
-  useEffect(() => {}, [currentIndex]);
 
   const rightClickHandler = () => {
     if (currentIndex === dataLength - 1) return;
@@ -61,6 +62,10 @@ const BookCarousel = ({ data }) => {
     setCurrentIndex(currentIndex - 1);
   };
 
+  const productClickHandler = (category, id) => {
+    history.push(`/product/${category}/${id}`);
+  };
+
   return (
     <Contents>
       <Icon className="fas fa-chevron-left" onClick={leftClickHandler}></Icon>
@@ -71,7 +76,24 @@ const BookCarousel = ({ data }) => {
             if (index === currentIndex) {
               return (
                 <Book key={index} style={{ left: `${20 * index}%`, zIndex: "1" }}>
-                  <Cover src={item.coverImage.front} style={{ opacity: "1" }} ref={bookImage} />
+                  <Cover
+                    src={item.coverImage.front}
+                    style={{ opacity: "1" }}
+                    ref={bookImage}
+                    onClick={() => productClickHandler(item.category, item._id)}
+                  />
+                </Book>
+              );
+            }
+            if (index === currentIndex + 1 || index === currentIndex - 1) {
+              return (
+                <Book key={index} style={{ left: `${20 * index}%` }}>
+                  <Cover
+                    src={item.coverImage.front}
+                    style={{ opacity: "0.5", transform: "scale(0.6)" }}
+                    ref={bookImage}
+                    onClick={() => productClickHandler(item.category, item._id)}
+                  />
                 </Book>
               );
             } else {
@@ -81,6 +103,7 @@ const BookCarousel = ({ data }) => {
                     src={item.coverImage.front}
                     style={{ opacity: "0.5", transform: "scale(0.4)" }}
                     ref={bookImage}
+                    onClick={() => productClickHandler(item.category, item._id)}
                   />
                 </Book>
               );
@@ -220,4 +243,5 @@ const Book = styled.div`
 const Cover = styled.img`
   height: inherit;
   transition: 0.5s ease-in-out;
+  cursor: pointer;
 `;
