@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import React from "react";
+import styled from "styled-components";
 
 // Components
-import PageWrap from "@/components/style/layout/PageWrap";
 import AdCarousel from "@/components/HomePage/AdCarousel";
 import NewArrival from "@/components/HomePage/NewArrival";
 import TodayProducts from "@/components/HomePage/TodayProducts";
@@ -12,13 +11,13 @@ import { device } from "@/components/style/responsiveBreakPoints";
 
 // Images
 import homepageImage from "@/image/homepageImage.jpg";
-import ad1 from "@/image/MainAd/1.png";
-import ad2 from "@/image/MainAd/2.png";
-import ad3 from "@/image/MainAd/3.png";
-import ad4 from "@/image/MainAd/4.jpg";
 
 const HomePage = () => {
-  const adList2 = [ad1, ad2, ad3];
+  const adList2 = [
+    "https://ifh.cc/g/TiXOK2.png",
+    "https://ifh.cc/g/9M1uei.png",
+    "https://ifh.cc/g/gCJCD4.png",
+  ];
 
   return (
     <Wrap>
@@ -30,7 +29,7 @@ const HomePage = () => {
             <AdCarousel data={adList2} />
           </CarouselWrap>
           <Ad>
-            <img src={ad4} />
+            <img src="https://ifh.cc/g/7yF5nh.jpg" />
           </Ad>
         </AdWrap>
         <NewArrival />
