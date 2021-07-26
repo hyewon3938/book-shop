@@ -73,11 +73,15 @@ const HomePage = () => {
     <Wrap>
       {isMobileMode ? (
         <MainImage mobile="true">
-          <img src={homepageLogo} alt="bookshop logo" />
+          <div>
+            <img src={homepageLogo} alt="bookshop logo" />
+          </div>
         </MainImage>
       ) : (
         <MainImage>
-          <img src={homepageLogo} alt="bookshop logo" />
+          <div>
+            <img src={homepageLogo} alt="bookshop logo" />
+          </div>
         </MainImage>
       )}
       <ContentsWrap>
@@ -121,10 +125,6 @@ const MainImage = styled.div`
   background: #969c48;
   background-image: url(homepageImage.jpg);
   background-size: cover;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-  padding: 20px;
   ${(props) => {
     if (props.mobile) {
       return css`
@@ -132,6 +132,15 @@ const MainImage = styled.div`
       `;
     }
   }}
+  div {
+    max-width: 1300px;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding: 20px;
+  }
   img {
     width: 180px;
   }
