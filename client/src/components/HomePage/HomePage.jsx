@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
 import { debounce } from "lodash";
 import { useHistory } from "react-router-dom";
@@ -15,6 +16,9 @@ import { device } from "@/components/style/responsiveBreakPoints";
 import homepageImage from "@/image/homepageImage.jpg";
 import mobileHomepageImage from "@/image/mobileHomepageImage.jpg";
 import homepageLogo from "@/image/homepageLogo.png";
+
+// Actions
+import { setIsHomePage } from "@/redux/actions/homePageActions";
 
 const adList = {
   pc: ["https://ifh.cc/g/TiXOK2.png", "https://ifh.cc/g/9M1uei.png", "https://ifh.cc/g/gCJCD4.png"],
@@ -34,6 +38,17 @@ const ad = {
 
 const HomePage = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const homePageData = useSelector((state) => state.homePage);
+  const { isHomePage } = homePageData;
+
+  useEffect(() => {
+    dispatch(setIsHomePage(true));
+    return () => {
+      dispatch(setIsHomePage(false));
+    };
+  }, []);
 
   const [isMobileMode, setIsMobileMode] = useState(window.innerWidth > device.small ? false : true);
   const adCarouselData = isMobileMode ? adList.mobile : adList.pc;
