@@ -78,6 +78,9 @@ const AdCarousel = ({ data }) => {
           );
         })}
       </AdImageWrap>
+      <IndexIndicator>{`${
+        data.length < currentIndex ? 1 : currentIndex === 0 ? data.length : currentIndex
+      } / ${data.length}`}</IndexIndicator>
     </Contents>
   );
 };
@@ -124,6 +127,22 @@ const Contents = styled.div`
   overflow: hidden;
   &:hover ${Icon} {
     display: flex;
+  }
+`;
+
+const IndexIndicator = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 20px;
+  bottom: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 15px;
+  color: white;
+  border-radius: 20px;
+  @media (max-width: ${device.extraSmall}px) {
+    padding: 5px 10px;
   }
 `;
 
