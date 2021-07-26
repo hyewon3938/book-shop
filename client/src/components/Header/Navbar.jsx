@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import { throttle } from "lodash";
@@ -12,6 +12,9 @@ import { device } from "@/components/style/responsiveBreakPoints";
 
 const Navbar = ({ click }) => {
   const [isScrollTop, setIsScrollTop] = useState(true);
+
+  const homePageData = useSelector((state) => state.homePage);
+  const { isHomePage } = homePageData;
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
@@ -51,9 +54,7 @@ const Navbar = ({ click }) => {
         <div></div>
       </HamburgerMenu>
       <StyledLink to="/">
-        <Logo>
-          <img src={logo} alt="logo" />
-        </Logo>
+        <Logo>{isHomePage && isScrollTop ? "" : <img src={logo} alt="logo" />}</Logo>
       </StyledLink>
       <Menu>
         <button>
