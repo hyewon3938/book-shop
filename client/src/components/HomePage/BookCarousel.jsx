@@ -75,7 +75,10 @@ const BookCarousel = ({ data }) => {
           {dataList.map((item, index) => {
             if (index === currentIndex) {
               return (
-                <Book key={index} style={{ left: `${20 * index}%`, zIndex: "2" }}>
+                <Book
+                  key={index}
+                  style={{ left: `${20 * index}%`, zIndex: "2", cursor: "pointer" }}
+                >
                   <Cover
                     src={item.coverImage.front}
                     style={{ opacity: "1" }}
@@ -92,7 +95,6 @@ const BookCarousel = ({ data }) => {
                     src={item.coverImage.front}
                     style={{ opacity: "0.8", transform: "scale(0.6)" }}
                     ref={bookImage}
-                    onClick={() => productClickHandler(item.category, item._id)}
                   />
                 </Book>
               );
@@ -103,7 +105,6 @@ const BookCarousel = ({ data }) => {
                     src={item.coverImage.front}
                     style={{ opacity: "0.5", transform: "scale(0.4)" }}
                     ref={bookImage}
-                    onClick={() => productClickHandler(item.category, item._id)}
                   />
                 </Book>
               );
@@ -182,6 +183,7 @@ const BookImageList = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  transition: 0.5s ease-in-out;
 `;
 
 const Description = styled.div`
@@ -216,7 +218,6 @@ const Description = styled.div`
   }
   @media (max-width: ${device.small}px) {
     height: 45%;
-
     span {
       font-size: 18px;
       line-height: 25px;
@@ -241,5 +242,4 @@ const Book = styled.div`
 const Cover = styled.img`
   height: inherit;
   transition: 0.5s ease-in-out;
-  cursor: pointer;
 `;

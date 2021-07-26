@@ -22,6 +22,7 @@ const AdCarousel = ({ data }) => {
   const rightClickHandler = () => {
     autoSlideTimer.pause();
     if (currentIndex === imageLength - 1) return;
+    if (!carouselImage.current) return;
     carouselImage.current.style.transition = `${transitionSec}s ease-in-out`;
     setCurrentIndex(currentIndex + 1);
   };
