@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { debounce } from "lodash";
+import { useHistory } from "react-router-dom";
 
 // Components
 import AdCarousel from "@/components/HomePage/AdCarousel";
@@ -12,12 +14,43 @@ import { device } from "@/components/style/responsiveBreakPoints";
 // Images
 import homepageImage from "@/image/homepageImage.jpg";
 
+const adList = {
+  pc: ["https://ifh.cc/g/TiXOK2.png", "https://ifh.cc/g/9M1uei.png", "https://ifh.cc/g/gCJCD4.png"],
+  mobile: [
+    "https://ifh.cc/g/Bmu0i7.png",
+    "https://ifh.cc/g/PcswRz.png",
+    "https://ifh.cc/g/m13ahX.png",
+  ],
+};
+
+const ad = {
+  pc: "https://ifh.cc/g/G5KtAY.png",
+  mobile: "https://ifh.cc/g/WxvVEM.png",
+  id: "60fbc0b0aeb8ad47dc987aeb",
+  category: "잡지",
+};
+
 const HomePage = () => {
-  const adList2 = [
-    "https://ifh.cc/g/TiXOK2.png",
-    "https://ifh.cc/g/9M1uei.png",
-    "https://ifh.cc/g/gCJCD4.png",
-  ];
+  const history = useHistory();
+
+  const [isMobileMode, setIsMobileMode] = useState(window.innerWidth > device.small ? false : true);
+  const adCarouselData = isMobileMode ? adList.mobile : adList.pc;
+  const adData = isMobileMode ? ad.mobile : ad.pc;
+
+  const resizeEventHandler = debounce(() => {
+    window.innerWidth > device.small ? setIsMobileMode(false) : setIsMobileMode(true);
+  }, 300);
+
+  useEffect(() => {
+    window.addEventListener("resize", resizeEventHandler);
+    return () => {
+      window.removeEventListener("resize", resizeEventHandler);
+    };
+  }, []);
+
+  const adClickHandler = () => {
+    history.push(`/product/${ad.category}/${ad.id}`);
+  };
 
   return (
     <Wrap>
@@ -26,10 +59,13 @@ const HomePage = () => {
         <TodayProducts />
         <AdWrap>
           <CarouselWrap>
-            <AdCarousel data={adList2} />
+            <AdCarousel data={adCarouselData} />
           </CarouselWrap>
           <Ad>
-            <img src="https://ifh.cc/g/d3lJ7S.png" />
+            <div onClick={adClickHandler}>
+              <button>보러가기</button>
+            </div>
+            <img src={adData} />
           </Ad>
         </AdWrap>
         <NewArrival />
@@ -82,28 +118,68 @@ const CarouselWrap = styled.div`
   background: #f2f2f2;
   @media (max-width: ${device.large}px) {
     width: 100%;
-    height: 280px;
-  }
-  @media (max-width: ${device.medium}px) {
-    height: 250px;
+    height: 300px;
   }
   @media (max-width: ${device.small}px) {
-    height: 170px;
+    height: 300px;
+  }
+  @media (max-width: ${device.extraSmall}px) {
+    height: 200px;
   }
 `;
 
 const Ad = styled.div`
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   width: 35%;
   height: 300px;
   padding: 10px;
   background: #44381e;
+  cursor: pointer;
   img {
-    height: 300px;
+    height: 100%;
+  }
+  div {
+    position: absolute;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  button {
+    justify-content: center;
+    align-items: center;
+    border: solid 3px white;
+    color: white;
+    padding: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  &:hover {
+    div {
+      display: flex;
+    }
   }
   @media (max-width: ${device.large}px) {
     width: 100%;
+  }
+  @media (max-width: ${device.small}px) {
+    width: 100%;
+    height: 200px;
+    button {
+      padding: 15px;
+      font-size: 15px;
+    }
+  }
+  @media (max-width: ${device.extraSmall}px) {
+    img {
+      height: auto;
+      width: 100%;
+    }
   }
 `;

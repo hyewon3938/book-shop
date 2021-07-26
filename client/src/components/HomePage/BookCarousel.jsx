@@ -155,9 +155,9 @@ const Contents = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px 0;
+  padding: 30px 0;
   @media (max-width: ${device.large}px) {
-    padding: 10px 15px;
+    padding: 20px 15px;
   }
   @media (max-width: ${device.medium}px) {
     flex-direction: column;
@@ -192,8 +192,6 @@ const Description = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-top: solid 1px lightgrey;
-  border-bottom: solid 1px lightgrey;
   span {
     width: 100%;
     font-family: "NotoSerifKR";
