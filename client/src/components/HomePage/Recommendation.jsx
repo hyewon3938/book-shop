@@ -6,31 +6,32 @@ import styled from "styled-components";
 import { device } from "@/components/style/responsiveBreakPoints";
 
 // Components
-import Product from "@/components/ProductsPage/Product";
 import BookCarousel from "@/components/HomePage/BookCarousel";
 
 // Actions
-import { getProducts } from "@/redux/actions/productActions";
+import { getRecommendation } from "@/redux/actions/homePageActions";
 
-const TodayProducts = () => {
+const Recommendation = () => {
   const dispatch = useDispatch();
 
-  const productsData = useSelector((state) => state.getProducts);
-  const { products, loading, error } = productsData;
+  const recommendationData = useSelector((state) => state.getRecommendation);
+  const { recommendation, loading, error } = recommendationData;
 
   useEffect(() => {
-    dispatch(getProducts("잡지"));
+    dispatch(getRecommendation("가정·요리·뷰티"));
   }, [dispatch]);
 
   return (
     <Wrap>
-      <Title>오늘의 책</Title>
-      <ProductList>{products.length === 0 ? "" : <BookCarousel data={products} />}</ProductList>
+      <Title>북샵 추천 책</Title>
+      <ProductList>
+        {recommendation.length === 0 ? "" : <BookCarousel data={recommendation} />}
+      </ProductList>
     </Wrap>
   );
 };
 
-export default TodayProducts;
+export default Recommendation;
 
 const Wrap = styled.div`
   width: 100%;
