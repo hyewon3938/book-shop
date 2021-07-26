@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { debounce } from "lodash";
 import { useHistory } from "react-router-dom";
 
@@ -13,6 +13,7 @@ import { device } from "@/components/style/responsiveBreakPoints";
 
 // Images
 import homepageImage from "@/image/homepageImage.jpg";
+import mobileHomepageImage from "@/image/mobileHomepageImage.jpg";
 
 const adList = {
   pc: ["https://ifh.cc/g/TiXOK2.png", "https://ifh.cc/g/9M1uei.png", "https://ifh.cc/g/gCJCD4.png"],
@@ -54,7 +55,7 @@ const HomePage = () => {
 
   return (
     <Wrap>
-      <MainImage></MainImage>
+      {isMobileMode ? <MainImage mobile="true"></MainImage> : <MainImage></MainImage>}
       <ContentsWrap>
         <TodayProducts />
         <AdWrap>
@@ -100,6 +101,13 @@ const MainImage = styled.div`
   justify-content: flex-start;
   align-items: flex-end;
   padding: 50px;
+  ${(props) => {
+    if (props.mobile) {
+      return css`
+        background-image: url(mobileHomepageImage.jpg);
+      `;
+    }
+  }}
 `;
 
 const AdWrap = styled.div`
