@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 // Components
 import AdCarousel from "@/components/HomePage/AdCarousel";
 import NewArrival from "@/components/HomePage/NewArrival";
-import TodayProducts from "@/components/HomePage/TodayProducts";
+import Recommendation from "@/components/HomePage/Recommendation";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
@@ -14,6 +14,7 @@ import { device } from "@/components/style/responsiveBreakPoints";
 // Images
 import homepageImage from "@/image/homepageImage.jpg";
 import mobileHomepageImage from "@/image/mobileHomepageImage.jpg";
+import homepageLogo from "@/image/homepageLogo.png";
 
 const adList = {
   pc: ["https://ifh.cc/g/TiXOK2.png", "https://ifh.cc/g/9M1uei.png", "https://ifh.cc/g/gCJCD4.png"],
@@ -55,9 +56,17 @@ const HomePage = () => {
 
   return (
     <Wrap>
-      {isMobileMode ? <MainImage mobile="true"></MainImage> : <MainImage></MainImage>}
+      {isMobileMode ? (
+        <MainImage mobile="true">
+          <img src={homepageLogo} alt="bookshop logo" />
+        </MainImage>
+      ) : (
+        <MainImage>
+          <img src={homepageLogo} alt="bookshop logo" />
+        </MainImage>
+      )}
       <ContentsWrap>
-        <TodayProducts />
+        <Recommendation />
         <AdWrap>
           <CarouselWrap>
             <AdCarousel data={adCarouselData} />
@@ -94,13 +103,13 @@ const ContentsWrap = styled.div`
 const MainImage = styled.div`
   width: 100%;
   height: 300px;
-  background: #a49673;
+  background: #969c48;
   background-image: url(homepageImage.jpg);
   background-size: cover;
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
-  padding: 50px;
+  padding: 20px;
   ${(props) => {
     if (props.mobile) {
       return css`
@@ -108,6 +117,14 @@ const MainImage = styled.div`
       `;
     }
   }}
+  img {
+    width: 180px;
+  }
+  @media (max-width: ${device.small}px) {
+    img {
+      width: 150px;
+    }
+  }
 `;
 
 const AdWrap = styled.div`
