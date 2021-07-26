@@ -5,13 +5,14 @@ import { composeWithDevTools } from "redux-devtools-extension";
 // Reducers
 import { getProductDetailsReducer, getProductsReducer } from "@/redux/reducers/productReducers";
 import { cartReducer } from "@/redux/reducers/cartReducers";
-import { getRecommendationReducer } from "@/redux/reducers/homePageReducers";
+import { getRecommendationReducer, getNewArrivalReducer } from "@/redux/reducers/homePageReducers";
 
 const reducer = combineReducers({
   getProducts: getProductsReducer,
   getProductDetails: getProductDetailsReducer,
   cart: cartReducer,
   getRecommendation: getRecommendationReducer,
+  getNewArrival: getNewArrivalReducer,
 });
 
 const middleware = [thunk];

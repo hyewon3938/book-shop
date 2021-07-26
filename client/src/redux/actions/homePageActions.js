@@ -18,3 +18,21 @@ export const getRecommendation = (category) => async (dispatch) => {
     });
   }
 };
+
+export const getNewArrival = (category) => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.GET_NEW_ARRIVAL_REQUEST });
+
+    const { data } = await axios.get(`/api/products/${category}`);
+    dispatch({
+      type: actionTypes.GET_NEW_ARRIVAL_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_NEW_ARRIVAL_FAIL,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};

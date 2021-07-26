@@ -23,3 +23,27 @@ export const getRecommendationReducer = (state = { recommendation: [] }, action)
       return state;
   }
 };
+
+export const getNewArrivalReducer = (state = { newArrival: [] }, action) => {
+  switch (action.type) {
+    case actionTypes.GET_NEW_ARRIVAL_REQUEST:
+      return {
+        loading: true,
+        newArrival: [],
+      };
+
+    case actionTypes.GET_NEW_ARRIVAL_SUCCESS:
+      return {
+        loading: false,
+        newArrival: action.payload,
+      };
+
+    case actionTypes.GET_NEW_ARRIVAL_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};

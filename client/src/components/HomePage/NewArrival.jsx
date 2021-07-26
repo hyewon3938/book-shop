@@ -9,23 +9,23 @@ import { device } from "@/components/style/responsiveBreakPoints";
 import Product from "@/components/ProductsPage/Product";
 
 // Actions
-import { getProducts } from "@/redux/actions/productActions";
+import { getNewArrival } from "@/redux/actions/homePageActions";
 
 const NewArrival = () => {
   const dispatch = useDispatch();
 
-  const productsData = useSelector((state) => state.getProducts);
-  const { products, loading, error } = productsData;
+  const newArrivalData = useSelector((state) => state.getNewArrival);
+  const { newArrival, loading, error } = newArrivalData;
 
   useEffect(() => {
-    dispatch(getProducts("잡지"));
+    dispatch(getNewArrival("소설"));
   }, [dispatch]);
 
   return (
     <Wrap>
       <Title>새로 들어온 책</Title>
       <NewArrivalList>
-        {products.map((product, index) => {
+        {newArrival.map((product, index) => {
           return <Product key={product._id} data={product} />;
         })}
       </NewArrivalList>
@@ -37,7 +37,12 @@ export default NewArrival;
 
 const Wrap = styled.div`
   width: 100%;
-  padding: 30px 0;
+  padding: 40px 0;
+  margin: 20px 0 0 0;
+  @media (max-width: ${device.small}px) {
+    margin: 0;
+    padding: 30px 0;
+  }
 `;
 
 const Title = styled.div`
