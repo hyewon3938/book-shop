@@ -24,9 +24,17 @@ const Recommendation = () => {
   return (
     <Wrap>
       <Title>북샵 추천 책</Title>
-      <ProductList>
-        {recommendation.length === 0 ? "" : <BookCarousel data={recommendation} />}
-      </ProductList>
+      {error ? (
+        <h2>{error}</h2>
+      ) : loading ? (
+        <ProductList>
+          <BookCarousel />
+        </ProductList>
+      ) : (
+        <ProductList>
+          {recommendation.length === 0 ? "" : <BookCarousel data={recommendation} />}
+        </ProductList>
+      )}
     </Wrap>
   );
 };

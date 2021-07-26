@@ -18,17 +18,33 @@ const NewArrival = () => {
   const { newArrival, loading, error } = newArrivalData;
 
   useEffect(() => {
-    dispatch(getNewArrival("소설"));
+    dispatch(getNewArrival("과학"));
   }, [dispatch]);
+
+  let emptyArray = [];
+
+  for (var i = 0; i < 20; i++) {
+    emptyArray.push(i);
+  }
 
   return (
     <Wrap>
-      <Title>새로 들어온 책</Title>
-      <NewArrivalList>
-        {newArrival.map((product, index) => {
-          return <Product key={product._id} data={product} />;
-        })}
-      </NewArrivalList>
+      <Title>새로 들어온 책 ({newArrival.length})</Title>
+      {error ? (
+        <h2>{error}</h2>
+      ) : loading ? (
+        <NewArrivalList>
+          {emptyArray.map((product, index) => {
+            return <Product key={index} />;
+          })}
+        </NewArrivalList>
+      ) : (
+        <NewArrivalList>
+          {newArrival.map((product, index) => {
+            return <Product key={product._id} data={product} />;
+          })}
+        </NewArrivalList>
+      )}
     </Wrap>
   );
 };

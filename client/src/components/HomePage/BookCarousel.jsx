@@ -4,21 +4,24 @@ import { useHistory } from "react-router-dom";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
+import { shine, animationSec } from "@/components/style/skeletonLoadingAnimation";
 
 const BookCarousel = ({ data }) => {
   const history = useHistory();
 
   const [currentIndex, setCurrentIndex] = useState(3);
 
-  const dataList = [
-    data[data.length - 3],
-    data[data.length - 2],
-    data[data.length - 1],
-    ...data,
-    data[0],
-    data[1],
-    data[2],
-  ];
+  const dataList = !data
+    ? 0
+    : [
+        data[data.length - 3],
+        data[data.length - 2],
+        data[data.length - 1],
+        ...data,
+        data[0],
+        data[1],
+        data[2],
+      ];
   const dataLength = dataList.length;
 
   const carouselStyle = {
@@ -66,61 +69,105 @@ const BookCarousel = ({ data }) => {
     history.push(`/product/${category}/${id}`);
   };
 
+  let emptyArray = [];
+
+  for (var i = 0; i < 9; i++) {
+    emptyArray.push(i);
+  }
+
   return (
-    <Contents>
-      <Icon className="fas fa-chevron-left" onClick={leftClickHandler}></Icon>
-      <Icon className="fas fa-chevron-right" right onClick={rightClickHandler}></Icon>
-      <BookWrap>
-        <BookImageList ref={bookWrap} style={carouselStyle}>
-          {dataList.map((item, index) => {
-            if (index === currentIndex) {
-              return (
-                <Book
-                  key={index}
-                  style={{ left: `${20 * index}%`, zIndex: "2", cursor: "pointer" }}
-                >
-                  <Cover
-                    src={item.coverImage.front}
-                    style={{ opacity: "1" }}
-                    ref={bookImage}
-                    onClick={() => productClickHandler(item.category, item._id)}
-                  />
-                </Book>
-              );
-            }
-            if (index === currentIndex + 1 || index === currentIndex - 1) {
-              return (
-                <Book key={index} style={{ left: `${20 * index}%`, zIndex: "1" }}>
-                  <Cover
-                    src={item.coverImage.front}
-                    style={{ opacity: "0.8", transform: "scale(0.6)" }}
-                    ref={bookImage}
-                  />
-                </Book>
-              );
-            } else {
-              return (
-                <Book key={index} style={{ left: `${20 * index}%` }}>
-                  <Cover
-                    src={item.coverImage.front}
-                    style={{ opacity: "0.5", transform: "scale(0.4)" }}
-                    ref={bookImage}
-                  />
-                </Book>
-              );
-            }
-          })}
-        </BookImageList>
-      </BookWrap>
-      <Description>
-        <span>{dataList[currentIndex].title}</span>
-        <p>
-          사람들이 책을 읽지 않게 되었다는 이야기가 나온 것은 이미 오래다. 너무 많이 들어서 더 이상
-          문제의식을 갖지 않는 사람도 있을 것이다. 그렇다면 우리는 책을 읽지 않고 무엇을 하고
-          있을까? 독서를 하지 않는다고 아예 글자를 안 보는 것은 아니다. 오히려 읽는 양은 더 늘었다.
-        </p>
-      </Description>
-    </Contents>
+    <>
+      {!data ? (
+        <Contents>
+          <BookWrap>
+            <BookImageList ref={bookWrap} style={carouselStyle}>
+              {emptyArray.map((item, index) => {
+                if (index === currentIndex) {
+                  return (
+                    <Book
+                      key={index}
+                      style={{ left: `${20 * index}%`, zIndex: "2", cursor: "pointer" }}
+                    >
+                      <div></div>
+                    </Book>
+                  );
+                }
+                if (index === currentIndex + 1 || index === currentIndex - 1) {
+                  return (
+                    <Book key={index} style={{ left: `${20 * index}%`, zIndex: "1" }}>
+                      <div style={{ opacity: "0.8", transform: "scale(0.6)" }}></div>
+                    </Book>
+                  );
+                } else {
+                  return (
+                    <Book key={index} style={{ left: `${20 * index}%` }}>
+                      <div style={{ opacity: "0.5", transform: "scale(0.4)" }}></div>
+                    </Book>
+                  );
+                }
+              })}
+            </BookImageList>
+          </BookWrap>
+          <Description loading="true"></Description>
+        </Contents>
+      ) : (
+        <Contents>
+          <Icon className="fas fa-chevron-left" onClick={leftClickHandler}></Icon>
+          <Icon className="fas fa-chevron-right" right onClick={rightClickHandler}></Icon>
+          <BookWrap>
+            <BookImageList ref={bookWrap} style={carouselStyle}>
+              {dataList.map((item, index) => {
+                if (index === currentIndex) {
+                  return (
+                    <Book
+                      key={index}
+                      style={{ left: `${20 * index}%`, zIndex: "2", cursor: "pointer" }}
+                    >
+                      <Cover
+                        src={item.coverImage.front}
+                        style={{ opacity: "1" }}
+                        ref={bookImage}
+                        onClick={() => productClickHandler(item.category, item._id)}
+                      />
+                    </Book>
+                  );
+                }
+                if (index === currentIndex + 1 || index === currentIndex - 1) {
+                  return (
+                    <Book key={index} style={{ left: `${20 * index}%`, zIndex: "1" }}>
+                      <Cover
+                        src={item.coverImage.front}
+                        style={{ opacity: "0.8", transform: "scale(0.6)" }}
+                        ref={bookImage}
+                      />
+                    </Book>
+                  );
+                } else {
+                  return (
+                    <Book key={index} style={{ left: `${20 * index}%` }}>
+                      <Cover
+                        src={item.coverImage.front}
+                        style={{ opacity: "0.5", transform: "scale(0.4)" }}
+                        ref={bookImage}
+                      />
+                    </Book>
+                  );
+                }
+              })}
+            </BookImageList>
+          </BookWrap>
+          <Description>
+            <span>{dataList[currentIndex].title}</span>
+            <p>
+              사람들이 책을 읽지 않게 되었다는 이야기가 나온 것은 이미 오래다. 너무 많이 들어서 더
+              이상 문제의식을 갖지 않는 사람도 있을 것이다. 그렇다면 우리는 책을 읽지 않고 무엇을
+              하고 있을까? 독서를 하지 않는다고 아예 글자를 안 보는 것은 아니다. 오히려 읽는 양은 더
+              늘었다.
+            </p>
+          </Description>
+        </Contents>
+      )}
+    </>
   );
 };
 
@@ -163,6 +210,14 @@ const Contents = styled.div`
   @media (max-width: ${device.medium}px) {
     flex-direction: column;
   }
+  ${(props) => {
+    if (props.loading) {
+      return css`
+        background-color: #e2e5e7;
+        animation: ${shine} ${animationSec}s ease infinite;
+      `;
+    }
+  }}
 `;
 
 const BookWrap = styled.div`
@@ -228,6 +283,14 @@ const Description = styled.div`
       font-size: 13px;
     }
   }
+  ${(props) => {
+    if (props.loading) {
+      return css`
+        background-color: #e2e5e7;
+        animation: ${shine} ${animationSec}s ease infinite;
+      `;
+    }
+  }}
 `;
 
 const Book = styled.div`
@@ -237,6 +300,12 @@ const Book = styled.div`
   position: absolute;
   width: 20%;
   height: 100%;
+  div {
+    width: 400px;
+    height: 95%;
+    background-color: #e2e5e7;
+    animation: ${shine} ${animationSec}s ease infinite;
+  }
 `;
 
 const Cover = styled.img`

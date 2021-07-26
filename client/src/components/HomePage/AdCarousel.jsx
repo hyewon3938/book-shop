@@ -138,11 +138,13 @@ const IndexIndicator = styled.div`
   right: 20px;
   bottom: 20px;
   background: rgba(0, 0, 0, 0.5);
-  padding: 10px 15px;
+  width: 50px;
+  height: 30px;
   color: white;
   border-radius: 20px;
   @media (max-width: ${device.extraSmall}px) {
-    padding: 5px 10px;
+    width: 45px;
+    height: 25px;
   }
 `;
 

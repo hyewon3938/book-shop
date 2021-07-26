@@ -11,6 +11,7 @@ import Recommendation from "@/components/HomePage/Recommendation";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
+import { shine, animationSec } from "@/components/style/skeletonLoadingAnimation";
 
 // Images
 import homepageImage from "@/image/homepageImage.jpg";
@@ -69,6 +70,7 @@ const HomePage = () => {
     history.push(`/product/${ad.category}/${ad.id}`);
   };
 
+  const loading = false;
   return (
     <Wrap>
       {isMobileMode ? (
@@ -86,17 +88,21 @@ const HomePage = () => {
       )}
       <ContentsWrap>
         <Recommendation />
-        <AdWrap>
-          <CarouselWrap>
-            <AdCarousel data={adCarouselData} />
-          </CarouselWrap>
-          <Ad>
-            <div onClick={adClickHandler}>
-              <button>보러가기</button>
-            </div>
-            <img src={adData} />
-          </Ad>
-        </AdWrap>
+        {loading ? (
+          <AdWrap loading="true"></AdWrap>
+        ) : (
+          <AdWrap>
+            <CarouselWrap>
+              <AdCarousel data={adCarouselData} />
+            </CarouselWrap>
+            <Ad>
+              <div onClick={adClickHandler}>
+                <button>보러가기</button>
+              </div>
+              <img src={adData} />
+            </Ad>
+          </AdWrap>
+        )}
         <NewArrival />
       </ContentsWrap>
     </Wrap>
@@ -139,12 +145,15 @@ const MainImage = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
-    padding: 20px;
+    padding: 40px 20px;
   }
   img {
     width: 180px;
   }
   @media (max-width: ${device.small}px) {
+    div {
+      padding: 20px;
+    }
     img {
       width: 150px;
     }
@@ -159,6 +168,21 @@ const AdWrap = styled.div`
   @media (max-width: ${device.large}px) {
     flex-direction: column;
   }
+  ${(props) => {
+    if (props.loading) {
+      return css`
+        background-color: #e2e5e7;
+        animation: ${shine} ${animationSec}s ease infinite;
+        height: 300px;
+        @media (max-width: ${device.large}px) {
+          height: 600px;
+        }
+        @media (max-width: ${device.extraSmall}px) {
+          height: 400px;
+        }
+      `;
+    }
+  }}
 `;
 
 const CarouselWrap = styled.div`
