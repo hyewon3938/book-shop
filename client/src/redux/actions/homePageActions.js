@@ -1,6 +1,10 @@
 import * as actionTypes from "@/redux/constants/homePageConstants";
 import axios from "axios";
 
+export const setIsHomePage = (payload) => async (dispatch) => {
+  dispatch({ type: actionTypes.SET_IS_HOMEPAGE, payload: payload });
+};
+
 export const getRecommendation = (category) => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_RECOMMENDATION_REQUEST });

@@ -1,5 +1,17 @@
 import * as actionTypes from "@/redux/constants/homePageConstants";
 
+export const homePageReducer = (state = { isHomePage: true }, action) => {
+  switch (action.type) {
+    case actionTypes.SET_IS_HOMEPAGE:
+      return {
+        ...state,
+        isHomePage: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
 export const getRecommendationReducer = (state = { recommendation: [] }, action) => {
   switch (action.type) {
     case actionTypes.GET_RECOMMENDATION_REQUEST:
