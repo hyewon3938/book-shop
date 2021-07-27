@@ -18,7 +18,7 @@ const NewArrival = () => {
   const { newArrival, loading, error } = newArrivalData;
 
   useEffect(() => {
-    dispatch(getNewArrival("과학"));
+    dispatch(getNewArrival());
   }, [dispatch]);
 
   let emptyArray = [];
@@ -29,7 +29,7 @@ const NewArrival = () => {
 
   return (
     <Wrap>
-      <Title>새로 들어온 책 ({newArrival.length})</Title>
+      <Title>새로 들어온 책</Title>
       {error ? (
         <h2>{error}</h2>
       ) : loading ? (

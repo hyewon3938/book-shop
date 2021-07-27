@@ -23,11 +23,11 @@ export const getRecommendation = (category) => async (dispatch) => {
   }
 };
 
-export const getNewArrival = (category) => async (dispatch) => {
+export const getNewArrival = () => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_NEW_ARRIVAL_REQUEST });
 
-    const { data } = await axios.get(`/api/products/${category}`);
+    const { data } = await axios.get(`/api/newArrival`);
     dispatch({
       type: actionTypes.GET_NEW_ARRIVAL_SUCCESS,
       payload: data,
