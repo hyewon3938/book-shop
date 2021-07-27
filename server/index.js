@@ -4,6 +4,7 @@ const path = require("path");
 
 const connectDB = require("./config/db");
 const productRoutes = require("./routes/productRoutes");
+const newArrivalRoutes = require("./routes/newArrivalRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/api/products", productRoutes);
+app.use("/api/newArrival", newArrivalRoutes);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
