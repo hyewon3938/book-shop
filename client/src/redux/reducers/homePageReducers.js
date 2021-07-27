@@ -1,6 +1,6 @@
 import * as actionTypes from "@/redux/constants/homePageConstants";
 
-export const homePageReducer = (state = { isHomePage: true }, action) => {
+export const homePageReducer = (state = { isHomePage: false }, action) => {
   switch (action.type) {
     case actionTypes.SET_IS_HOMEPAGE:
       return {
