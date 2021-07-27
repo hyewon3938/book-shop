@@ -30,6 +30,7 @@ const AdCarousel = ({ data }) => {
   const autoSlideTimer = new Timer(rightClickHandler, autoSlideDelay);
 
   useEffect(() => {
+    if (!carouselImage) return;
     if (currentIndex === 0) {
       let timeId = setTimeout(() => {
         carouselImage.current.style.transition = "none";
