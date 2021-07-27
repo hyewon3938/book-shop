@@ -5,11 +5,11 @@ export const setIsHomePage = (payload) => async (dispatch) => {
   dispatch({ type: actionTypes.SET_IS_HOMEPAGE, payload: payload });
 };
 
-export const getRecommendation = (category) => async (dispatch) => {
+export const getRecommendation = () => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_RECOMMENDATION_REQUEST });
 
-    const { data } = await axios.get(`/api/products/${category}`);
+    const { data } = await axios.get(`/api/recommendation`);
     dispatch({
       type: actionTypes.GET_RECOMMENDATION_SUCCESS,
       payload: data,

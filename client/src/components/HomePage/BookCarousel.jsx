@@ -118,7 +118,7 @@ const BookCarousel = ({ data }) => {
                       style={{ left: `${20 * index}%`, zIndex: "2", cursor: "pointer" }}
                     >
                       <Cover
-                        src={item.coverImage.front}
+                        src={item.coverImage}
                         style={{ opacity: "1" }}
                         onClick={() => productClickHandler(item.category, item._id)}
                       />
@@ -129,7 +129,7 @@ const BookCarousel = ({ data }) => {
                   return (
                     <Book key={index} style={{ left: `${20 * index}%`, zIndex: "1" }}>
                       <Cover
-                        src={item.coverImage.front}
+                        src={item.coverImage}
                         style={{ opacity: "0.8", transform: "scale(0.6)" }}
                       />
                     </Book>
@@ -138,7 +138,7 @@ const BookCarousel = ({ data }) => {
                   return (
                     <Book key={index} style={{ left: `${20 * index}%` }}>
                       <Cover
-                        src={item.coverImage.front}
+                        src={item.coverImage}
                         style={{ opacity: "0.5", transform: "scale(0.4)" }}
                       />
                     </Book>
@@ -148,13 +148,8 @@ const BookCarousel = ({ data }) => {
             </BookImageList>
           </BookWrap>
           <Description>
-            <span>{dataList[currentIndex].title}</span>
-            <p>
-              사람들이 책을 읽지 않게 되었다는 이야기가 나온 것은 이미 오래다. 너무 많이 들어서 더
-              이상 문제의식을 갖지 않는 사람도 있을 것이다. 그렇다면 우리는 책을 읽지 않고 무엇을
-              하고 있을까? 독서를 하지 않는다고 아예 글자를 안 보는 것은 아니다. 오히려 읽는 양은 더
-              늘었다.
-            </p>
+            <div>{dataList[currentIndex].title}</div>
+            <p>{dataList[currentIndex].description}</p>
           </Description>
         </Contents>
       )}

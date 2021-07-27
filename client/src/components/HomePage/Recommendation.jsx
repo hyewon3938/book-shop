@@ -18,7 +18,7 @@ const Recommendation = () => {
   const { recommendation, loading, error } = recommendationData;
 
   useEffect(() => {
-    dispatch(getRecommendation("가정·요리·뷰티"));
+    dispatch(getRecommendation());
   }, [dispatch]);
 
   return (
