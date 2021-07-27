@@ -197,6 +197,7 @@ const Contents = styled.div`
   @media (max-width: ${device.medium}px) {
     flex-direction: column;
     justify-content: space-around;
+    padding: 20px 15px 0 15px;
   }
   ${(props) => {
     if (props.loading) {
@@ -254,7 +255,7 @@ const Description = styled.div`
     font-weight: bold;
     line-height: 25px;
     word-break: keep-all;
-    margin: 0 0 20px 0;
+    margin: 0 0 40px 0;
     border-bottom: 1px #ccc18f solid;
     border-top: 1px #ccc18f solid;
     padding: 10px 0 10px 0;
@@ -271,15 +272,24 @@ const Description = styled.div`
 
   @media (max-width: ${device.medium}px) {
     width: 100%;
-    height: 40%;
+    height: 45%;
     margin: 0;
+    div {
+      margin: 0 0 20px 0;
+    }
   }
   @media (max-width: ${device.small}px) {
+    div {
+      font-size: 16px;
+    }
     p {
       font-size: 14px;
     }
   }
   @media (max-width: ${device.extraSmall}px) {
+    div {
+      font-size: 15px;
+    }
     height: 55%;
   }
   ${(props) => {

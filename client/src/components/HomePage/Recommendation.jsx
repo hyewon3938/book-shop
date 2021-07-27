@@ -73,7 +73,7 @@ const ProductList = styled.div`
     height: 500px;
   }
   @media (max-width: ${device.small}px) {
-    height: 650px;
+    height: 500px;
   }
   @media (max-width: ${device.extraSmall}px) {
     height: 550px;
