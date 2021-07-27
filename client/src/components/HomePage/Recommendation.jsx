@@ -67,12 +67,15 @@ const ProductList = styled.div`
   display: flex;
   height: 350px;
   width: 100%;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   @media (max-width: ${device.medium}px) {
     height: 500px;
   }
   @media (max-width: ${device.small}px) {
+    height: 650px;
+  }
+  @media (max-width: ${device.extraSmall}px) {
     height: 550px;
   }
 `;

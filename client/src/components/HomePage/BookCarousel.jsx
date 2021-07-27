@@ -169,14 +169,15 @@ const Icon = styled.i`
   font-size: 25px;
   cursor: pointer;
   z-index: 50;
+  color: #383737;
   ${(props) => {
     if (props.right) {
       return css`
-        right: 20px;
+        right: 10px;
       `;
     } else {
       return css`
-        left: 20px;
+        left: 10px;
       `;
     }
   }}
@@ -195,6 +196,7 @@ const Contents = styled.div`
   }
   @media (max-width: ${device.medium}px) {
     flex-direction: column;
+    justify-content: space-around;
   }
   ${(props) => {
     if (props.loading) {
@@ -210,12 +212,20 @@ const BookWrap = styled.div`
   width: 50%;
   height: 100%;
   overflow: hidden;
+  @media (max-width: ${device.large}px) {
+    width: 45%;
+  }
   @media (max-width: ${device.medium}px) {
     width: 100%;
-    height: 55%;
+    height: 50%;
   }
   @media (max-width: ${device.small}px) {
-    height: 50%;
+    width: 100%;
+    height: 45%;
+  }
+  @media (max-width: ${device.extraSmall}px) {
+    width: 100%;
+    height: 40%;
   }
 `;
 const BookImageList = styled.div`
@@ -228,46 +238,49 @@ const BookImageList = styled.div`
 `;
 
 const Description = styled.div`
-  width: 50%;
+  width: 40%;
   height: 100%;
-  padding: 20px 70px 20px 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  span {
+  padding: 10px 50px;
+  text-align: center;
+  margin: 0 0 0 20px;
+  div {
     width: 100%;
     font-family: "NotoSerifKR";
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
     line-height: 25px;
-    text-align: center;
     word-break: keep-all;
+    margin: 0 0 20px 0;
+    border-bottom: 1px #ccc18f solid;
+    border-top: 1px #ccc18f solid;
+    padding: 10px 0 10px 0;
   }
   p {
-    padding: 20px 0;
+    width: 100%;
     line-height: 22px;
     font-size: 15px;
     color: #585858;
   }
+  @media (max-width: ${device.extraLarge}px) {
+    padding: 10px 30px;
+  }
+
   @media (max-width: ${device.medium}px) {
     width: 100%;
-    border: none;
-    padding: 20px;
-    height: 45%;
-    padding: 20px 20px 10px 20px;
+    height: 40%;
+    margin: 0;
   }
   @media (max-width: ${device.small}px) {
-    height: 45%;
-    span {
-      font-size: 18px;
-      line-height: 25px;
-      margin: 30px 0 0 0;
-    }
     p {
-      line-height: 20px;
-      font-size: 13px;
+      font-size: 14px;
     }
+  }
+  @media (max-width: ${device.extraSmall}px) {
+    height: 55%;
   }
   ${(props) => {
     if (props.loading) {
