@@ -10,7 +10,6 @@ const BookCarousel = ({ data }) => {
   const history = useHistory();
 
   const [currentIndex, setCurrentIndex] = useState(3);
-
   const dataList = !data
     ? 0
     : [
@@ -28,12 +27,10 @@ const BookCarousel = ({ data }) => {
     transform: `translateX(-${20 * (currentIndex - 2)}%)`,
   };
   const bookWrap = useRef();
-  const bookImage = useRef();
 
   const rightClickHandler = () => {
     if (currentIndex === dataLength - 1) return;
     bookWrap.current.style.transition = `0.5s ease-in-out`;
-    bookImage.current.style.transition = `0.5s ease-in-out`;
     setCurrentIndex(currentIndex + 1);
   };
 
@@ -41,7 +38,6 @@ const BookCarousel = ({ data }) => {
     if (currentIndex === 2) {
       let timeId = setTimeout(() => {
         bookWrap.current.style.transition = "none";
-        bookImage.current.style.transition = "none";
         setCurrentIndex(dataLength - 4);
         clearTimeout(timeId);
       }, 500);
@@ -50,7 +46,6 @@ const BookCarousel = ({ data }) => {
     if (currentIndex === dataLength - 3) {
       let timeId = setTimeout(() => {
         bookWrap.current.style.transition = "none";
-        bookImage.current.style.transition = "none";
         setCurrentIndex(3);
         clearTimeout(timeId);
       }, 500);
@@ -61,7 +56,6 @@ const BookCarousel = ({ data }) => {
   const leftClickHandler = () => {
     if (currentIndex === 0) return;
     bookWrap.current.style.transition = `0.5s ease-in-out`;
-    bookImage.current.style.transition = `0.5s ease-in-out`;
     setCurrentIndex(currentIndex - 1);
   };
 
@@ -126,7 +120,6 @@ const BookCarousel = ({ data }) => {
                       <Cover
                         src={item.coverImage.front}
                         style={{ opacity: "1" }}
-                        ref={bookImage}
                         onClick={() => productClickHandler(item.category, item._id)}
                       />
                     </Book>
@@ -138,7 +131,6 @@ const BookCarousel = ({ data }) => {
                       <Cover
                         src={item.coverImage.front}
                         style={{ opacity: "0.8", transform: "scale(0.6)" }}
-                        ref={bookImage}
                       />
                     </Book>
                   );
@@ -148,7 +140,6 @@ const BookCarousel = ({ data }) => {
                       <Cover
                         src={item.coverImage.front}
                         style={{ opacity: "0.5", transform: "scale(0.4)" }}
-                        ref={bookImage}
                       />
                     </Book>
                   );
@@ -300,6 +291,7 @@ const Book = styled.div`
   position: absolute;
   width: 20%;
   height: 100%;
+  transition: inherit;
   div {
     width: 400px;
     height: 95%;
@@ -310,5 +302,5 @@ const Book = styled.div`
 
 const Cover = styled.img`
   height: inherit;
-  transition: 0.5s ease-in-out;
+  transition: inherit;
 `;

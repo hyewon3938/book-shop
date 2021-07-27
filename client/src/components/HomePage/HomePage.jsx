@@ -44,13 +44,6 @@ const HomePage = () => {
   const homePageData = useSelector((state) => state.homePage);
   const { isHomePage } = homePageData;
 
-  useEffect(() => {
-    dispatch(setIsHomePage(true));
-    return () => {
-      dispatch(setIsHomePage(false));
-    };
-  }, []);
-
   const [isMobileMode, setIsMobileMode] = useState(window.innerWidth > device.small ? false : true);
   const adCarouselData = isMobileMode ? adList.mobile : adList.pc;
   const adData = isMobileMode ? ad.mobile : ad.pc;
@@ -63,6 +56,13 @@ const HomePage = () => {
     window.addEventListener("resize", resizeEventHandler);
     return () => {
       window.removeEventListener("resize", resizeEventHandler);
+    };
+  }, []);
+
+  useEffect(() => {
+    dispatch(setIsHomePage(true));
+    return () => {
+      dispatch(setIsHomePage(false));
     };
   }, []);
 
