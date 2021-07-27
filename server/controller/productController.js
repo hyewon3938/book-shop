@@ -2,7 +2,9 @@ const Product = require("../models/Products");
 
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find({}).select("title price coverImage writer category");
+    const products = await Product.find({})
+      .sort({ receivingDate: -1 })
+      .select("title price coverImage writer category receivingDate");
 
     res.json(products);
   } catch (error) {
@@ -24,11 +26,11 @@ const getProductById = async (req, res) => {
 
 const getProductByCategory = async (req, res) => {
   try {
-    const product = await Product.find({ category: req.params.category }).select(
-      "title price coverImage writer category"
-    );
+    const products = await Product.find({ category: req.params.category })
+      .sort({ receivingDate: -1 })
+      .select("title price coverImage writer category receivingDate");
 
-    res.json(product);
+    res.json(products);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
