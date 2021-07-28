@@ -9,6 +9,7 @@ import {
   homePageReducer,
   getRecommendationReducer,
   getNewArrivalReducer,
+  getAdReducer,
 } from "@/redux/reducers/homePageReducers";
 
 const reducer = combineReducers({
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   homePage: homePageReducer,
   getRecommendation: getRecommendationReducer,
   getNewArrival: getNewArrivalReducer,
+  getAd: getAdReducer,
 });
 
 const middleware = [thunk];
