@@ -1,14 +1,13 @@
 const Recommendation = require("../models/Recommendation");
-const Product = require("../models/Products");
 
 const getRecommendation = async (req, res) => {
   try {
     const recommendation = await Recommendation.aggregate([
-      { $addFields: { product_id: { $toObjectId: "$product_id" } } },
+      { $addFields: { productId: { $toObjectId: "$product_id" } } },
       {
         $lookup: {
           from: "products",
-          localField: "product_id",
+          localField: "productId",
           foreignField: "_id",
           as: "productInfo",
         },
@@ -16,9 +15,11 @@ const getRecommendation = async (req, res) => {
       { $unwind: "$productInfo" },
       {
         $project: {
+          product_id: 1,
           description: 1,
           title: "$productInfo.title",
           coverImage: "$productInfo.coverImage.front",
+          category: "$productInfo.category",
         },
       },
     ]);
