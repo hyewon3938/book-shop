@@ -26,18 +26,18 @@ const BookCarousel = ({ data }) => {
   const carouselStyle = {
     transform: `translateX(-${20 * (currentIndex - 2)}%)`,
   };
-  const bookWrap = useRef();
+  const bookImageList = useRef();
 
   const rightClickHandler = () => {
     if (currentIndex === dataLength - 1) return;
-    bookWrap.current.style.transition = `0.5s ease-in-out`;
+    bookImageList.current.style.transition = `0.5s ease-in-out`;
     setCurrentIndex(currentIndex + 1);
   };
 
   useEffect(() => {
     if (currentIndex === 2) {
       let timeId = setTimeout(() => {
-        bookWrap.current.style.transition = "none";
+        bookImageList.current.style.transition = "none";
         setCurrentIndex(dataLength - 4);
         clearTimeout(timeId);
       }, 500);
@@ -45,7 +45,7 @@ const BookCarousel = ({ data }) => {
     }
     if (currentIndex === dataLength - 3) {
       let timeId = setTimeout(() => {
-        bookWrap.current.style.transition = "none";
+        bookImageList.current.style.transition = "none";
         setCurrentIndex(3);
         clearTimeout(timeId);
       }, 500);
@@ -55,7 +55,7 @@ const BookCarousel = ({ data }) => {
 
   const leftClickHandler = () => {
     if (currentIndex === 0) return;
-    bookWrap.current.style.transition = `0.5s ease-in-out`;
+    bookImageList.current.style.transition = `0.5s ease-in-out`;
     setCurrentIndex(currentIndex - 1);
   };
 
@@ -74,7 +74,7 @@ const BookCarousel = ({ data }) => {
       {!data ? (
         <Contents>
           <BookWrap>
-            <BookImageList ref={bookWrap} style={carouselStyle}>
+            <BookImageList ref={bookImageList} style={carouselStyle}>
               {emptyArray.map((item, index) => {
                 if (index === currentIndex) {
                   return (
@@ -109,7 +109,7 @@ const BookCarousel = ({ data }) => {
           <Icon className="fas fa-chevron-left" onClick={leftClickHandler}></Icon>
           <Icon className="fas fa-chevron-right" right onClick={rightClickHandler}></Icon>
           <BookWrap>
-            <BookImageList ref={bookWrap} style={carouselStyle}>
+            <BookImageList ref={bookImageList} style={carouselStyle}>
               {dataList.map((item, index) => {
                 if (index === currentIndex) {
                   return (
@@ -120,7 +120,7 @@ const BookCarousel = ({ data }) => {
                       <Cover
                         src={item.coverImage}
                         style={{ opacity: "1" }}
-                        onClick={() => productClickHandler(item.category, item._id)}
+                        onClick={() => productClickHandler(item.category, item.product_id)}
                       />
                     </Book>
                   );
