@@ -68,6 +68,7 @@ const ProductInfo = ({ data }) => {
   };
 
   const addCartButtonHandler = () => {
+    if (data.countInStock === 0) return;
     const payload = {
       _id: data._id,
       title: data.title,
@@ -105,45 +106,16 @@ const ProductInfo = ({ data }) => {
               </PriceWrap>
               <CounterButtonWrap>
                 {isMobileMode ? (
-                  <CounterWrap style={mobileButtonStyle.mobileCounter}>
-                    <Counter>
-                      <FlexBox>
-                        <span>수량</span>
-                        <button onClick={decreaseButtonClickHandler}>-</button>
-                        <InputNumber
-                          ref={countInput}
-                          value={itemCount}
-                          type="number"
-                          onChange={onChangeCountHandler}
-                          onBlur={checkCountValue}
-                        />
-                        <button onClick={increaseButtonClickHandler}>+</button>
-                      </FlexBox>
-                      <FlexBox>
-                        <TotalPrice>
-                          <p>합계</p> 원
-                        </TotalPrice>
-                      </FlexBox>
-                    </Counter>
-                  </CounterWrap>
+                  ""
                 ) : (
                   <CounterWrap>
-                    <Counter>
+                    <Counter loading="true">
                       <FlexBox>
-                        <span>수량</span>
-                        <button onClick={decreaseButtonClickHandler}>-</button>
-                        <InputNumber
-                          ref={countInput}
-                          value={itemCount}
-                          type="number"
-                          onChange={onChangeCountHandler}
-                          onBlur={checkCountValue}
-                        />
-                        <button onClick={increaseButtonClickHandler}>+</button>
+                        <span>　</span>
                       </FlexBox>
                       <FlexBox>
                         <TotalPrice>
-                          <p>　　</p>　
+                          <p>　</p>　
                         </TotalPrice>
                       </FlexBox>
                     </Counter>
@@ -164,8 +136,8 @@ const ProductInfo = ({ data }) => {
                   ) : (
                     ""
                   )}
-                  <BuyCartButton cart>카트에 담기</BuyCartButton>
-                  <BuyCartButton>바로 구매하기</BuyCartButton>
+                  <BuyCartButton outOfStock="true">카트에 담기</BuyCartButton>
+                  <BuyCartButton outOfStock="true">바로 구매하기</BuyCartButton>
                 </ButtonWrap>
               </CounterButtonWrap>
             </InfoColumnBox>
@@ -195,45 +167,71 @@ const ProductInfo = ({ data }) => {
                 {isMobileMode ? (
                   <CounterWrap style={mobileButtonStyle.mobileCounter}>
                     <Counter>
-                      <FlexBox>
-                        <span>수량</span>
-                        <button onClick={decreaseButtonClickHandler}>-</button>
-                        <InputNumber
-                          ref={countInput}
-                          value={itemCount}
-                          type="number"
-                          onChange={onChangeCountHandler}
-                          onBlur={checkCountValue}
-                        />
-                        <button onClick={increaseButtonClickHandler}>+</button>
-                      </FlexBox>
-                      <FlexBox>
-                        <TotalPrice>
-                          <p>합계</p> {numberWithCommas(data.price * itemCount)} 원
-                        </TotalPrice>
-                      </FlexBox>
+                      {data.countInStock === 0 ? (
+                        <>
+                          <FlexBox></FlexBox>
+                          <FlexBox>
+                            <TotalPrice>
+                              <p>재고가 없는 상품입니다.</p>
+                            </TotalPrice>
+                          </FlexBox>
+                        </>
+                      ) : (
+                        <>
+                          <FlexBox>
+                            <span>수량</span>
+                            <button onClick={decreaseButtonClickHandler}>-</button>
+                            <InputNumber
+                              ref={countInput}
+                              value={itemCount}
+                              type="number"
+                              onChange={onChangeCountHandler}
+                              onBlur={checkCountValue}
+                            />
+                            <button onClick={increaseButtonClickHandler}>+</button>
+                          </FlexBox>
+                          <FlexBox>
+                            <TotalPrice>
+                              <p>합계</p> {numberWithCommas(data.price * itemCount)} 원
+                            </TotalPrice>
+                          </FlexBox>
+                        </>
+                      )}
                     </Counter>
                   </CounterWrap>
                 ) : (
                   <CounterWrap>
                     <Counter>
-                      <FlexBox>
-                        <span>수량</span>
-                        <button onClick={decreaseButtonClickHandler}>-</button>
-                        <InputNumber
-                          ref={countInput}
-                          value={itemCount}
-                          type="number"
-                          onChange={onChangeCountHandler}
-                          onBlur={checkCountValue}
-                        />
-                        <button onClick={increaseButtonClickHandler}>+</button>
-                      </FlexBox>
-                      <FlexBox>
-                        <TotalPrice>
-                          <p>합계</p> {numberWithCommas(data.price * itemCount)} 원
-                        </TotalPrice>
-                      </FlexBox>
+                      {data.countInStock === 0 ? (
+                        <>
+                          <FlexBox></FlexBox>
+                          <FlexBox>
+                            <TotalPrice>
+                              <p>재고가 없는 상품입니다.</p>
+                            </TotalPrice>
+                          </FlexBox>
+                        </>
+                      ) : (
+                        <>
+                          <FlexBox>
+                            <span>수량</span>
+                            <button onClick={decreaseButtonClickHandler}>-</button>
+                            <InputNumber
+                              ref={countInput}
+                              value={itemCount}
+                              type="number"
+                              onChange={onChangeCountHandler}
+                              onBlur={checkCountValue}
+                            />
+                            <button onClick={increaseButtonClickHandler}>+</button>
+                          </FlexBox>
+                          <FlexBox>
+                            <TotalPrice>
+                              <p>합계</p> {numberWithCommas(data.price * itemCount)} 원
+                            </TotalPrice>
+                          </FlexBox>
+                        </>
+                      )}
                     </Counter>
                   </CounterWrap>
                 )}
@@ -252,10 +250,14 @@ const ProductInfo = ({ data }) => {
                   ) : (
                     ""
                   )}
-                  <BuyCartButton cart onClick={addCartButtonHandler}>
+                  <BuyCartButton
+                    outOfStock={data.countInStock === 0}
+                    cart="true"
+                    onClick={addCartButtonHandler}
+                  >
                     카트에 담기
                   </BuyCartButton>
-                  <BuyCartButton>바로 구매하기</BuyCartButton>
+                  <BuyCartButton outOfStock={data.countInStock === 0}>바로 구매하기</BuyCartButton>
                 </ButtonWrap>
               </CounterButtonWrap>
             </InfoColumnBox>
@@ -540,6 +542,15 @@ const Counter = styled.div`
       display: none;
     }
   }
+  ${(props) => {
+    if (props.loading) {
+      return css`
+        width: 100%;
+        background-color: #e2e5e7;
+        animation: ${shine} ${animationSec}s ease infinite;
+      `;
+    }
+  }}
 `;
 
 const FlexBox = styled.div`
@@ -634,6 +645,12 @@ const BuyCartButton = styled.div`
     border: 1.5px solid #cacba8;
   }
   ${(props) => {
+    if (props.outOfStock) {
+      return css`
+        opacity: 0.3;
+        pointer-events: none;
+      `;
+    }
     if (props.cart) {
       return css`
         background: white;

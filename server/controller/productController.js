@@ -4,7 +4,7 @@ const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find({})
       .sort({ receivingDate: -1 })
-      .select("title price coverImage writer category receivingDate");
+      .select("title price coverImage writer category receivingDate countInStock");
 
     res.json(products);
   } catch (error) {
@@ -28,7 +28,7 @@ const getProductByCategory = async (req, res) => {
   try {
     const products = await Product.find({ category: req.params.category })
       .sort({ receivingDate: -1 })
-      .select("title price coverImage writer category receivingDate");
+      .select("title price coverImage writer category receivingDate countInStock");
 
     res.json(products);
   } catch (error) {
