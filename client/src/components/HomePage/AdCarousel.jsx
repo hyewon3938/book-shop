@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
+import { useHistory } from "react-router-dom";
 
 // lib
 import Timer from "@/lib/Timer";
@@ -7,8 +8,12 @@ import Timer from "@/lib/Timer";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
-const AdCarousel = ({ data }) => {
+const AdCarousel = ({ data, isMobileMode }) => {
+  const history = useHistory();
+
   const [currentIndex, setCurrentIndex] = useState(1);
+
+  if (!data) return <div>error!</div>;
 
   const imageList = [data[data.length - 1], ...data, data[0]];
   const imageLength = imageList.length;
@@ -63,6 +68,10 @@ const AdCarousel = ({ data }) => {
     setCurrentIndex(currentIndex - 1);
   };
 
+  const adClickHandler = (url) => {
+    history.push(url);
+  };
+
   return (
     <Contents
       onMouseOver={() => autoSlideTimer.pause()}
@@ -73,8 +82,16 @@ const AdCarousel = ({ data }) => {
       <AdImageWrap ref={carouselImage} style={carouselStyle}>
         {imageList.map((item, index) => {
           return (
-            <AdImage key={index} style={{ left: `${100 * index}%` }}>
-              <img src={item} alt={`메인광고${index}`} />
+            <AdImage
+              key={index}
+              style={{ left: `${100 * index}%` }}
+              onClick={() => adClickHandler(item.url)}
+            >
+              {isMobileMode ? (
+                <img src={item.imageUrl.mobile} alt={`메인광고${index}`} />
+              ) : (
+                <img src={item.imageUrl.pc} alt={`메인광고${index}`} />
+              )}
             </AdImage>
           );
         })}
@@ -126,6 +143,7 @@ const Contents = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  cursor: pointer;
   &:hover ${Icon} {
     display: flex;
   }

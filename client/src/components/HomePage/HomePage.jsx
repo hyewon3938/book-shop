@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
 import { debounce } from "lodash";
-import { useHistory } from "react-router-dom";
 
 // Components
 import AdCarousel from "@/components/HomePage/AdCarousel";
 import NewArrival from "@/components/HomePage/NewArrival";
 import Recommendation from "@/components/HomePage/Recommendation";
+import AdImage from "@/components/HomePage/AdImage";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
@@ -19,58 +19,30 @@ import mobileHomepageImage from "@/image/mobileHomepageImage.jpg";
 import homepageLogo from "@/image/homepageLogo.png";
 
 // Actions
-import { setIsHomePage } from "@/redux/actions/homePageActions";
-
-const adList = {
-  pc: ["https://ifh.cc/g/TiXOK2.png", "https://ifh.cc/g/9M1uei.png", "https://ifh.cc/g/gCJCD4.png"],
-  mobile: [
-    "https://ifh.cc/g/Bmu0i7.png",
-    "https://ifh.cc/g/PcswRz.png",
-    "https://ifh.cc/g/m13ahX.png",
-  ],
-};
-
-const ad = {
-  pc: "https://ifh.cc/g/G5KtAY.png",
-  mobile: "https://ifh.cc/g/WxvVEM.png",
-  id: "60fbc0b0aeb8ad47dc987aeb",
-  category: "잡지",
-};
+import { setIsHomePage, getAd } from "@/redux/actions/homePageActions";
 
 const HomePage = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
 
-  const homePageData = useSelector((state) => state.homePage);
-  const { isHomePage } = homePageData;
-
   const [isMobileMode, setIsMobileMode] = useState(window.innerWidth > device.small ? false : true);
-  const adCarouselData = isMobileMode ? adList.mobile : adList.pc;
-  const adData = isMobileMode ? ad.mobile : ad.pc;
+
+  const adData = useSelector((state) => state.getAd);
+  let { ad, loading, error } = adData;
 
   const resizeEventHandler = debounce(() => {
     window.innerWidth > device.small ? setIsMobileMode(false) : setIsMobileMode(true);
   }, 300);
 
   useEffect(() => {
+    dispatch(setIsHomePage(true));
+    dispatch(getAd());
     window.addEventListener("resize", resizeEventHandler);
     return () => {
+      dispatch(setIsHomePage(false));
       window.removeEventListener("resize", resizeEventHandler);
     };
   }, []);
 
-  useEffect(() => {
-    dispatch(setIsHomePage(true));
-    return () => {
-      dispatch(setIsHomePage(false));
-    };
-  }, []);
-
-  const adClickHandler = () => {
-    history.push(`/product/${ad.category}/${ad.id}`);
-  };
-
-  const loading = false;
   return (
     <Wrap>
       {isMobileMode ? (
@@ -88,19 +60,16 @@ const HomePage = () => {
       )}
       <ContentsWrap>
         <Recommendation />
-        {loading ? (
+        {error ? (
+          <h2>{error}</h2>
+        ) : loading ? (
           <AdWrap loading="true"></AdWrap>
         ) : (
           <AdWrap>
             <CarouselWrap>
-              <AdCarousel data={adCarouselData} />
+              <AdCarousel data={ad.carouselAd} isMobileMode={isMobileMode} />
             </CarouselWrap>
-            <Ad>
-              <div onClick={adClickHandler}>
-                <button>보러가기</button>
-              </div>
-              <img src={adData} />
-            </Ad>
+            <AdImage data={ad.imageAd} isMobileMode={isMobileMode} />
           </AdWrap>
         )}
         <NewArrival />
@@ -198,61 +167,5 @@ const CarouselWrap = styled.div`
   }
   @media (max-width: ${device.extraSmall}px) {
     height: 200px;
-  }
-`;
-
-const Ad = styled.div`
-  display: flex;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  width: 35%;
-  height: 300px;
-  padding: 10px;
-  background: #44381e;
-  cursor: pointer;
-  img {
-    height: 100%;
-  }
-  div {
-    position: absolute;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-  }
-  button {
-    justify-content: center;
-    align-items: center;
-    border: solid 3px white;
-    color: white;
-    padding: 20px;
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  &:hover {
-    div {
-      display: flex;
-    }
-  }
-  @media (max-width: ${device.large}px) {
-    width: 100%;
-  }
-  @media (max-width: ${device.small}px) {
-    width: 100%;
-    height: 200px;
-    button {
-      padding: 15px;
-      font-size: 15px;
-    }
-  }
-  @media (max-width: ${device.extraSmall}px) {
-    img {
-      height: auto;
-      width: 100%;
-    }
   }
 `;
