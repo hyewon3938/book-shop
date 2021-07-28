@@ -23,7 +23,7 @@ const App = () => {
         <main>
           <CacheSwitch>
             <ScrollReset>
-              <Route exact path="/" component={HomePage} />
+              <CacheRoute exact path="/" component={HomePage} />
               <CacheRoute exact path="/product/:category" component={ProductsPage} />
               <Route exact path="/product/:category/:id" component={ProductDetailsPage} />
               <Route exact path="/cart" component={CartPage} />
