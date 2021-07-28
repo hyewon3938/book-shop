@@ -10,7 +10,6 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node server/data/products/insertData.js",
     "recommendation:import": "node server/data/recommendation/insertData.js",
-    "newData:import": "node server/data/products/insertNewData.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
