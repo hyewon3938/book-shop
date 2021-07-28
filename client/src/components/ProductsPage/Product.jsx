@@ -70,8 +70,14 @@ const Product = ({ data }) => {
             <BookTitle onClick={productClickHandler}>{data.title}</BookTitle>
             <span>{data.writer}</span>
             <PriceCartWrap>
-              <BookPrice>{numberWithCommas(data.price)}원</BookPrice>
-              <Icon onClick={addCartButtonHandler} className="fas fa-shopping-cart"></Icon>
+              {data.countInStock === 0 ? (
+                <BookPrice>재고없음</BookPrice>
+              ) : (
+                <>
+                  <BookPrice>{numberWithCommas(data.price)}원</BookPrice>
+                  <Icon onClick={addCartButtonHandler} className="fas fa-shopping-cart"></Icon>
+                </>
+              )}
             </PriceCartWrap>
           </BookInfo>
         </Wrap>
