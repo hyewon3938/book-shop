@@ -8,6 +8,7 @@ import ProductDetails from "@/components/ProductDetailsPage/ProductDetails";
 
 // Actions
 import { getProductDetails } from "@/redux/actions/productActions";
+import { setIsHomePage } from "@/redux/actions/homePageActions";
 
 const ProductDetailsPage = ({ match }) => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const ProductDetailsPage = ({ match }) => {
     const categoryParam = match.params.category === "전체보기" ? "" : match.params.category;
     const idParam = match.params.id;
     dispatch(getProductDetails(categoryParam, idParam));
+    dispatch(setIsHomePage(false));
   }, [dispatch]);
 
   return (

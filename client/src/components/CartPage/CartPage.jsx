@@ -15,6 +15,7 @@ import { device } from "@/components/style/responsiveBreakPoints";
 
 // Actions
 import { removeSelectedItem, selectAllCart, unselectAllCart } from "@/redux/actions/cartActions";
+import { setIsHomePage } from "@/redux/actions/homePageActions";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const CartPage = () => {
 
   useEffect(() => {
     dispatch(selectAllCart());
+    dispatch(setIsHomePage(false));
   }, []);
 
   useEffect(() => {

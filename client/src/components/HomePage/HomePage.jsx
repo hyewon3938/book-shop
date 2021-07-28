@@ -21,7 +21,7 @@ import homepageLogo from "@/image/homepageLogo.png";
 // Actions
 import { setIsHomePage, getAd } from "@/redux/actions/homePageActions";
 
-const HomePage = () => {
+const HomePage = ({ match }) => {
   const dispatch = useDispatch();
 
   const [isMobileMode, setIsMobileMode] = useState(window.innerWidth > device.small ? false : true);
@@ -42,6 +42,10 @@ const HomePage = () => {
       window.removeEventListener("resize", resizeEventHandler);
     };
   }, []);
+
+  useEffect(() => {
+    dispatch(setIsHomePage(true));
+  }, [match]);
 
   return (
     <Wrap>
