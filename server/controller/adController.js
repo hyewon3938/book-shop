@@ -1,4 +1,4 @@
-const Ad = require("../models/ad");
+const Ad = require("../models/Ad");
 
 const getAds = async (req, res) => {
   try {
