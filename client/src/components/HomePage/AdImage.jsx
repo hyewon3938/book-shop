@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
 const AdImage = ({ data, isMobileMode }) => {
   if (!data) return <></>;
+
+  const history = useHistory();
 
   const adClickHandler = (url) => {
     history.push(url);
