@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled, { css } from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -10,7 +10,7 @@ import woodTexture from "@/image/woodTexture.jpg";
 import { device } from "@/components/style/responsiveBreakPoints";
 import { shine, animationSec } from "@/components/style/skeletonLoadingAnimation";
 
-// Utils
+// lib
 import { numberWithCommas } from "@/lib/utils";
 
 // Actions
@@ -19,6 +19,29 @@ import { addToCart } from "@/redux/actions/cartActions";
 const Product = ({ data }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+
+  const [isShown, setIsShown] = useState(false);
+  const target = useRef();
+
+  useEffect(() => {
+    const callback = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          observer.unobserve(entry.target);
+          setIsShown(true);
+        } else {
+          setIsShown(false);
+        }
+      });
+    };
+    const observer = new IntersectionObserver(callback, {
+      root: null,
+      threshold: 0,
+      rootMargin: "0px",
+    });
+
+    observer.observe(target.current);
+  }, []);
 
   const productClickHandler = () => {
     history.push(`/product/${data.category}/${data._id}`);
@@ -42,8 +65,8 @@ const Product = ({ data }) => {
 
   return (
     <>
-      {!data ? (
-        <Wrap>
+      {!data || !isShown ? (
+        <Wrap ref={target}>
           <SkeletonBook></SkeletonBook>
           <Shelf>
             <div />
