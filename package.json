@@ -10,6 +10,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node server/data/products/insertData.js",
     "recommendation:import": "node server/data/recommendation/insertData.js",
+    "ad:import": "node server/data/ad/insertData.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/hyewon3938/book-shop#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mongoose": "^5.13.2"
