@@ -21,7 +21,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/newArrival", newArrivalRoutes);
 app.use("/api/recommendation", recommendationRoutes);
 app.use("/api/ad", adRoutes);
-app.use("/api/register", userRoutes);
+app.use("/api/users", userRoutes);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
