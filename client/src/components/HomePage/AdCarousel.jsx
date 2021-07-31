@@ -31,6 +31,7 @@ const AdCarousel = ({ data, isMobileMode }) => {
   const rightClickHandler = () => {
     autoSlideTimer.pause();
     if (currentIndex === lastIndex) return;
+    if (!carouselImage) return;
     carouselImage.current.style.transition = `${transitionSec}s ease-in-out`;
     setCurrentIndex(currentIndex + 1);
   };
@@ -38,6 +39,7 @@ const AdCarousel = ({ data, isMobileMode }) => {
   const leftClickHandler = () => {
     autoSlideTimer.pause();
     if (currentIndex === firstIndex) return;
+    if (!carouselImage) return;
     carouselImage.current.style.transition = `${transitionSec}s ease-in-out`;
     setCurrentIndex(currentIndex - 1);
   };
