@@ -11,12 +11,16 @@ import { device } from "@/components/style/responsiveBreakPoints";
 const AdCarousel = ({ data, isMobileMode }) => {
   const history = useHistory();
 
+  const dataList = !data ? [] : [data[data.length - 1], ...data, data[0]];
+
+  const quantityToAdd = 1;
+  const firstIndex = 0;
+  const lastIndex = dataList.length - 1;
+  const firstProductIndex = firstIndex + quantityToAdd;
+  const lastProductIndex = lastIndex - quantityToAdd;
+
   const [currentIndex, setCurrentIndex] = useState(1);
 
-  if (!data) return <div>error!</div>;
-
-  const imageList = [data[data.length - 1], ...data, data[0]];
-  const imageLength = imageList.length;
   const carouselStyle = {
     transform: `translateX(-${100 * currentIndex}%)`,
   };
@@ -26,28 +30,33 @@ const AdCarousel = ({ data, isMobileMode }) => {
 
   const rightClickHandler = () => {
     autoSlideTimer.pause();
-    if (currentIndex === imageLength - 1) return;
-    if (!carouselImage.current) return;
+    if (currentIndex === lastIndex) return;
     carouselImage.current.style.transition = `${transitionSec}s ease-in-out`;
     setCurrentIndex(currentIndex + 1);
+  };
+
+  const leftClickHandler = () => {
+    autoSlideTimer.pause();
+    if (currentIndex === firstIndex) return;
+    carouselImage.current.style.transition = `${transitionSec}s ease-in-out`;
+    setCurrentIndex(currentIndex - 1);
   };
 
   const autoSlideTimer = new Timer(rightClickHandler, autoSlideDelay);
 
   useEffect(() => {
-    if (!carouselImage) return;
-    if (currentIndex === 0) {
+    if (currentIndex === firstIndex) {
       let timeId = setTimeout(() => {
         carouselImage.current.style.transition = "none";
-        setCurrentIndex(imageLength - 2);
+        setCurrentIndex(lastProductIndex);
         clearTimeout(timeId);
       }, 1000);
       return;
     }
-    if (currentIndex === imageLength - 1) {
+    if (currentIndex === lastIndex) {
       let timeId = setTimeout(() => {
         carouselImage.current.style.transition = "none";
-        setCurrentIndex(1);
+        setCurrentIndex(firstProductIndex);
         clearTimeout(timeId);
       }, 1000);
       return;
@@ -61,45 +70,44 @@ const AdCarousel = ({ data, isMobileMode }) => {
     };
   }, []);
 
-  const leftClickHandler = () => {
-    autoSlideTimer.pause();
-    if (currentIndex === 0) return;
-    carouselImage.current.style.transition = `${transitionSec}s ease-in-out`;
-    setCurrentIndex(currentIndex - 1);
-  };
-
   const adClickHandler = (url) => {
     history.push(url);
   };
 
   return (
-    <Contents
-      onMouseOver={() => autoSlideTimer.pause()}
-      onMouseLeave={() => autoSlideTimer.start()}
-    >
-      <Icon className="fas fa-chevron-left" onClick={leftClickHandler}></Icon>
-      <Icon className="fas fa-chevron-right" right onClick={rightClickHandler}></Icon>
-      <AdImageWrap ref={carouselImage} style={carouselStyle}>
-        {imageList.map((item, index) => {
-          return (
-            <AdImage
-              key={index}
-              style={{ left: `${100 * index}%` }}
-              onClick={() => adClickHandler(item.url)}
-            >
-              {isMobileMode ? (
-                <img src={item.imageUrl.mobile} alt={`메인광고${index}`} />
-              ) : (
-                <img src={item.imageUrl.pc} alt={`메인광고${index}`} />
-              )}
-            </AdImage>
-          );
-        })}
-      </AdImageWrap>
-      <IndexIndicator>{`${
-        data.length < currentIndex ? 1 : currentIndex === 0 ? data.length : currentIndex
-      } / ${data.length}`}</IndexIndicator>
-    </Contents>
+    <>
+      {!data ? (
+        ""
+      ) : (
+        <Contents
+          onMouseOver={() => autoSlideTimer.pause()}
+          onMouseLeave={() => autoSlideTimer.start()}
+        >
+          <Icon className="fas fa-chevron-left" onClick={leftClickHandler}></Icon>
+          <Icon className="fas fa-chevron-right" right onClick={rightClickHandler}></Icon>
+          <AdImageWrap ref={carouselImage} style={carouselStyle}>
+            {dataList.map((item, index) => {
+              return (
+                <AdImage
+                  key={index}
+                  style={{ left: `${100 * index}%` }}
+                  onClick={() => adClickHandler(item.url)}
+                >
+                  {isMobileMode ? (
+                    <img src={item.imageUrl.mobile} alt={`메인광고${index}`} />
+                  ) : (
+                    <img src={item.imageUrl.pc} alt={`메인광고${index}`} />
+                  )}
+                </AdImage>
+              );
+            })}
+          </AdImageWrap>
+          <IndexIndicator>{`${
+            data.length < currentIndex ? 1 : currentIndex === 0 ? data.length : currentIndex
+          } / ${data.length}`}</IndexIndicator>
+        </Contents>
+      )}
+    </>
   );
 };
 

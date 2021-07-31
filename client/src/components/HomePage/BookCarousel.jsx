@@ -37,12 +37,6 @@ const BookCarousel = ({ data }) => {
     }%)`,
   };
 
-  const rightClickHandler = () => {
-    if (currentIndex === lastIndex) return;
-    bookImageList.current.style.transition = `0.5s ease-in-out`;
-    setCurrentIndex(currentIndex + 1);
-  };
-
   useEffect(() => {
     if (currentIndex === firstProductIndex - 1) {
       let timeId = setTimeout(() => {
@@ -62,8 +56,14 @@ const BookCarousel = ({ data }) => {
     }
   }, [currentIndex]);
 
+  const rightClickHandler = () => {
+    if (currentIndex === lastIndex) return;
+    bookImageList.current.style.transition = `0.5s ease-in-out`;
+    setCurrentIndex(currentIndex + 1);
+  };
+
   const leftClickHandler = () => {
-    if (currentIndex === 0) return;
+    if (currentIndex === firstIndex) return;
     bookImageList.current.style.transition = `0.5s ease-in-out`;
     setCurrentIndex(currentIndex - 1);
   };
