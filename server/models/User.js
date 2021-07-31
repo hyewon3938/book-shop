@@ -13,7 +13,6 @@ const userSchema = mongoose.Schema({
     trim: true,
     unique: true,
     lowercase: true,
-    match: /.+\@.+@..+/,
     require: true,
   },
   password: {
@@ -39,14 +38,16 @@ const userSchema = mongoose.Schema({
   },
 });
 
-userSchema.pre("save", (next) => {
-  if (this.isModified("password")) {
-    bcrypt.genSalt(saltRounds, (err, salt) => {
+userSchema.pre("save", function (next) {
+  let user = this;
+
+  if (user.isModified("password")) {
+    bcrypt.genSalt(saltRounds, function (err, salt) {
       if (err) return next(err);
 
-      bcrypt.hash(this.password, salt, (err, hash) => {
+      bcrypt.hash(user.password, salt, function (err, hash) {
         if (err) return next(err);
-        this.password = hash;
+        user.password = hash;
         next();
       });
     });
