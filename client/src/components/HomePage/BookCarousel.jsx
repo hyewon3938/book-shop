@@ -9,44 +9,53 @@ import { shine, animationSec } from "@/components/style/skeletonLoadingAnimation
 const BookCarousel = ({ data }) => {
   const history = useHistory();
 
-  const [currentIndex, setCurrentIndex] = useState(3);
-  const dataList = !data
-    ? 0
-    : [
-        data[data.length - 3],
-        data[data.length - 2],
-        data[data.length - 1],
-        ...data,
-        data[0],
-        data[1],
-        data[2],
-      ];
-  const dataLength = dataList.length;
+  const visibleProductCount = 5; // 홀수만 가능
+  const quantityToAdd = Math.floor(visibleProductCount / 2) + 1; // currentIndex 기준 보여지는 데이터 수 + transition용 1개
 
-  const carouselStyle = {
-    transform: `translateX(-${20 * (currentIndex - 2)}%)`,
-  };
+  let dataList = !data ? [] : JSON.parse(JSON.stringify(data));
+
+  if (data && dataList.length === data.length) {
+    for (let index = 1; index <= quantityToAdd; index++) {
+      dataList.unshift(data[data.length - index]);
+    }
+    for (let index = 1; index <= quantityToAdd; index++) {
+      dataList.push(data[index - 1]);
+    }
+  }
+
+  const firstIndex = 0;
+  const lastIndex = dataList.length - 1;
+  const firstProductIndex = firstIndex + quantityToAdd;
+  const lastProductIndex = lastIndex - quantityToAdd;
+
+  const [currentIndex, setCurrentIndex] = useState(firstProductIndex);
   const bookImageList = useRef();
 
+  const carouselStyle = {
+    transform: `translateX(-${
+      (100 / visibleProductCount) * (currentIndex - Math.floor(visibleProductCount / 2))
+    }%)`,
+  };
+
   const rightClickHandler = () => {
-    if (currentIndex === dataLength - 1) return;
+    if (currentIndex === lastIndex) return;
     bookImageList.current.style.transition = `0.5s ease-in-out`;
     setCurrentIndex(currentIndex + 1);
   };
 
   useEffect(() => {
-    if (currentIndex === 2) {
+    if (currentIndex === firstProductIndex - 1) {
       let timeId = setTimeout(() => {
         bookImageList.current.style.transition = "none";
-        setCurrentIndex(dataLength - 4);
+        setCurrentIndex(lastProductIndex);
         clearTimeout(timeId);
       }, 500);
       return;
     }
-    if (currentIndex === dataLength - 3) {
+    if (currentIndex === lastProductIndex + 1) {
       let timeId = setTimeout(() => {
         bookImageList.current.style.transition = "none";
-        setCurrentIndex(3);
+        setCurrentIndex(firstProductIndex);
         clearTimeout(timeId);
       }, 500);
       return;
@@ -80,7 +89,11 @@ const BookCarousel = ({ data }) => {
                   return (
                     <Book
                       key={index}
-                      style={{ left: `${20 * index}%`, zIndex: "2", cursor: "pointer" }}
+                      style={{
+                        left: `${(100 / visibleProductCount) * index}%`,
+                        zIndex: "2",
+                        cursor: "pointer",
+                      }}
                     >
                       <div></div>
                     </Book>
@@ -88,13 +101,16 @@ const BookCarousel = ({ data }) => {
                 }
                 if (index === currentIndex + 1 || index === currentIndex - 1) {
                   return (
-                    <Book key={index} style={{ left: `${20 * index}%`, zIndex: "1" }}>
+                    <Book
+                      key={index}
+                      style={{ left: `${(100 / visibleProductCount) * index}%`, zIndex: "1" }}
+                    >
                       <div style={{ opacity: "0.8", transform: "scale(0.6)" }}></div>
                     </Book>
                   );
                 } else {
                   return (
-                    <Book key={index} style={{ left: `${20 * index}%` }}>
+                    <Book key={index} style={{ left: `${(100 / visibleProductCount) * index}%` }}>
                       <div style={{ opacity: "0.5", transform: "scale(0.4)" }}></div>
                     </Book>
                   );
@@ -115,7 +131,11 @@ const BookCarousel = ({ data }) => {
                   return (
                     <Book
                       key={index}
-                      style={{ left: `${20 * index}%`, zIndex: "2", cursor: "pointer" }}
+                      style={{
+                        left: `${(100 / visibleProductCount) * index}%`,
+                        zIndex: "2",
+                        cursor: "pointer",
+                      }}
                     >
                       <Cover
                         src={item.coverImage}
@@ -127,7 +147,10 @@ const BookCarousel = ({ data }) => {
                 }
                 if (index === currentIndex + 1 || index === currentIndex - 1) {
                   return (
-                    <Book key={index} style={{ left: `${20 * index}%`, zIndex: "1" }}>
+                    <Book
+                      key={index}
+                      style={{ left: `${(100 / visibleProductCount) * index}%`, zIndex: "1" }}
+                    >
                       <Cover
                         src={item.coverImage}
                         style={{ opacity: "0.8", transform: "scale(0.6)" }}
@@ -136,7 +159,7 @@ const BookCarousel = ({ data }) => {
                   );
                 } else {
                   return (
-                    <Book key={index} style={{ left: `${20 * index}%` }}>
+                    <Book key={index} style={{ left: `${(100 / visibleProductCount) * index}%` }}>
                       <Cover
                         src={item.coverImage}
                         style={{ opacity: "0.5", transform: "scale(0.4)" }}
