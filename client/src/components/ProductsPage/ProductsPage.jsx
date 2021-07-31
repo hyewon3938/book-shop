@@ -23,7 +23,7 @@ const ProductsPage = ({ match }) => {
     const categoryParam = match.params.category === "전체보기" ? "" : match.params.category;
     dispatch(getProducts(categoryParam));
     dispatch(setIsHomePage(false));
-  }, [dispatch, match.params.category]);
+  }, [dispatch, match.params]);
 
   let emptyArray = [];
 
