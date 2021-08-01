@@ -1,6 +1,6 @@
 const User = require("../models/User");
 
-const auth = (req, res, next) => {
+const authMiddleware = (req, res, next) => {
   const token = req.cookies.x_auth;
 
   User.findByToken(token, (err, user) => {
@@ -13,4 +13,4 @@ const auth = (req, res, next) => {
   });
 };
 
-module.exports = { auth };
+module.exports = { authMiddleware };
