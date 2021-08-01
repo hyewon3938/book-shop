@@ -5,11 +5,12 @@ import CacheRoute, { CacheSwitch } from "react-router-cache-route";
 // Components
 import GlobalStyleProvider from "@/components/style/GlobalStyleProvider";
 import Header from "@/components/Header/Header";
+import ScrollTopButton from "@/components/ScrollTopButton";
 import HomePage from "@/components/HomePage/HomePage";
 import ProductsPage from "@/components/ProductsPage/ProductsPage";
 import ProductDetailsPage from "@/components/ProductDetailsPage/ProductDetailsPage";
 import CartPage from "@/components/CartPage/CartPage";
-import ScrollTopButton from "@/components/ScrollTopButton";
+import LoginPage from "@/components/LoginPage/LoginPage";
 
 // Lib
 import ScrollReset from "@/lib/ScrollReset";
@@ -27,6 +28,7 @@ const App = () => {
               <CacheRoute exact path="/product/:category" component={ProductsPage} />
               <Route exact path="/product/:category/:id" component={ProductDetailsPage} />
               <Route exact path="/cart" component={CartPage} />
+              <Route exact path="/login" component={LoginPage} />
             </ScrollReset>
           </CacheSwitch>
         </main>
