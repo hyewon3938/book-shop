@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
@@ -7,6 +7,9 @@ import logo2 from "@/image/logo2.png";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
+
+// lib
+import { getCookie } from "@/lib/cookies";
 
 const SideDrawer = ({ show, click }) => {
   const history = useHistory();
@@ -25,7 +28,8 @@ const SideDrawer = ({ show, click }) => {
     "가정·요리·뷰티",
     "잡지",
   ];
-  const isLogin = false;
+  const isLogin = getCookie("x_auth") ? true : false;
+  const userName = decodeURI(getCookie("userName"));
 
   const showSideDrawer = show ? "translateX(0)" : "translateX(-100%)";
 
@@ -48,7 +52,7 @@ const SideDrawer = ({ show, click }) => {
         <MenuWrap>
           {isLogin ? (
             <LogInInfo>
-              <LogInTitle>이혜원님 안녕하세요!</LogInTitle>
+              <LogInTitle>{userName}님 안녕하세요!</LogInTitle>
               <LogInButtonWrap>
                 <button>주문내역</button>
                 <button>로그아웃</button>
@@ -63,9 +67,7 @@ const SideDrawer = ({ show, click }) => {
               </LogInButtonWrap>
             </LogInInfo>
           )}
-
           <Bar />
-
           {category.map((item, index) =>
             index === 0 ? (
               <li style={{ fontWeight: "bold" }} key={index} onClick={() => menuClickHandler(item)}>
@@ -101,7 +103,6 @@ const Wrap = styled.div`
   justify-content: center;
   align-items: center;
   padding: 10px 30px 0 30px;
-
   @media (max-width: ${device.small}px) {
     width: 250px;
     justify-content: flex-start;
@@ -138,6 +139,7 @@ const LogoImage = styled.div`
 `;
 
 const MenuWrap = styled.ul`
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 0 0 20px 0;
@@ -174,11 +176,17 @@ const MenuWrap = styled.ul`
 `;
 
 const LogInTitle = styled.div`
+  display: block;
   font-size: 25px;
   font-weight: bold;
   margin: 0 0 20px 0;
   padding: 5px 0;
-  line-height: 25px;
+  line-height: 30px;
+  word-wrap: break-word;
+  width: 250px;
+  @media (max-width: ${device.small}px) {
+    width: 150px;
+  }
   @media (max-width: ${device.extraSmall}px) {
     margin: 0 0 15px 0;
   }
@@ -189,6 +197,8 @@ const LogInInfo = styled.div`
   flex-direction: column;
   display: flex;
   word-break: keep-all;
+  width: 100%;
+
   button {
     cursor: pointer;
     &:hover {

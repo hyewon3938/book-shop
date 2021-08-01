@@ -10,8 +10,13 @@ import logo from "@/image/logo.png";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
+// lib
+import { getCookie } from "@/lib/cookies";
+
 const Navbar = ({ click }) => {
   const [isScrollTop, setIsScrollTop] = useState(true);
+
+  const isLogin = getCookie("x_auth") ? true : false;
 
   const homePageData = useSelector((state) => state.homePage);
   const { isHomePage } = homePageData;
@@ -57,12 +62,16 @@ const Navbar = ({ click }) => {
         <Logo>{isHomePage && isScrollTop ? "" : <img src={logo} alt="logo" />}</Logo>
       </StyledLink>
       <Menu>
-        <StyledLink to="/login">
-          <button>
-            로그인
-            <div />
-          </button>
-        </StyledLink>
+        {isLogin ? (
+          ""
+        ) : (
+          <StyledLink to="/login">
+            <button>
+              로그인
+              <div />
+            </button>
+          </StyledLink>
+        )}
         <StyledLink to="/cart">
           <button>
             카트 {cartItemCount === 0 ? "" : <span>{cartItemCount}</span>}
