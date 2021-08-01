@@ -1,8 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-const { postUserInfo, emailDuplicateCheck } = require("../controller/userController");
+const {
+  postUserInfo,
+  emailDuplicateCheck,
+  login,
+  logout,
   auth,
+} = require("../controller/userController");
 
 // @desc POST userInfo to db
 // @route POST /api/users/register
@@ -13,6 +18,11 @@ router.post("/register", postUserInfo);
 // @route POST /api/users/check-email
 // @access Public
 router.post("/check-email", emailDuplicateCheck);
+
+// @desc POST
+// @route POST /api/users/login
+// @access Public
+router.post("/login", login);
 
 // @desc GET
 // @route GET /api/users/auth
