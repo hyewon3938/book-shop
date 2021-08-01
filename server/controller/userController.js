@@ -22,7 +22,18 @@ const emailDuplicateCheck = async (req, res) => {
   res.status(200).json({ isAvailable: true });
 };
 
+const auth = (req, res) => {
+  res.status(200).json({
+    _id: req.user._id,
+    isAdmin: req.user.role === "User" ? false : true,
+    isAuth: true,
+    email: req.user.email,
+    name: req.user.name,
+    points: req.user.points,
+  });
+};
 module.exports = {
   postUserInfo,
   emailDuplicateCheck,
+  auth,
 };
