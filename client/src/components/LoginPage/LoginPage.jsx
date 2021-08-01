@@ -8,8 +8,8 @@ import PageWrap from "@/components/style/layout/PageWrap";
 // Actions
 import { setIsHomePage } from "@/redux/actions/homePageActions";
 
-// Images
-import homepageImage from "@/image/homepageImage.jpg";
+// Style
+import { device } from "@/components/style/responsiveBreakPoints";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -60,6 +60,15 @@ const LoginWrap = styled.div`
   border-radius: 10px;
   padding: 50px;
   background: #f4f4f4;
+  @media (max-width: ${device.small}px) {
+    background: none;
+    width: 100%;
+    padding: 30px;
+    margin: 10vh 0 0 0;
+  }
+  @media (max-width: ${device.extraSmall}px) {
+    padding: 10px;
+  }
 `;
 
 const LoginTitle = styled.h1`
@@ -69,6 +78,7 @@ const LoginTitle = styled.h1`
 `;
 
 const InputWrap = styled.div`
+  width: 100%;
   input:first-child {
     margin: 0 0 10px 0;
   }
@@ -79,10 +89,6 @@ const Input = styled.input`
   height: 45px;
   border: solid 1px #c9c9c9;
   padding: 0 10px;
-  /* &:focus {
-    outline: 0;
-    box-shadow: 0 0 5px 2px border;
-  } */
 `;
 
 const ButtonWrap = styled.div`
@@ -99,7 +105,7 @@ const Button = styled.button`
   font-size: 15px;
   cursor: pointer;
   &:hover {
-    background: #7d7e68;
+    background: #cacba8;
   }
 `;
 
