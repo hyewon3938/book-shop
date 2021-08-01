@@ -36,9 +36,10 @@ const LoginPage = () => {
     password.current.style.borderColor = "";
   };
 
-  const loginClickHandler = () => {
+  const loginClickHandler = (e) => {
     if (!email.current.value || !password.current.value) return;
     dispatch(postLogin({ email: email.current.value, password: password.current.value }));
+    e.preventDefault();
   };
 
   useEffect(() => {
@@ -46,9 +47,9 @@ const LoginPage = () => {
   }, []);
 
   useEffect(() => {
-    if (error) alert("서버 오류입니다");
-    if (login && !login.loginSuccess) alert(login.message);
-    if (login && login.loginSuccess) history.goBack();
+    if (error) return alert("서버 오류입니다");
+    if (login && !login.loginSuccess) return alert(login.message);
+    if (login && login.loginSuccess) return history.push("/");
   }, [loginData]);
 
   return (
