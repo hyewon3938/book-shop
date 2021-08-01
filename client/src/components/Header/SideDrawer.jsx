@@ -25,12 +25,17 @@ const SideDrawer = ({ show, click }) => {
     "가정·요리·뷰티",
     "잡지",
   ];
-  const isLogin = true;
+  const isLogin = false;
 
   const showSideDrawer = show ? "translateX(0)" : "translateX(-100%)";
 
   const menuClickHandler = (category) => {
     history.push(`/product/${category}`);
+    click();
+  };
+
+  const loginClickHandler = () => {
+    history.push(`/login`);
     click();
   };
 
@@ -53,7 +58,7 @@ const SideDrawer = ({ show, click }) => {
             <LogInInfo>
               <LogInTitle>로그인 해주세요.</LogInTitle>
               <LogInButtonWrap>
-                <button>로그인</button>
+                <button onClick={loginClickHandler}>로그인</button>
                 <button>회원가입</button>
               </LogInButtonWrap>
             </LogInInfo>

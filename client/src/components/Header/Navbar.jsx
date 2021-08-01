@@ -57,10 +57,12 @@ const Navbar = ({ click }) => {
         <Logo>{isHomePage && isScrollTop ? "" : <img src={logo} alt="logo" />}</Logo>
       </StyledLink>
       <Menu>
-        <button>
-          로그인
-          <div />
-        </button>
+        <StyledLink to="/login">
+          <button>
+            로그인
+            <div />
+          </button>
+        </StyledLink>
         <StyledLink to="/cart">
           <button>
             카트 {cartItemCount === 0 ? "" : <span>{cartItemCount}</span>}
