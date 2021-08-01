@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
@@ -14,6 +14,25 @@ import { device } from "@/components/style/responsiveBreakPoints";
 const LoginPage = () => {
   const dispatch = useDispatch();
 
+  const email = useRef();
+  const password = useRef();
+
+  const checkEmail = () => {
+    if (!email.current.value) return (email.current.style.borderColor = "red");
+
+    email.current.style.borderColor = "";
+  };
+  const checkPassword = () => {
+    if (!password.current.value) return (password.current.style.borderColor = "red");
+
+    password.current.style.borderColor = "";
+  };
+
+  const loginClickHandler = () => {
+    if (!email.current.value || !password.current.value) return;
+    console.log("로그인");
+  };
+
   useEffect(() => {
     dispatch(setIsHomePage(false));
   }, []);
@@ -23,17 +42,19 @@ const LoginPage = () => {
       <Wrap>
         <LoginWrap>
           <LoginTitle>로그인</LoginTitle>
-          <InputWrap>
-            <Input type="email" placeholder="이메일" />
-            <Input type="password" placeholder="비밀번호" />
-          </InputWrap>
-          <ButtonWrap>
-            <Button>로그인</Button>
-            <TextButton>
-              <span>비밀번호 재설정</span>
-              <span>회원가입</span>
-            </TextButton>
-          </ButtonWrap>
+          <form onSubmit={loginClickHandler}>
+            <InputWrap>
+              <Input type="email" placeholder="이메일" ref={email} onBlur={checkEmail} />
+              <Input type="password" placeholder="비밀번호" ref={password} onBlur={checkPassword} />
+            </InputWrap>
+            <ButtonWrap>
+              <Button type="submit">로그인</Button>
+              <TextButton>
+                <span>비밀번호 재설정</span>
+                <span>회원가입</span>
+              </TextButton>
+            </ButtonWrap>
+          </form>
         </LoginWrap>
       </Wrap>
     </PageWrap>
