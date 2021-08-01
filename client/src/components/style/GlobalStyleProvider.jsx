@@ -21,6 +21,7 @@ const GlobalStyle = createGlobalStyle`
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
+            outline : 0;
 }
 
 /* IE10 이상에서 input box 에 추가된 지우기 버튼 제거 */
