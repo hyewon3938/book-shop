@@ -8,6 +8,7 @@ const {
   logout,
   auth,
 } = require("../controller/userController");
+const { authMiddleware } = require("../middleware/authMiddleware");
 
 // @desc POST userInfo to db
 // @route POST /api/users/register
@@ -23,6 +24,11 @@ router.post("/check-email", emailDuplicateCheck);
 // @route POST /api/users/login
 // @access Public
 router.post("/login", login);
+
+// @desc GET
+// @route GET /api/users/logout
+// @access Public
+router.get("/logout", authMiddleware, logout);
 
 // @desc GET
 // @route GET /api/users/auth
