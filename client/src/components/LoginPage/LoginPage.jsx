@@ -44,9 +44,9 @@ const LoginPage = () => {
   };
 
   const loginClickHandler = (e) => {
+    e.preventDefault();
     if (!email.current.value || !password.current.value) return;
     dispatch(postLogin({ email: email.current.value, password: password.current.value }));
-    e.preventDefault();
   };
 
   useEffect(() => {
