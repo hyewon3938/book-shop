@@ -49,6 +49,10 @@ const LoginPage = () => {
     dispatch(postLogin({ email: email.current.value, password: password.current.value }));
   };
 
+  const registerClickHandler = () => {
+    history.push("/register");
+  };
+
   useEffect(() => {
     dispatch(setIsHomePage(false));
   }, []);
@@ -77,7 +81,7 @@ const LoginPage = () => {
           </ButtonWrap>
           <TextButton>
             <span>비밀번호 재설정</span>
-            <span>회원가입</span>
+            <span onClick={registerClickHandler}>회원가입</span>
           </TextButton>
         </form>
       </LoginWrap>

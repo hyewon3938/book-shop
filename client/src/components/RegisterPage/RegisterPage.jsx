@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import styled, { keyframes } from "styled-components";
+import { useHistory } from "react-router-dom";
 
 // Image
 import logo from "@/image/logo.png";
@@ -8,6 +9,8 @@ import logo from "@/image/logo.png";
 import { device } from "@/components/style/responsiveBreakPoints";
 
 const RegisterPage = () => {
+  const history = useHistory();
+
   const emailMessage = useRef();
   const nameMessage = useRef();
   const passwordMessage = useRef();
@@ -126,7 +129,7 @@ const Wrap = styled.div`
   position: absolute;
   width: 100%;
   height: 100vh;
-  padding: 10vh 0;
+  padding: 15vh 0;
   top: 0;
   left: 0;
   background: #f5f5ef;
