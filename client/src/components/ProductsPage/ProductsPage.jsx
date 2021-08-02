@@ -27,11 +27,7 @@ const ProductsPage = () => {
     dispatch(setIsHomePage(false));
   }, [match]);
 
-  let emptyArray = [];
-
-  for (var i = 0; i < 20; i++) {
-    emptyArray.push(i);
-  }
+  const emptyArray = new Array(20).fill(0);
 
   return (
     <PageWrap>
@@ -40,7 +36,7 @@ const ProductsPage = () => {
           <>
             <CategoryTitle>{match.params.category}</CategoryTitle>
             <ProductsWrap>
-              {emptyArray.map((index) => {
+              {emptyArray.map((item, index) => {
                 return <Product key={index} />;
               })}
             </ProductsWrap>

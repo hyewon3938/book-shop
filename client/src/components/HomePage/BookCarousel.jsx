@@ -72,11 +72,7 @@ const BookCarousel = ({ data }) => {
     history.push(`/product/${category}/${id}`);
   };
 
-  let emptyArray = [];
-
-  for (var i = 0; i < 9; i++) {
-    emptyArray.push(i);
-  }
+  const emptyArray = new Array(9).fill(0);
 
   return (
     <>
