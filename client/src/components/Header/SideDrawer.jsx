@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,15 +15,12 @@ import { getCookie, deleteCookie } from "@/lib/cookies";
 // Actions
 import { getLogout } from "@/redux/actions/userActions";
 
-const SideDrawer = ({ show, click }) => {
+const SideDrawer = ({ show, click, isAuth, userName }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const logoutData = useSelector((state) => state.getLogout);
   let { logout, loading, error } = logoutData;
-
-  const authData = useSelector((state) => state.auth);
-  let { userData } = authData;
 
   const category = [
     "전체보기",
@@ -39,8 +36,6 @@ const SideDrawer = ({ show, click }) => {
     "가정·요리·뷰티",
     "잡지",
   ];
-  const isLogin = getCookie("x_auth") ? true : false;
-  const userName = userData.name;
 
   const showSideDrawer = show ? "translateX(0)" : "translateX(-100%)";
 
@@ -48,7 +43,6 @@ const SideDrawer = ({ show, click }) => {
     if (error) return alert("서버 에러입니다.");
     if (logout) {
       if (logout.success) {
-        deleteCookie("x_auth");
         window.location.reload();
       }
     }
@@ -76,20 +70,20 @@ const SideDrawer = ({ show, click }) => {
           <img src={logo2} alt="logo" />
         </LogoImage>
         <MenuWrap>
-          {isLogin ? (
-            <LogInInfo>
-              <LogInTitle>{userName}님 안녕하세요!</LogInTitle>
-              <LogInButtonWrap>
-                <button>주문내역</button>
-                <button onClick={logoutClickHandler}>로그아웃</button>
-              </LogInButtonWrap>
-            </LogInInfo>
-          ) : (
+          {!isAuth ? (
             <LogInInfo>
               <LogInTitle>로그인 해주세요.</LogInTitle>
               <LogInButtonWrap>
                 <button onClick={loginClickHandler}>로그인</button>
                 <button>회원가입</button>
+              </LogInButtonWrap>
+            </LogInInfo>
+          ) : (
+            <LogInInfo>
+              <LogInTitle>{userName}님 안녕하세요!</LogInTitle>
+              <LogInButtonWrap>
+                <button>주문내역</button>
+                <button onClick={logoutClickHandler}>로그아웃</button>
               </LogInButtonWrap>
             </LogInInfo>
           )}
