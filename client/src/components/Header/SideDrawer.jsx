@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 // Images
 import logo2 from "@/image/logo2.png";
@@ -9,10 +10,20 @@ import logo2 from "@/image/logo2.png";
 import { device } from "@/components/style/responsiveBreakPoints";
 
 // lib
-import { getCookie } from "@/lib/cookies";
+import { getCookie, deleteCookie } from "@/lib/cookies";
+
+// Actions
+import { getLogout } from "@/redux/actions/userActions";
 
 const SideDrawer = ({ show, click }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const logoutData = useSelector((state) => state.getLogout);
+  let { logout, loading, error } = logoutData;
+
+  const authData = useSelector((state) => state.auth);
+  let { userData } = authData;
 
   const category = [
     "전체보기",
@@ -29,9 +40,19 @@ const SideDrawer = ({ show, click }) => {
     "잡지",
   ];
   const isLogin = getCookie("x_auth") ? true : false;
-  const userName = decodeURI(getCookie("userName"));
+  const userName = userData.name;
 
   const showSideDrawer = show ? "translateX(0)" : "translateX(-100%)";
+
+  useEffect(() => {
+    if (error) return alert("서버 에러입니다.");
+    if (logout) {
+      if (logout.success) {
+        deleteCookie("x_auth");
+        window.location.reload();
+      }
+    }
+  }, [logoutData]);
 
   const menuClickHandler = (category) => {
     history.push(`/product/${category}`);
@@ -43,8 +64,13 @@ const SideDrawer = ({ show, click }) => {
     click();
   };
 
+  const logoutClickHandler = () => {
+    dispatch(getLogout());
+  };
+
   return (
     <Wrap style={{ transform: showSideDrawer }}>
+      {loading ? <LoadingWrap /> : ""}
       <ScrollWrap>
         <LogoImage>
           <img src={logo2} alt="logo" />
@@ -55,7 +81,7 @@ const SideDrawer = ({ show, click }) => {
               <LogInTitle>{userName}님 안녕하세요!</LogInTitle>
               <LogInButtonWrap>
                 <button>주문내역</button>
-                <button>로그아웃</button>
+                <button onClick={logoutClickHandler}>로그아웃</button>
               </LogInButtonWrap>
             </LogInInfo>
           ) : (
@@ -88,6 +114,7 @@ const SideDrawer = ({ show, click }) => {
 export default SideDrawer;
 
 const Wrap = styled.div`
+  position: relative;
   display: flex;
   width: 400px;
   height: 100vh;
@@ -112,6 +139,15 @@ const Wrap = styled.div`
     width: 220px;
     padding: 30px 20px 0 10px;
   }
+`;
+
+const LoadingWrap = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
 `;
 
 const ScrollWrap = styled.div`
