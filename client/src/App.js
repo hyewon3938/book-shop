@@ -10,7 +10,7 @@ import ProductsPage from "@/components/ProductsPage/ProductsPage";
 import ProductDetailsPage from "@/components/ProductDetailsPage/ProductDetailsPage";
 import CartPage from "@/components/CartPage/CartPage";
 import LoginPage from "@/components/LoginPage/LoginPage";
-import auth from "@/hoc/Auth";
+import auth from "@/hoc/auth";
 
 // Lib
 import ScrollReset from "@/lib/ScrollReset";
