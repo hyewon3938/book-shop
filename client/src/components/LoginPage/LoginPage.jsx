@@ -13,7 +13,7 @@ import { setIsHomePage } from "@/redux/actions/homePageActions";
 import { device } from "@/components/style/responsiveBreakPoints";
 
 // Actions
-import { postLogin } from "@/redux/actions/loginActions";
+import { postLogin } from "@/redux/actions/userActions";
 
 const LoginPage = () => {
   const history = useHistory();
