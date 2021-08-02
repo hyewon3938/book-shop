@@ -24,11 +24,21 @@ export const postLogin =
   };
 
 export const getAuth = () => async (dispatch) => {
-  const response = await axios.get(`/api/users/auth`);
-  return dispatch({
-    type: actionTypes.AUTH_USER,
-    payload: response.data,
-  });
+  try {
+    dispatch({ type: actionTypes.GET_AUTH_REQUEST });
+
+    const { data } = await axios.get(`/api/users/auth`);
+    dispatch({
+      type: actionTypes.GET_AUTH_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_AUTH_FAIL,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
 };
 
 export const getLogout = () => async (dispatch) => {

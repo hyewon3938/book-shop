@@ -46,11 +46,23 @@ export const getLogoutReducer = (state = {}, action) => {
   }
 };
 
-export const authReducer = (state = { userData: {} }, action) => {
+export const authReducer = (state = {}, action) => {
   switch (action.type) {
-    case actionTypes.AUTH_USER:
+    case actionTypes.GET_AUTH_REQUEST:
       return {
-        userData: action.payload,
+        loading: true,
+      };
+
+    case actionTypes.GET_AUTH_SUCCESS:
+      return {
+        loading: false,
+        auth: action.payload,
+      };
+
+    case actionTypes.GET_AUTH_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
       };
     default:
       return state;
