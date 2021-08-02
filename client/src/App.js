@@ -10,6 +10,7 @@ import ProductsPage from "@/components/ProductsPage/ProductsPage";
 import ProductDetailsPage from "@/components/ProductDetailsPage/ProductDetailsPage";
 import CartPage from "@/components/CartPage/CartPage";
 import LoginPage from "@/components/LoginPage/LoginPage";
+import RegisterPage from "@/components/RegisterPage/RegisterPage";
 import auth from "@/hoc/auth";
 
 // Lib
@@ -33,6 +34,7 @@ const App = () => {
               />
               <Route exact path="/cart" component={auth(CartPage, null)} />
               <Route exact path="/login" component={auth(LoginPage, false)} />
+              <Route exact path="/register" component={auth(RegisterPage, false)} />
             </ScrollReset>
           </Switch>
         </main>
