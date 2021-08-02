@@ -24,7 +24,7 @@ const Header = () => {
         </>
       ) : (
         <>
-          <Navbar click={() => setSideToggle(true)} isAuth={auth.isAuth} />
+          <Navbar click={() => setSideToggle(true)} />
           <SideDrawer
             show={sideToggle}
             click={() => setSideToggle(false)}

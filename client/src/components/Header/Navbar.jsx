@@ -10,7 +10,10 @@ import logo from "@/image/logo.png";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
-const Navbar = ({ click, isAuth }) => {
+// lib
+import { getCookie } from "@/lib/cookies";
+
+const Navbar = ({ click }) => {
   const [isScrollTop, setIsScrollTop] = useState(true);
 
   const homePageData = useSelector((state) => state.homePage);
@@ -34,11 +37,6 @@ const Navbar = ({ click, isAuth }) => {
     window.pageYOffset === 0 ? setIsScrollTop(true) : setIsScrollTop(false);
   }, 300);
 
-  // const saveIsScrollTop = () => {
-  //   window.pageYOffset === 0 ? setIsScrollTop(true) : setIsScrollTop(false);
-  //   console.log(window.pageYOffset);
-  // };
-
   useEffect(() => {
     window.addEventListener("scroll", throttledSaveIsScrollTop);
     return () => {
@@ -57,7 +55,7 @@ const Navbar = ({ click, isAuth }) => {
         <Logo>{isHomePage && isScrollTop ? "" : <img src={logo} alt="logo" />}</Logo>
       </StyledLink>
       <Menu>
-        {isAuth || isAuth == null ? (
+        {getCookie("x_auth") ? (
           ""
         ) : (
           <StyledLink to="/login">

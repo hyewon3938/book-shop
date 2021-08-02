@@ -10,7 +10,7 @@ import logo2 from "@/image/logo2.png";
 import { device } from "@/components/style/responsiveBreakPoints";
 
 // lib
-import { getCookie, deleteCookie } from "@/lib/cookies";
+import { deleteCookie } from "@/lib/cookies";
 
 // Actions
 import { getLogout } from "@/redux/actions/userActions";
@@ -43,6 +43,7 @@ const SideDrawer = ({ show, click, isAuth, userName }) => {
     if (error) return alert("서버 에러입니다.");
     if (logout) {
       if (logout.success) {
+        deleteCookie("x_auth");
         window.location.reload();
       }
     }
@@ -62,6 +63,11 @@ const SideDrawer = ({ show, click, isAuth, userName }) => {
     dispatch(getLogout());
   };
 
+  const registerClickHandler = () => {
+    history.push(`/register`);
+    click();
+  };
+
   return (
     <Wrap style={{ transform: showSideDrawer }}>
       {loading ? <LoadingWrap /> : ""}
@@ -75,7 +81,7 @@ const SideDrawer = ({ show, click, isAuth, userName }) => {
               <LogInTitle>로그인 해주세요.</LogInTitle>
               <LogInButtonWrap>
                 <button onClick={loginClickHandler}>로그인</button>
-                <button>회원가입</button>
+                <button onClick={registerClickHandler}>회원가입</button>
               </LogInButtonWrap>
             </LogInInfo>
           ) : (
