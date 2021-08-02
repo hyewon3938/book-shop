@@ -1,6 +1,6 @@
 const User = require("../models/User");
 
-const postUserInfo = (req, res) => {
+const register = (req, res) => {
   const user = new User(req.body);
 
   user.save((err, userInfo) => {
@@ -67,7 +67,7 @@ const logout = (req, res) => {
 };
 
 module.exports = {
-  postUserInfo,
+  register,
   emailDuplicateCheck,
   login,
   logout,

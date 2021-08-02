@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  postUserInfo,
+  register,
   emailDuplicateCheck,
   login,
   logout,
@@ -13,7 +13,7 @@ const { authMiddleware } = require("../middleware/authMiddleware");
 // @desc POST userInfo to db
 // @route POST /api/users/register
 // @access Public
-router.post("/register", postUserInfo);
+router.post("/register", register);
 
 // @desc POST email to check
 // @route POST /api/users/check-email
