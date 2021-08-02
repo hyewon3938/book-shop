@@ -31,9 +31,9 @@ export const getAuth = () => async (dispatch) => {
   });
 };
 
-export const getLogout = (userId) => async (dispatch) => {
+export const getLogout = () => async (dispatch) => {
   try {
-    const { data } = await axios.post(`/api/users/logout/${userId}`);
+    const { data } = await axios.get(`/api/users/logout`);
     dispatch({
       type: actionTypes.GET_LOGOUT_SUCCESS,
       payload: data,

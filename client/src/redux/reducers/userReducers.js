@@ -33,7 +33,7 @@ export const getLogoutReducer = (state = {}, action) => {
     case actionTypes.GET_LOGOUT_SUCCESS:
       return {
         loading: false,
-        login: action.payload,
+        logout: action.payload,
       };
 
     case actionTypes.GET_LOGOUT_FAIL:
