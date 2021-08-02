@@ -20,8 +20,6 @@ const RegisterPage = () => {
   const name = useRef();
   const confirmPassword = useRef();
 
-  const removeBlank = (string) => string.replaceAll(" ", "");
-
   const pass = (target, ref) => {
     target.style.borderColor = "";
     ref.current.style.display = "none";
@@ -38,17 +36,17 @@ const RegisterPage = () => {
     const emailCheck =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
-    if (!removeBlank(target.value)) return fail(target, emailMessage, "필수 입력 항목입니다.");
+    if (target.value) return fail(target, emailMessage, "필수 입력 항목입니다.");
     if (!emailCheck.test(target.value))
       return fail(target, emailMessage, "이메일을 다시 확인해주세요.");
-
     pass(target, emailMessage);
-    target.value = removeBlank(target.value);
   };
 
   const checkName = () => {
     const target = name.current;
-    if (!removeBlank(target.value)) return fail(target, nameMessage, "필수 입력 항목입니다.");
+    const lengthCheck = (name) => name.length < 2 || name.length > 15;
+    if (!target.value) return fail(target, nameMessage, "필수 입력 항목입니다.");
+    if (lengthCheck(target.value)) return fail(target, nameMessage, "2~15자로 입력해주세요.");
     pass(target, nameMessage);
   };
 
@@ -91,7 +89,7 @@ const RegisterPage = () => {
         <InputWrap>
           <Input type="email" placeholder="이메일" onBlur={checkEmail} ref={email} />
           <Message ref={emailMessage}></Message>
-          <Input placeholder="이름" onBlur={checkName} ref={name} />
+          <Input placeholder="이름 (2~15자)" onBlur={checkName} ref={name} />
           <Message ref={nameMessage}></Message>
           <Input
             type="password"
