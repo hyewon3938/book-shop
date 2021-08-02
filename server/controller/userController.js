@@ -39,7 +39,6 @@ const login = (req, res) => {
 
         res
           .cookie("x_auth", user.token)
-          .cookie("userName", user.name)
           .status(200)
           .json({ loginSuccess: true, userId: user._id, userName: user.name });
       });
