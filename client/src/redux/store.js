@@ -23,6 +23,7 @@ const reducer = combineReducers({
   getAd: getAdReducer,
   postLogin: postLoginReducer,
   getLogout: getLogoutReducer,
+  auth: authReducer,
 });
 
 const middleware = [thunk];
