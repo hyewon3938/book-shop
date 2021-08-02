@@ -11,7 +11,7 @@ import {
   getNewArrivalReducer,
   getAdReducer,
 } from "@/redux/reducers/homePageReducers";
-import { postLoginReducer } from "@/redux/reducers/loginReducer";
+import { postLoginReducer, getLogoutReducer, authReducer } from "@/redux/reducers/userReducers";
 
 const reducer = combineReducers({
   getProducts: getProductsReducer,
@@ -22,6 +22,7 @@ const reducer = combineReducers({
   getNewArrival: getNewArrivalReducer,
   getAd: getAdReducer,
   postLogin: postLoginReducer,
+  getLogout: getLogoutReducer,
 });
 
 const middleware = [thunk];
