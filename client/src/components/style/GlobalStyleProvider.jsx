@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import { ThemeProvider as StyledThemeProvider } from "styled-components";
 import theme from "@/components/style/theme";
+import smoothScroll from "smoothscroll-polyfill";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -45,6 +46,7 @@ input[type='number']::-webkit-outer-spin-button {
 `;
 
 const GlobalStyleProvider = ({ children }) => {
+  smoothScroll.polyfill();
   return (
     <StyledThemeProvider theme={theme}>
       <GlobalStyle />
