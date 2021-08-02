@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 // Actions
@@ -18,20 +18,22 @@ export default function (SpecificComponent, option, adminRoute = null) {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const authData = useSelector((state) => state.auth);
+    let { auth, loading, error } = authData;
+
     useEffect(() => {
-      dispatch(getAuth()).then((response) => {
-        // 로그인하지 않은 상태
-        if (!response.payload.isAuth) {
-          if (option) return history.push("/login");
+      dispatch(getAuth());
+
+      if (!auth) return;
+      if (!auth.isAuth) {
+        if (option) history.push("/login");
+      } else {
+        if (adminRoute && !auth.isAdmin) {
+          return history.push("/");
         } else {
-          // 로그인한 상태
-          if (adminRoute && !response.payload.isAdmin) {
-            return history.push("/");
-          } else {
-            if (option === false) return history.push("/");
-          }
+          if (option === false) return history.push("/");
         }
-      });
+      }
     }, []);
 
     return <SpecificComponent />;
