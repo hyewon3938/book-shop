@@ -1,8 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
-
+const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
+
 const productRoutes = require("./routes/productRoutes");
 const newArrivalRoutes = require("./routes/newArrivalRoutes");
 const recommendationRoutes = require("./routes/recommendationRoutes");
@@ -16,6 +17,7 @@ connectDB();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/products", productRoutes);
 app.use("/api/newArrival", newArrivalRoutes);
