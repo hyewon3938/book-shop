@@ -151,6 +151,7 @@ const makeBorder = keyframes`
 const Menu = styled.div`
   display: flex;
   justify-content: space-around;
+  align-items: center;
   button {
     display: flex;
     justify-content: center;
