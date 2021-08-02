@@ -15,6 +15,9 @@ import { device } from "@/components/style/responsiveBreakPoints";
 // Actions
 import { postLogin } from "@/redux/actions/userActions";
 
+// Image
+import logo from "@/image/logo.png";
+
 const LoginPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -36,6 +39,10 @@ const LoginPage = () => {
     password.current.style.borderColor = "";
   };
 
+  const logoClickHandler = () => {
+    history.push("/");
+  };
+
   const loginClickHandler = (e) => {
     if (!email.current.value || !password.current.value) return;
     dispatch(postLogin({ email: email.current.value, password: password.current.value }));
@@ -53,39 +60,58 @@ const LoginPage = () => {
   }, [loginData]);
 
   return (
-    <PageWrap>
-      <Wrap>
-        <LoginWrap>
-          <LoginTitle>로그인</LoginTitle>
-          <form onSubmit={loginClickHandler}>
-            <InputWrap>
-              <Input type="email" placeholder="이메일" ref={email} onBlur={checkEmail} />
-              <Input type="password" placeholder="비밀번호" ref={password} onBlur={checkPassword} />
-              {loading ? <LoginLoadingIndicator /> : ""}
-            </InputWrap>
-            <ButtonWrap>
-              {loading ? <LoginLoadingIndicator /> : ""}
-              <Button type="submit">로그인</Button>
-            </ButtonWrap>
-            <TextButton>
-              <span>비밀번호 재설정</span>
-              <span>회원가입</span>
-            </TextButton>
-          </form>
-        </LoginWrap>
-      </Wrap>
-    </PageWrap>
+    <Wrap>
+      <Logo onClick={logoClickHandler}>
+        <img src={logo} />
+      </Logo>
+      <LoginWrap>
+        <form onSubmit={loginClickHandler}>
+          <InputWrap>
+            <Input type="email" placeholder="이메일" ref={email} onBlur={checkEmail} />
+            <Input type="password" placeholder="비밀번호" ref={password} onBlur={checkPassword} />
+            {loading ? <LoginLoadingIndicator /> : ""}
+          </InputWrap>
+          <ButtonWrap>
+            {loading ? <LoginLoadingIndicator /> : ""}
+            <Button type="submit">로그인</Button>
+          </ButtonWrap>
+          <TextButton>
+            <span>비밀번호 재설정</span>
+            <span>회원가입</span>
+          </TextButton>
+        </form>
+      </LoginWrap>
+    </Wrap>
   );
 };
 
 export default LoginPage;
 
 const Wrap = styled.div`
+  position: absolute;
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
+  background: #f5f5ef;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 10000;
+`;
+
+const Logo = styled.div`
+  height: 70px;
+  margin: 0 0 30px 0;
+  cursor: pointer;
+  img {
+    height: 100%;
+  }
+  @media (max-width: ${device.small}px) {
+    margin: 0 0 10px 0;
+    height: 60px;
+  }
 `;
 
 const LoginWrap = styled.div`
@@ -93,16 +119,12 @@ const LoginWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 450px;
-  margin: 20vh 0 0 0;
+  width: 350px;
   border-radius: 10px;
-  padding: 50px;
-  background: #f4f4f4;
   @media (max-width: ${device.small}px) {
     background: none;
     width: 100%;
     padding: 30px;
-    margin: 10vh 0 0 0;
   }
   @media (max-width: ${device.extraSmall}px) {
     padding: 10px;
@@ -130,12 +152,6 @@ const LoginLoadingIndicator = styled.div`
   background: rgba(255, 255, 255, 0.5);
   z-index: 1;
   animation: ${loading} 1s ease infinite;
-`;
-
-const LoginTitle = styled.h1`
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0 0 30px 0;
 `;
 
 const InputWrap = styled.div`
