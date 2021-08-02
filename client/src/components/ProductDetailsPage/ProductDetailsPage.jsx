@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useRouteMatch } from "react-router-dom";
 
 // Components
 import PageWrap from "@/components/style/layout/PageWrap";
@@ -10,8 +11,9 @@ import ProductDetails from "@/components/ProductDetailsPage/ProductDetails";
 import { getProductDetails } from "@/redux/actions/productActions";
 import { setIsHomePage } from "@/redux/actions/homePageActions";
 
-const ProductDetailsPage = ({ match }) => {
+const ProductDetailsPage = () => {
   const dispatch = useDispatch();
+  const match = useRouteMatch();
 
   const productDetailsData = useSelector((state) => state.getProductDetails);
   const { productDetails, loading, error } = productDetailsData;
