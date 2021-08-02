@@ -1,6 +1,5 @@
 import React from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
-import CacheRoute, { CacheSwitch } from "react-router-cache-route";
 
 // Components
 import GlobalStyleProvider from "@/components/style/GlobalStyleProvider";
@@ -11,6 +10,7 @@ import ProductsPage from "@/components/ProductsPage/ProductsPage";
 import ProductDetailsPage from "@/components/ProductDetailsPage/ProductDetailsPage";
 import CartPage from "@/components/CartPage/CartPage";
 import LoginPage from "@/components/LoginPage/LoginPage";
+import auth from "@/hoc/Auth";
 
 // Lib
 import ScrollReset from "@/lib/ScrollReset";
@@ -22,15 +22,19 @@ const App = () => {
         <Header />
         <ScrollTopButton />
         <main>
-          <CacheSwitch>
+          <Switch>
             <ScrollReset>
-              <CacheRoute exact path="/" component={HomePage} />
-              <CacheRoute exact path="/product/:category" component={ProductsPage} />
-              <Route exact path="/product/:category/:id" component={ProductDetailsPage} />
-              <Route exact path="/cart" component={CartPage} />
-              <Route exact path="/login" component={LoginPage} />
+              <Route exact path="/" component={auth(HomePage, null)} />
+              <Route exact path="/product/:category" component={auth(ProductsPage, null)} />
+              <Route
+                exact
+                path="/product/:category/:id"
+                component={auth(ProductDetailsPage, null)}
+              />
+              <Route exact path="/cart" component={auth(CartPage, null)} />
+              <Route exact path="/login" component={auth(LoginPage, false)} />
             </ScrollReset>
-          </CacheSwitch>
+          </Switch>
         </main>
       </Router>
     </GlobalStyleProvider>
