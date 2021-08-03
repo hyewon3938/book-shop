@@ -56,3 +56,21 @@ export const getLogout = () => async (dispatch) => {
     });
   }
 };
+
+export const postEmailCheck = (email) => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.POST_EMAIL_CHECK_REQUEST });
+
+    const { data } = await axios.post(`/api/users/check-email`, { email: email });
+    dispatch({
+      type: actionTypes.POST_EMAIL_CHECK_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.POST_EMAIL_CHECK_FAIL,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};

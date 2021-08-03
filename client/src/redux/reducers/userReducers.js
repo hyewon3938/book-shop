@@ -68,3 +68,26 @@ export const authReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const postEmailCheckReducer = (state = {}, action) => {
+  switch (action.type) {
+    case actionTypes.POST_EMAIL_CHECK_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case actionTypes.POST_EMAIL_CHECK_SUCCESS:
+      return {
+        loading: false,
+        emailCheck: action.payload,
+      };
+
+    case actionTypes.POST_EMAIL_CHECK_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
