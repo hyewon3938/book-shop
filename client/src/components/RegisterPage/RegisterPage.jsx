@@ -2,11 +2,11 @@ import React, { useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import { useHistory } from "react-router-dom";
 
-// Image
-import logo from "@/image/logo.png";
-
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
+
+// Components
+import PageWrap from "@/components/style/layout/PageWrap";
 
 const RegisterPage = () => {
   const history = useHistory();
@@ -36,7 +36,7 @@ const RegisterPage = () => {
     const emailCheck =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
-    if (target.value) return fail(target, emailMessage, "필수 입력 항목입니다.");
+    if (!target.value) return fail(target, emailMessage, "필수 입력 항목입니다.");
     if (!emailCheck.test(target.value))
       return fail(target, emailMessage, "이메일을 다시 확인해주세요.");
     pass(target, emailMessage);
@@ -68,10 +68,6 @@ const RegisterPage = () => {
     pass(target, confirmPasswordMessage);
   };
 
-  const logoClickHandler = () => {
-    history.push("/");
-  };
-
   const registerClickHandler = () => {
     checkEmail();
     checkName();
@@ -81,11 +77,8 @@ const RegisterPage = () => {
 
   return (
     <Wrap>
-      <Logo onClick={logoClickHandler}>
-        <img src={logo} />
-      </Logo>
-      <Title>회원가입</Title>
       <RegisterWrap>
+        <Title>회원가입</Title>
         <InputWrap>
           <Input type="email" placeholder="이메일" onBlur={checkEmail} ref={email} />
           <Message ref={emailMessage}></Message>
@@ -119,31 +112,14 @@ const RegisterPage = () => {
 export default RegisterPage;
 
 const Wrap = styled.div`
-  position: absolute;
   width: 100%;
-  height: 100vh;
-  padding: 15vh 0;
-  top: 0;
-  left: 0;
-  background: #f5f5ef;
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 10000;
-  overflow-y: scroll;
   overflow-x: hidden;
-`;
-
-const Logo = styled.div`
-  height: 70px;
-  margin: 0 0 30px 0;
-  cursor: pointer;
-  img {
-    height: 100%;
-  }
+  padding: 200px 0 100px 0;
   @media (max-width: ${device.small}px) {
-    margin: 0 0 10px 0;
-    height: 60px;
+    padding: 100px 0 50px 0;
   }
 `;
 
@@ -153,16 +129,12 @@ const Title = styled.h1`
   margin: 0 0 30px 0;
 `;
 
-const Form = styled.form`
-  width: 100%;
-`;
-
 const RegisterWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: inherit;
-  width: 400px;
+  width: 450px;
   @media (max-width: ${device.small}px) {
     width: 100%;
     padding: 30px;
@@ -216,6 +188,10 @@ const Message = styled.div`
   margin: 10px 0 0 5px;
   color: red;
   display: none;
+  font-size: 14px;
+  @media (max-width: ${device.small}px) {
+    font-size: 12px;
+  }
 `;
 
 const ButtonWrap = styled.div`
