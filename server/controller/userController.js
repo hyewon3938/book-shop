@@ -17,7 +17,7 @@ const register = (req, res) => {
 
 const emailDuplicateCheck = async (req, res) => {
   const email = await User.findOne({ email: req.body.email });
-  if (email) return res.status(409).json({ isAvailable: false });
+  if (email) return res.json({ isAvailable: false });
 
   res.status(200).json({ isAvailable: true });
 };
