@@ -15,9 +15,6 @@ import { device } from "@/components/style/responsiveBreakPoints";
 // Actions
 import { postLogin } from "@/redux/actions/userActions";
 
-// Image
-import logo from "@/image/logo.png";
-
 const LoginPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -37,10 +34,6 @@ const LoginPage = () => {
     if (!password.current.value) return (password.current.style.borderColor = "red");
 
     password.current.style.borderColor = "";
-  };
-
-  const logoClickHandler = () => {
-    history.push("/");
   };
 
   const loginClickHandler = (e) => {
@@ -65,9 +58,7 @@ const LoginPage = () => {
 
   return (
     <Wrap>
-      <Logo onClick={logoClickHandler}>
-        <img src={logo} />
-      </Logo>
+      <Title>로그인</Title>
       <LoginWrap>
         <form onSubmit={loginClickHandler}>
           <InputWrap>
@@ -92,30 +83,20 @@ const LoginPage = () => {
 export default LoginPage;
 
 const Wrap = styled.div`
-  position: absolute;
   width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: #f5f5ef;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  z-index: 10000;
+  padding: 200px 0 100px 0;
+  @media (max-width: ${device.small}px) {
+    padding: 150px 0 50px 0;
+  }
 `;
 
-const Logo = styled.div`
-  height: 70px;
+const Title = styled.h1`
+  font-weight: bold;
+  font-size: 18px;
   margin: 0 0 30px 0;
-  cursor: pointer;
-  img {
-    height: 100%;
-  }
-  @media (max-width: ${device.small}px) {
-    margin: 0 0 10px 0;
-    height: 60px;
-  }
 `;
 
 const LoginWrap = styled.div`
