@@ -3,17 +3,12 @@ import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-// Components
-import PageWrap from "@/components/style/layout/PageWrap";
-
 // Actions
 import { setIsHomePage } from "@/redux/actions/homePageActions";
+import { postLogin } from "@/redux/actions/userActions";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
-
-// Actions
-import { postLogin } from "@/redux/actions/userActions";
 
 const LoginPage = () => {
   const history = useHistory();
