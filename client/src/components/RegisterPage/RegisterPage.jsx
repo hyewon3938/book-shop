@@ -1,15 +1,20 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
-// Components
-import PageWrap from "@/components/style/layout/PageWrap";
+// Actions
+import { setIsHomePage } from "@/redux/actions/homePageActions";
+import { postEmailCheck } from "@/redux/actions/userActions";
 
 const RegisterPage = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const emailCheckData = useSelector((state) => state.emailCheck);
 
   const emailMessage = useRef();
   const nameMessage = useRef();
@@ -20,15 +25,28 @@ const RegisterPage = () => {
   const name = useRef();
   const confirmPassword = useRef();
 
-  const pass = (target, ref) => {
+  const [isEmailDuplicated, setIsEmailDuplicated] = useState(false);
+  const emailBorderColor = isEmailDuplicated ? "red" : "";
+
+  useEffect(() => {
+    dispatch(setIsHomePage(false));
+  }, []);
+
+  useEffect(() => {
+    const { emailCheck } = emailCheckData;
+    if (!emailCheck) return;
+    setIsEmailDuplicated(!emailCheck.isAvailable);
+  }, [emailCheckData, isEmailDuplicated]);
+
+  const pass = (target, message) => {
     target.style.borderColor = "";
-    ref.current.style.display = "none";
+    message.current.style.display = "none";
   };
 
-  const fail = (target, ref, message) => {
+  const fail = (target, message, messageText) => {
     target.style.borderColor = "red";
-    ref.current.innerText = message;
-    ref.current.style.display = "block";
+    message.current.innerText = messageText;
+    message.current.style.display = "block";
   };
 
   const checkEmail = () => {
@@ -39,7 +57,8 @@ const RegisterPage = () => {
     if (!target.value) return fail(target, emailMessage, "필수 입력 항목입니다.");
     if (!emailCheck.test(target.value))
       return fail(target, emailMessage, "이메일을 다시 확인해주세요.");
-    pass(target, emailMessage);
+
+    dispatch(postEmailCheck(target.value));
   };
 
   const checkName = () => {
@@ -80,8 +99,20 @@ const RegisterPage = () => {
       <RegisterWrap>
         <Title>회원가입</Title>
         <InputWrap>
-          <Input type="email" placeholder="이메일" onBlur={checkEmail} ref={email} />
-          <Message ref={emailMessage}></Message>
+          <Input
+            style={{ borderColor: emailBorderColor }}
+            type="email"
+            placeholder="이메일"
+            onBlur={checkEmail}
+            ref={email}
+          />
+          {isEmailDuplicated ? (
+            <Message style={{ display: "flex" }} ref={emailMessage}>
+              이미 가입된 이메일입니다.
+            </Message>
+          ) : (
+            <Message ref={emailMessage}></Message>
+          )}
           <Input placeholder="이름 (2~15자)" onBlur={checkName} ref={name} />
           <Message ref={nameMessage}></Message>
           <Input
