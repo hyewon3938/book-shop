@@ -38,10 +38,6 @@ const RegisterPage = () => {
   const emailBorderColor = isEmailDuplicated ? "red" : "";
 
   useEffect(() => {
-    return () => {};
-  }, []);
-
-  useEffect(() => {
     const { emailCheck } = emailCheckData;
     if (!emailCheck) return;
     setIsEmailDuplicated(!emailCheck.isAvailable);
@@ -80,9 +76,8 @@ const RegisterPage = () => {
     if (!target.value) return fail(target, emailMessage, "필수 입력 항목입니다.");
     if (!emailCheck.test(target.value))
       return fail(target, emailMessage, "이메일을 다시 확인해주세요.");
-
     dispatch(postEmailCheck(target.value));
-    return pass(target, emailMessage);
+    return true;
   };
 
   const checkName = () => {
