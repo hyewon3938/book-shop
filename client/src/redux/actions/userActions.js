@@ -74,3 +74,30 @@ export const postEmailCheck = (email) => async (dispatch) => {
     });
   }
 };
+
+export const postRegister =
+  ({ name, email, password }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: actionTypes.POST_REGISTER_REQUEST });
+
+      const { data } = await axios.post(`/api/users/register`, {
+        name: name,
+        email: email,
+        password: password,
+        role: "User",
+      });
+      dispatch({
+        type: actionTypes.POST_REGISTER_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: actionTypes.POST_REGISTER_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

@@ -91,3 +91,26 @@ export const postEmailCheckReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const postRegisterReducer = (state = {}, action) => {
+  switch (action.type) {
+    case actionTypes.POST_REGISTER_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case actionTypes.POST_REGISTER_SUCCESS:
+      return {
+        loading: false,
+        register: action.payload,
+      };
+
+    case actionTypes.POST_REGISTER_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};

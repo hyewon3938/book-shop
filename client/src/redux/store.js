@@ -16,6 +16,7 @@ import {
   getLogoutReducer,
   authReducer,
   postEmailCheckReducer,
+  postRegisterReducer,
 } from "@/redux/reducers/userReducers";
 
 const reducer = combineReducers({
@@ -30,6 +31,7 @@ const reducer = combineReducers({
   getLogout: getLogoutReducer,
   auth: authReducer,
   emailCheck: postEmailCheckReducer,
+  register: postRegisterReducer,
 });
 
 const middleware = [thunk];
