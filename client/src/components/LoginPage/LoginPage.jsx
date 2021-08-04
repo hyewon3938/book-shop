@@ -10,6 +10,9 @@ import { postLogin } from "@/redux/actions/userActions";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
+// Image
+import logo from "@/image/logo.png";
+
 const LoginPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -41,6 +44,10 @@ const LoginPage = () => {
     history.push("/register");
   };
 
+  const logoClickHandler = () => {
+    history.push("/");
+  };
+
   useEffect(() => {
     dispatch(setIsHomePage(false));
   }, []);
@@ -53,7 +60,9 @@ const LoginPage = () => {
 
   return (
     <Wrap>
-      <Title>로그인</Title>
+      <Logo onClick={logoClickHandler}>
+        <img src={logo} />
+      </Logo>
       <LoginWrap>
         <form onSubmit={loginClickHandler}>
           <InputWrap>
@@ -79,19 +88,26 @@ export default LoginPage;
 
 const Wrap = styled.div`
   width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 200px 0 100px 0;
-  @media (max-width: ${device.small}px) {
-    padding: 150px 0 50px 0;
-  }
+  justify-content: center;
+  background: #f5f5ef;
+  padding: 50px 0;
 `;
 
-const Title = styled.h1`
-  font-weight: bold;
-  font-size: 18px;
+const Logo = styled.div`
+  height: 70px;
   margin: 0 0 30px 0;
+  cursor: pointer;
+  img {
+    height: 100%;
+  }
+  @media (max-width: ${device.small}px) {
+    margin: 0 0 10px 0;
+    height: 60px;
+  }
 `;
 
 const LoginWrap = styled.div`
