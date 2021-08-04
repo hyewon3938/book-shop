@@ -101,3 +101,7 @@ export const postRegister =
       });
     }
   };
+
+export const removeRegisterData = () => {
+  return { type: actionTypes.REMOVE_REGISTER_DATA };
+};

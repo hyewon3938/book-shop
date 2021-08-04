@@ -104,12 +104,13 @@ export const postRegisterReducer = (state = {}, action) => {
         loading: false,
         register: action.payload,
       };
-
     case actionTypes.POST_REGISTER_FAIL:
       return {
         loading: false,
         error: action.payload,
       };
+    case actionTypes.REMOVE_REGISTER_DATA:
+      return {};
     default:
       return state;
   }
