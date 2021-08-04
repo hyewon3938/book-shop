@@ -10,6 +10,9 @@ import { device } from "@/components/style/responsiveBreakPoints";
 import { setIsHomePage } from "@/redux/actions/homePageActions";
 import { postEmailCheck } from "@/redux/actions/userActions";
 
+// Image
+import logo from "@/image/logo.png";
+
 const RegisterPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -94,9 +97,16 @@ const RegisterPage = () => {
     checkConfirmPassword();
   };
 
+  const logoClickHandler = () => {
+    history.push("/");
+  };
+
   return (
     <Wrap>
       <RegisterWrap>
+        <Logo onClick={logoClickHandler}>
+          <img src={logo} />
+        </Logo>
         <Title>회원가입</Title>
         <InputWrap>
           <Input
@@ -144,13 +154,26 @@ export default RegisterPage;
 
 const Wrap = styled.div`
   width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
-  padding: 200px 0 100px 0;
+  justify-content: center;
+  background: #f5f5ef;
+  padding: 50px 0;
+`;
+
+const Logo = styled.div`
+  height: 70px;
+  margin: 0 0 30px 0;
+  cursor: pointer;
+  img {
+    height: 100%;
+  }
   @media (max-width: ${device.small}px) {
-    padding: 100px 0 50px 0;
+    margin: 0 0 10px 0;
+    height: 60px;
   }
 `;
 
