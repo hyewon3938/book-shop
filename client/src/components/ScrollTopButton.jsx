@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { throttle } from "lodash";
 
 // utils
 import { scrollToTop } from "@/lib/utils";
@@ -8,10 +9,29 @@ import { scrollToTop } from "@/lib/utils";
 import { device } from "@/components/style/responsiveBreakPoints";
 
 const ScrollTopButton = () => {
+  const [isScrollTop, setIsScrollTop] = useState(true);
+
+  const throttledSaveIsScrollTop = throttle(() => {
+    window.pageYOffset === 0 ? setIsScrollTop(true) : setIsScrollTop(false);
+  }, 300);
+
+  useEffect(() => {
+    window.addEventListener("scroll", throttledSaveIsScrollTop);
+    return () => {
+      window.removeEventListener("scroll", throttledSaveIsScrollTop);
+    };
+  }, [scrollY]);
+
   return (
-    <Wrap onClick={scrollToTop}>
-      <Icon className="fas fa-arrow-up"></Icon>
-    </Wrap>
+    <>
+      {isScrollTop ? (
+        ""
+      ) : (
+        <Wrap onClick={scrollToTop}>
+          <Icon className="fas fa-arrow-up"></Icon>
+        </Wrap>
+      )}
+    </>
   );
 };
 
