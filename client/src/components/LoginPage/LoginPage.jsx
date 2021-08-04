@@ -94,7 +94,6 @@ const Wrap = styled.div`
   align-items: center;
   justify-content: center;
   background: #f5f5ef;
-  padding: 50px 0;
 `;
 
 const Logo = styled.div`
