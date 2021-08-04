@@ -102,6 +102,10 @@ export const postRegister =
     }
   };
 
+export const removeEmailCheckData = () => {
+  return { type: actionTypes.REMOVE_EMAIL_CHECK_DATA };
+};
+
 export const removeRegisterData = () => {
   return { type: actionTypes.REMOVE_REGISTER_DATA };
 };

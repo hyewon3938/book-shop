@@ -81,12 +81,13 @@ export const postEmailCheckReducer = (state = {}, action) => {
         loading: false,
         emailCheck: action.payload,
       };
-
     case actionTypes.POST_EMAIL_CHECK_FAIL:
       return {
         loading: false,
         error: action.payload,
       };
+    case actionTypes.REMOVE_EMAIL_CHECK_DATA:
+      return {};
     default:
       return state;
   }

@@ -7,7 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { device } from "@/components/style/responsiveBreakPoints";
 
 // Actions
-import { postEmailCheck, postRegister, removeRegisterData } from "@/redux/actions/userActions";
+import {
+  postEmailCheck,
+  postRegister,
+  removeRegisterData,
+  removeEmailCheckData,
+} from "@/redux/actions/userActions";
 
 // Image
 import logo from "@/image/logo.png";
@@ -33,9 +38,14 @@ const RegisterPage = () => {
   const emailBorderColor = isEmailDuplicated ? "red" : "";
 
   useEffect(() => {
+    return () => {};
+  }, []);
+
+  useEffect(() => {
     const { emailCheck } = emailCheckData;
     if (!emailCheck) return;
     setIsEmailDuplicated(!emailCheck.isAvailable);
+    dispatch(removeEmailCheckData());
   }, [emailCheckData, isEmailDuplicated]);
 
   useEffect(() => {
