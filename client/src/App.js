@@ -3,7 +3,6 @@ import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 // Components
 import GlobalStyleProvider from "@/components/style/GlobalStyleProvider";
-import Header from "@/components/Header/Header";
 import ScrollTopButton from "@/components/ScrollTopButton";
 import HomePage from "@/components/HomePage/HomePage";
 import ProductsPage from "@/components/ProductsPage/ProductsPage";
@@ -20,7 +19,6 @@ const App = () => {
   return (
     <GlobalStyleProvider>
       <Router>
-        <Header />
         <ScrollTopButton />
         <main>
           <Switch>

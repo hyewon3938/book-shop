@@ -5,6 +5,9 @@ import { useHistory } from "react-router-dom";
 // Actions
 import { getAuth } from "@/redux/actions/userActions";
 
+//lib
+import { renderAfterPathCheck } from "@/lib/renderAfterPathCheck";
+
 export default function (SpecificComponent, option, adminRoute = null) {
   // option 값?
   // null => 아무나 출입 가능
@@ -14,9 +17,11 @@ export default function (SpecificComponent, option, adminRoute = null) {
   // adminRoute 값?
   // true => admin만 출입가능
 
-  function AuthenticationCheck() {
+  function AuthenticationCheck({ match }) {
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const path = match.path;
 
     const authData = useSelector((state) => state.auth);
     let { auth, loading, error } = authData;
@@ -36,7 +41,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
       }
     }, []);
 
-    return <SpecificComponent />;
+    return renderAfterPathCheck(path, SpecificComponent);
   }
 
   return AuthenticationCheck;
