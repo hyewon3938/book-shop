@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 // Actions
-import { setIsHomePage } from "@/redux/actions/homePageActions";
 import { postLogin } from "@/redux/actions/userActions";
 
 // Style
@@ -47,10 +46,6 @@ const LoginPage = () => {
   const logoClickHandler = () => {
     history.push("/");
   };
-
-  useEffect(() => {
-    dispatch(setIsHomePage(false));
-  }, []);
 
   useEffect(() => {
     if (error) return alert("서버 오류입니다");

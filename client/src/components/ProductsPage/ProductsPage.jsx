@@ -9,7 +9,6 @@ import Product from "@/components/ProductsPage/Product";
 
 // Actions
 import { getProducts } from "@/redux/actions/productActions";
-import { setIsHomePage } from "@/redux/actions/homePageActions";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
@@ -24,7 +23,6 @@ const ProductsPage = () => {
   useEffect(() => {
     const categoryParam = match.params.category === "전체보기" ? "" : match.params.category;
     dispatch(getProducts(categoryParam));
-    dispatch(setIsHomePage(false));
   }, [match]);
 
   const emptyArray = new Array(20).fill(0);

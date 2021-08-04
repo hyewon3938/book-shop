@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { device } from "@/components/style/responsiveBreakPoints";
 
 // Actions
-import { setIsHomePage } from "@/redux/actions/homePageActions";
 import { postEmailCheck, postRegister, removeRegisterData } from "@/redux/actions/userActions";
 
 // Image
@@ -32,10 +31,6 @@ const RegisterPage = () => {
 
   const [isEmailDuplicated, setIsEmailDuplicated] = useState(false);
   const emailBorderColor = isEmailDuplicated ? "red" : "";
-
-  useEffect(() => {
-    dispatch(setIsHomePage(false));
-  }, []);
 
   useEffect(() => {
     const { emailCheck } = emailCheckData;
