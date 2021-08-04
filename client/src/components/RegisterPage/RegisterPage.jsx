@@ -8,7 +8,7 @@ import { device } from "@/components/style/responsiveBreakPoints";
 
 // Actions
 import { setIsHomePage } from "@/redux/actions/homePageActions";
-import { postEmailCheck } from "@/redux/actions/userActions";
+import { postEmailCheck, postRegister, removeRegisterData } from "@/redux/actions/userActions";
 
 // Image
 import logo from "@/image/logo.png";
@@ -18,6 +18,8 @@ const RegisterPage = () => {
   const dispatch = useDispatch();
 
   const emailCheckData = useSelector((state) => state.emailCheck);
+  const registerData = useSelector((state) => state.register);
+  const { register, loading, error } = registerData;
 
   const emailMessage = useRef();
   const nameMessage = useRef();
@@ -41,15 +43,28 @@ const RegisterPage = () => {
     setIsEmailDuplicated(!emailCheck.isAvailable);
   }, [emailCheckData, isEmailDuplicated]);
 
+  useEffect(() => {
+    if (!register) return;
+    if (error) return alert(error);
+    if (!register.success) return alert(register.error);
+    if (register.success) {
+      let result = confirm("회원가입 성공!\n바로 로그인 하시겠습니까?");
+      result ? history.push("/login") : history.push("/");
+      return dispatch(removeRegisterData());
+    }
+  }, [registerData]);
+
   const pass = (target, message) => {
     target.style.borderColor = "";
     message.current.style.display = "none";
+    return true;
   };
 
   const fail = (target, message, messageText) => {
     target.style.borderColor = "red";
     message.current.innerText = messageText;
     message.current.style.display = "block";
+    return false;
   };
 
   const checkEmail = () => {
@@ -62,6 +77,7 @@ const RegisterPage = () => {
       return fail(target, emailMessage, "이메일을 다시 확인해주세요.");
 
     dispatch(postEmailCheck(target.value));
+    return pass(target, emailMessage);
   };
 
   const checkName = () => {
@@ -69,7 +85,7 @@ const RegisterPage = () => {
     const lengthCheck = (name) => name.length < 2 || name.length > 15;
     if (!target.value) return fail(target, nameMessage, "필수 입력 항목입니다.");
     if (lengthCheck(target.value)) return fail(target, nameMessage, "2~15자로 입력해주세요.");
-    pass(target, nameMessage);
+    return pass(target, nameMessage);
   };
 
   const checkPassword = () => {
@@ -78,7 +94,7 @@ const RegisterPage = () => {
     if (!target.value) return fail(target, passwordMessage, "필수 입력 항목입니다.");
     if (!passwordCheck.test(target.value))
       return fail(target, passwordMessage, "8~16자 영문,숫자,특수문자를 혼합해서 사용해주세요.");
-    pass(target, passwordMessage);
+    return pass(target, passwordMessage);
   };
 
   const checkConfirmPassword = () => {
@@ -87,7 +103,7 @@ const RegisterPage = () => {
       return fail(target, confirmPasswordMessage, "확인을 위해 비밀번호를 입력해주세요.");
     if (password.current.value !== target.value)
       return fail(target, confirmPasswordMessage, "비밀번호와 일치하지 않습니다.");
-    pass(target, confirmPasswordMessage);
+    return pass(target, confirmPasswordMessage);
   };
 
   const registerClickHandler = () => {
@@ -95,6 +111,22 @@ const RegisterPage = () => {
     checkName();
     checkPassword();
     checkConfirmPassword();
+
+    if (
+      checkEmail() &&
+      checkName() &&
+      checkPassword() &&
+      checkConfirmPassword() &&
+      !isEmailDuplicated
+    ) {
+      dispatch(
+        postRegister({
+          name: name.current.value,
+          email: email.current.value,
+          password: password.current.value,
+        })
+      );
+    }
   };
 
   const logoClickHandler = () => {
@@ -139,10 +171,10 @@ const RegisterPage = () => {
             onBlur={checkConfirmPassword}
           />
           <Message ref={confirmPasswordMessage}></Message>
-          {!loading ? <LoadingIndicator /> : ""}
+          {loading ? <LoadingIndicator /> : ""}
         </InputWrap>
         <ButtonWrap>
-          {!loading ? <LoadingIndicator /> : ""}
+          {loading ? <LoadingIndicator /> : ""}
           <Button onClick={registerClickHandler}>회원가입</Button>
         </ButtonWrap>
       </RegisterWrap>
@@ -161,7 +193,6 @@ const Wrap = styled.div`
   overflow-x: hidden;
   justify-content: center;
   background: #f5f5ef;
-  padding: 50px 0;
 `;
 
 const Logo = styled.div`
