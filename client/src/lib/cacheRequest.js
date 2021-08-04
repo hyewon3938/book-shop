@@ -3,6 +3,6 @@ import { cacheAdapterEnhancer } from "axios-extensions";
 
 export const cacheRequest = axios.create({
   Accept: "application/json",
-  headers: { "Cache-Control": "no-cache" },
-  adapter: cacheAdapterEnhancer(axios.defaults.adapter),
+  headers: { "Cache-Control": "no-cache,no-store,must-revalidate" },
+  adapter: cacheAdapterEnhancer(axios.defaults.adapter, { enabledByDefault: false }),
 });

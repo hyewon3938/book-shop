@@ -6,11 +6,14 @@ export const setIsHomePage = (payload) => async (dispatch) => {
   dispatch({ type: actionTypes.SET_IS_HOMEPAGE, payload: payload });
 };
 
-export const getRecommendation = () => async (dispatch) => {
+export const getRecommendation = (history) => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_RECOMMENDATION_REQUEST });
 
-    const { data } = await cacheRequest.get(`/api/recommendation`);
+    const { data } = await cacheRequest.get(`/api/recommendation`, {
+      forceUpdate: history.action === "PUSH",
+      cache: true,
+    });
     dispatch({
       type: actionTypes.GET_RECOMMENDATION_SUCCESS,
       payload: data,
@@ -24,11 +27,14 @@ export const getRecommendation = () => async (dispatch) => {
   }
 };
 
-export const getAd = () => async (dispatch) => {
+export const getAd = (history) => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_AD_REQUEST });
 
-    const { data } = await cacheRequest.get(`/api/ad`);
+    const { data } = await cacheRequest.get(`/api/ad`, {
+      forceUpdate: history.action === "PUSH",
+      cache: true,
+    });
     dispatch({
       type: actionTypes.GET_AD_SUCCESS,
       payload: data,
@@ -42,11 +48,14 @@ export const getAd = () => async (dispatch) => {
   }
 };
 
-export const getNewArrival = () => async (dispatch) => {
+export const getNewArrival = (history) => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_NEW_ARRIVAL_REQUEST });
 
-    const { data } = await cacheRequest.get(`/api/newArrival`);
+    const { data } = await cacheRequest.get(`/api/newArrival`, {
+      forceUpdate: history.action === "PUSH",
+      cache: true,
+    });
     dispatch({
       type: actionTypes.GET_NEW_ARRIVAL_SUCCESS,
       payload: data,

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import { useRouteMatch } from "react-router-dom";
+import { useRouteMatch, useHistory } from "react-router-dom";
 
 // Components
 import PageWrap from "@/components/style/layout/PageWrap";
@@ -16,13 +16,14 @@ import { device } from "@/components/style/responsiveBreakPoints";
 const ProductsPage = () => {
   const dispatch = useDispatch();
   const match = useRouteMatch();
+  const history = useHistory();
 
   const productsData = useSelector((state) => state.getProducts);
   const { products, loading, error } = productsData;
 
   useEffect(() => {
     const categoryParam = match.params.category === "전체보기" ? "" : match.params.category;
-    dispatch(getProducts(categoryParam));
+    dispatch(getProducts(categoryParam, history));
   }, [match]);
 
   const emptyArray = new Array(20).fill(0);

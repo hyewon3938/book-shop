@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import { useHistory } from "react-router";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
@@ -13,12 +14,13 @@ import { getRecommendation } from "@/redux/actions/homePageActions";
 
 const Recommendation = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const recommendationData = useSelector((state) => state.getRecommendation);
   const { recommendation, loading, error } = recommendationData;
 
   useEffect(() => {
-    dispatch(getRecommendation());
+    dispatch(getRecommendation(history));
   }, [dispatch]);
 
   return (

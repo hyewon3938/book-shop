@@ -2,11 +2,14 @@ import * as actionTypes from "@/redux/constants/productConstants";
 import axios from "axios";
 import { cacheRequest } from "@/lib/cacheRequest";
 
-export const getProducts = (category) => async (dispatch) => {
+export const getProducts = (category, history) => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_PRODUCTS_REQUEST });
 
-    const { data } = await cacheRequest.get(`/api/products/${category}`);
+    const { data } = await cacheRequest.get(`/api/products/${category}`, {
+      forceUpdate: history.action === "PUSH",
+      cache: true,
+    });
     dispatch({
       type: actionTypes.GET_PRODUCTS_SUCCESS,
       payload: data,

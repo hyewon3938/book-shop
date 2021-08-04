@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import { useHistory } from "react-router";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
@@ -13,12 +14,13 @@ import { getNewArrival } from "@/redux/actions/homePageActions";
 
 const NewArrival = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const newArrivalData = useSelector((state) => state.getNewArrival);
   const { newArrival, loading, error } = newArrivalData;
 
   useEffect(() => {
-    dispatch(getNewArrival());
+    dispatch(getNewArrival(history));
   }, [dispatch]);
 
   let emptyArray = [];

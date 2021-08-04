@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
 import { debounce } from "lodash";
+import { useHistory, useRouteMatch } from "react-router";
 
 // Components
 import AdCarousel from "@/components/HomePage/AdCarousel";
@@ -21,8 +22,10 @@ import homepageLogo from "@/image/homepageLogo.png";
 // Actions
 import { setIsHomePage, getAd } from "@/redux/actions/homePageActions";
 
-const HomePage = ({ match }) => {
+const HomePage = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const match = useRouteMatch();
 
   const [isMobileMode, setIsMobileMode] = useState(window.innerWidth > device.small ? false : true);
 
@@ -35,7 +38,7 @@ const HomePage = ({ match }) => {
 
   useEffect(() => {
     dispatch(setIsHomePage(true));
-    dispatch(getAd());
+    dispatch(getAd(history));
     window.addEventListener("resize", resizeEventHandler);
     return () => {
       dispatch(setIsHomePage(false));
