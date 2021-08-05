@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema({
         type: String,
         require: true,
       },
-      numberOfOrder: {
+      countOfOrder: {
         type: Number,
         require: true,
       },
