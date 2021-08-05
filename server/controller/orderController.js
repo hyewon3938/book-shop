@@ -1,5 +1,25 @@
 const Order = require("../models/Order");
 const User = require("../models/User");
+const Product = require("../models/Products");
+
+const checkCountOfStock = async (req, res) => {
+  try {
+    const outOfStockList = await Promise.all(
+      req.body.map(async (product) => {
+        const outOfStock = await Product.findOne({
+          _id: product.productId,
+          countInStock: { $lt: product.countOfOrder },
+        }).select("title countInStock");
+        return outOfStock;
+      })
+    );
+
+    res.json(outOfStockList.filter((item) => item));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
 
 const pay = (req, res, next) => {
   User.findOneAndUpdate(
@@ -30,4 +50,5 @@ const addOrder = (req, res) => {
 module.exports = {
   pay,
   addOrder,
+  checkCountOfStock,
 };
