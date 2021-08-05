@@ -47,8 +47,58 @@ const addOrder = (req, res) => {
   });
 };
 
+const getOrderList = async (req, res) => {
+  try {
+    const orderList = await Order.aggregate([
+      { $match: { userId: req.params.userId } },
+      { $unwind: "$productList" },
+      { $addFields: { productId: { $toObjectId: "$productList.productId" } } },
+      {
+        $lookup: {
+          from: "products",
+          localField: "productId",
+          foreignField: "_id",
+          as: "productObjects",
+        },
+      },
+      { $unwind: "$productObjects" },
+      {
+        $project: {
+          orderDate: 1,
+          paymentType: 1,
+          orderStatus: 1,
+          userId: 1,
+          totalPayment: 1,
+          productObjects: {
+            _id: 1,
+            title: 1,
+            coverImage: "$productObjects.coverImage.front",
+            category: 1,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: "$_id",
+          orderDate: { $first: "$orderDate" },
+          userId: { $first: "$userId" },
+          paymentType: { $first: "$paymentType" },
+          orderStatus: { $first: "$orderStatus" },
+          totalPayment: { $first: "$totalPayment" },
+          productList: { $push: { $mergeObjects: ["$productList", "$productObjects"] } },
+        },
+      },
+    ]).sort({ orderDate: -1 });
+    res.json(orderList);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   pay,
   addOrder,
   checkCountOfStock,
+  getOrderList,
 };
