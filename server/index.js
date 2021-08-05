@@ -9,6 +9,7 @@ const newArrivalRoutes = require("./routes/newArrivalRoutes");
 const recommendationRoutes = require("./routes/recommendationRoutes");
 const adRoutes = require("./routes/adRoutes");
 const userRoutes = require("./routes/userRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,6 +25,7 @@ app.use("/api/newArrival", newArrivalRoutes);
 app.use("/api/recommendation", recommendationRoutes);
 app.use("/api/ad", adRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/orders", orderRoutes);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
