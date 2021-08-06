@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 // Components
 import GlobalStyleProvider from "@/components/style/GlobalStyleProvider";
@@ -21,9 +21,9 @@ const App = () => {
     <GlobalStyleProvider>
       <Router>
         <ScrollTopButton />
-        <main>
-          <Switch>
-            <ScrollReset>
+        <ScrollReset>
+          <main>
+            <Switch>
               <Route exact path="/" component={auth(HomePage, null)} />
               <Route exact path="/product/:category" component={auth(ProductsPage, null)} />
               <Route
@@ -34,11 +34,11 @@ const App = () => {
               <Route exact path="/cart" component={auth(CartPage, null)} />
               <Route exact path="/login" component={auth(LoginPage, false)} />
               <Route exact path="/register" component={auth(RegisterPage, false)} />
-              <Route path="/notFound" component={NotFound} />
-              <Route path="*" component={NotFound} />
-            </ScrollReset>
-          </Switch>
-        </main>
+              <Route exact path="/notFound" component={NotFound} />
+              <Route component={NotFound} />
+            </Switch>
+          </main>
+        </ScrollReset>
       </Router>
     </GlobalStyleProvider>
   );
