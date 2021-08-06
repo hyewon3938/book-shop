@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 // Components
 import GlobalStyleProvider from "@/components/style/GlobalStyleProvider";
@@ -11,6 +11,7 @@ import CartPage from "@/components/CartPage/CartPage";
 import LoginPage from "@/components/LoginPage/LoginPage";
 import RegisterPage from "@/components/RegisterPage/RegisterPage";
 import auth from "@/hoc/auth";
+import NotFound from "@/components/NotFound";
 
 // Lib
 import ScrollReset from "@/lib/ScrollReset";
@@ -33,6 +34,7 @@ const App = () => {
               <Route exact path="/cart" component={auth(CartPage, null)} />
               <Route exact path="/login" component={auth(LoginPage, false)} />
               <Route exact path="/register" component={auth(RegisterPage, false)} />
+              <Route path="*" component={NotFound} />
             </ScrollReset>
           </Switch>
         </main>
