@@ -13,6 +13,9 @@ import { getProducts } from "@/redux/actions/productActions";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
+// constants
+import { category } from "@/constants/category";
+
 const ProductsPage = () => {
   const dispatch = useDispatch();
   const match = useRouteMatch();
@@ -22,6 +25,7 @@ const ProductsPage = () => {
   const { products, loading, error } = productsData;
 
   useEffect(() => {
+    if (!category.includes(match.params.category)) history.push("/notFound");
     const categoryParam = match.params.category === "전체보기" ? "" : match.params.category;
     dispatch(getProducts(categoryParam, history));
   }, [match]);

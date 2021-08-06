@@ -34,6 +34,7 @@ const App = () => {
               <Route exact path="/cart" component={auth(CartPage, null)} />
               <Route exact path="/login" component={auth(LoginPage, false)} />
               <Route exact path="/register" component={auth(RegisterPage, false)} />
+              <Route path="/notFound" component={NotFound} />
               <Route path="*" component={NotFound} />
             </ScrollReset>
           </Switch>
