@@ -13,32 +13,23 @@ import RegisterPage from "@/components/RegisterPage/RegisterPage";
 import auth from "@/hoc/auth";
 import NotFound from "@/components/NotFound";
 
-// Lib
-import ScrollReset from "@/lib/ScrollReset";
-
 const App = () => {
   return (
     <GlobalStyleProvider>
       <Router>
         <ScrollTopButton />
-        <ScrollReset>
-          <main>
-            <Switch>
-              <Route exact path="/" component={auth(HomePage, null)} />
-              <Route exact path="/product/:category" component={auth(ProductsPage, null)} />
-              <Route
-                exact
-                path="/product/:category/:id"
-                component={auth(ProductDetailsPage, null)}
-              />
-              <Route exact path="/cart" component={auth(CartPage, null)} />
-              <Route exact path="/login" component={auth(LoginPage, false)} />
-              <Route exact path="/register" component={auth(RegisterPage, false)} />
-              <Route exact path="/notFound" component={NotFound} />
-              <Route component={NotFound} />
-            </Switch>
-          </main>
-        </ScrollReset>
+        <main>
+          <Switch>
+            <Route exact path="/" component={auth(HomePage, null)} />
+            <Route exact path="/product/:category" component={auth(ProductsPage, null)} />
+            <Route exact path="/product/:category/:id" component={auth(ProductDetailsPage, null)} />
+            <Route exact path="/cart" component={auth(CartPage, null)} />
+            <Route exact path="/login" component={auth(LoginPage, false)} />
+            <Route exact path="/register" component={auth(RegisterPage, false)} />
+            <Route exact path="/notFound" component={NotFound} />
+            <Route component={NotFound} />
+          </Switch>
+        </main>
       </Router>
     </GlobalStyleProvider>
   );
