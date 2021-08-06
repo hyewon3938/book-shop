@@ -15,27 +15,15 @@ import { deleteCookie } from "@/lib/cookies";
 // Actions
 import { getLogout } from "@/redux/actions/userActions";
 
+// constants
+import { category } from "@/constants/category";
+
 const SideDrawer = ({ show, click, isAuth, userName }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const logoutData = useSelector((state) => state.getLogout);
   let { logout, loading, error } = logoutData;
-
-  const category = [
-    "전체보기",
-    "소설",
-    "시",
-    "에세이",
-    "자기계발",
-    "사회·정치",
-    "예술",
-    "여행",
-    "과학",
-    "철학",
-    "가정·요리·뷰티",
-    "잡지",
-  ];
 
   const showSideDrawer = show ? "translateX(0)" : "translateX(-100%)";
 
