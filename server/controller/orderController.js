@@ -14,7 +14,9 @@ const checkCountOfStock = async (req, res) => {
       })
     );
 
-    res.json(outOfStockList.filter((item) => item));
+    const result = outOfStockList.filter((item) => item);
+    if (result.length === 0) return res.json({ isAvailable: true });
+    res.json({ isAvailable: false, outOfStockList: result });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
