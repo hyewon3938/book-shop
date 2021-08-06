@@ -32,6 +32,23 @@ const pay = (req, res, next) => {
   );
 };
 
+const updateProductInfo = (req, res, next) => {
+  try {
+    req.body.productList.forEach(async (product) => {
+      await Product.findOneAndUpdate(
+        { _id: product.productId },
+        { $inc: { countInStock: -product.countOfOrder, sales: +product.countOfOrder } }
+      );
+    });
+
+    next();
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({ success: false, message: "상품정보 업데이트에 실패하였습니다." });
+  }
+};
+
 const addOrder = (req, res) => {
   const order = new Order(req.body);
 
@@ -101,4 +118,5 @@ module.exports = {
   addOrder,
   checkCountOfStock,
   getOrderList,
+  updateProductInfo,
 };
