@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useRouteMatch } from "react-router-dom";
+import { useRouteMatch, useHistory } from "react-router-dom";
 
 // Components
 import PageWrap from "@/components/style/layout/PageWrap";
@@ -10,14 +10,19 @@ import ProductDetails from "@/components/ProductDetailsPage/ProductDetails";
 // Actions
 import { getProductDetails } from "@/redux/actions/productActions";
 
+// constants
+import { category } from "@/constants/category";
+
 const ProductDetailsPage = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const match = useRouteMatch();
 
   const productDetailsData = useSelector((state) => state.getProductDetails);
   const { productDetails, loading, error } = productDetailsData;
 
   useEffect(() => {
+    if (!category.includes(match.params.category)) return history.replace("/notFound");
     const categoryParam = match.params.category === "전체보기" ? "" : match.params.category;
     const idParam = match.params.id;
     dispatch(getProductDetails(categoryParam, idParam));

@@ -25,7 +25,7 @@ const ProductsPage = () => {
   const { products, loading, error } = productsData;
 
   useEffect(() => {
-    if (!category.includes(match.params.category)) history.push("/notFound");
+    if (!category.includes(match.params.category)) return history.replace("/notFound");
     const categoryParam = match.params.category === "전체보기" ? "" : match.params.category;
     dispatch(getProducts(categoryParam, history));
   }, [match]);
