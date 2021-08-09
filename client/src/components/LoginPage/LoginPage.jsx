@@ -17,7 +17,10 @@ const LoginPage = () => {
   const dispatch = useDispatch();
 
   const loginData = useSelector((state) => state.postLogin);
-  let { login, loading, error } = loginData;
+  const { login, loading, error } = loginData;
+
+  const orderInfoData = useSelector((state) => state.orderInfo);
+  const { orderInfo } = orderInfoData;
 
   const email = useRef();
   const password = useRef();
@@ -48,16 +51,22 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    if (error) return alert("서버 오류입니다");
-    if (login && !login.loginSuccess) return alert(login.message);
-    if (login && login.loginSuccess) return history.push("/");
-  }, [loginData]);
-
-  useEffect(() => {
-    return () => {
+    if (!login) return;
+    if (error) {
+      alert("서버 오류입니다");
       dispatch(removeLoginData());
-    };
-  }, []);
+      return;
+    }
+    if (!login.loginSuccess) {
+      alert(login.message);
+      dispatch(removeLoginData());
+      return;
+    }
+    if (login.loginSuccess) {
+      if (orderInfo) return history.replace("/order");
+      return history.replace("/");
+    }
+  }, [loginData]);
 
   return (
     <Wrap>
