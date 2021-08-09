@@ -55,7 +55,16 @@ const ProductInfo = ({ data }) => {
     if (!stockCheck) return;
     if (error) return alert("Server Error");
     if (stockCheck.isAvailable) {
-      dispatch(setOrderInfo(productArray));
+      const productInfoArray = [
+        {
+          productId: data._id,
+          countOfOrder: itemCount,
+          title: data.title,
+          category: data.category,
+          imageUrl: data.coverImage.front,
+        },
+      ];
+      dispatch(setOrderInfo(productInfoArray));
       history.push("/order");
       return;
     }
@@ -118,6 +127,12 @@ const ProductInfo = ({ data }) => {
   };
 
   const buyNowButtonHandler = () => {
+    const productArray = [
+      {
+        productId: data._id,
+        countOfOrder: itemCount,
+      },
+    ];
     dispatch(postStockCheck(productArray));
   };
 
