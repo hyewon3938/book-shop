@@ -18,6 +18,8 @@ export const postLoginReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+    case actionTypes.REMOVE_LOGIN_DATA:
+      return {};
     default:
       return state;
   }

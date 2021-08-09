@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 // Actions
-import { postLogin } from "@/redux/actions/userActions";
+import { postLogin, removeLoginData } from "@/redux/actions/userActions";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
@@ -52,6 +52,12 @@ const LoginPage = () => {
     if (login && !login.loginSuccess) return alert(login.message);
     if (login && login.loginSuccess) return history.push("/");
   }, [loginData]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(removeLoginData());
+    };
+  }, []);
 
   return (
     <Wrap>

@@ -109,3 +109,7 @@ export const removeEmailCheckData = () => {
 export const removeRegisterData = () => {
   return { type: actionTypes.REMOVE_REGISTER_DATA };
 };
+
+export const removeLoginData = () => {
+  return { type: actionTypes.REMOVE_LOGIN_DATA };
+};
