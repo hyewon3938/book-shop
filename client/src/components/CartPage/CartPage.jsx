@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 // Components
 import PageWrap from "@/components/style/layout/PageWrap";
@@ -15,25 +16,59 @@ import { device } from "@/components/style/responsiveBreakPoints";
 
 // Actions
 import { removeSelectedItem, selectAllCart, unselectAllCart } from "@/redux/actions/cartActions";
+import { postStockCheck, removeStockCheckData, setOrderInfo } from "@/redux/actions/orderActions";
 
 const CartPage = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+
+  const stockCheckData = useSelector((state) => state.stockCheck);
+  let { stockCheck, loading, error } = stockCheckData;
 
   const unselectedList = cartItems.filter((item) => !item.isSelected);
 
   const [isAllChecked, setIsAllChecked] = useState(unselectedList.length === 0 ? true : false);
 
+  const productInfoArray = cartItems.map((item) => {
+    return {
+      productId: item._id,
+      countOfOrder: item.qty,
+      title: item.title,
+      category: item.category,
+      imageUrl: item.imageUrl,
+    };
+  });
+
   useEffect(() => {
     dispatch(selectAllCart());
+    return () => {
+      dispatch(removeStockCheckData());
+    };
   }, []);
 
   useEffect(() => {
     if (cartItems.length === 0) return setIsAllChecked(false);
     setIsAllChecked(unselectedList.length === 0 ? true : false);
   }, [cartItems]);
+
+  useEffect(() => {
+    if (!stockCheck) return;
+    if (error) return alert("Server Error");
+    if (stockCheck.isAvailable) {
+      dispatch(setOrderInfo(productInfoArray));
+      history.push("/order");
+      return;
+    }
+    if (!stockCheck.isAvailable) {
+      const listMessage = stockCheck.outOfStockList.reduce((acc, item) => {
+        return acc + `${item.title}(${item.countInStock})/`;
+      }, "");
+      return alert(`재고가 부족합니다(주문가능 수량)\n${listMessage}`);
+    }
+  }, [stockCheckData]);
 
   const totalPrice = cartItems.reduce((acc, cur) => {
     return acc + Number(cur.price) * cur.qty;
@@ -53,8 +88,19 @@ const CartPage = () => {
     !isAllChecked ? dispatch(selectAllCart()) : dispatch(unselectAllCart());
   };
 
+  const orderButtonHandler = () => {
+    const productArray = cartItems.map((item) => {
+      return {
+        productId: item._id,
+        countOfOrder: item.qty,
+      };
+    });
+    dispatch(postStockCheck(productArray));
+  };
+
   return (
     <PageWrap>
+      {loading ? <CheckStockLoading /> : ""}
       <Wrap>
         <CartTitle>북샵 카트 ({totalCount})</CartTitle>
         <RemoveCartListWrap>
@@ -93,7 +139,7 @@ const CartPage = () => {
           </ListFooter>
         </CartListWrap>
         <ButtonWrap>
-          <BuyCartButton>선택 상품 주문하기</BuyCartButton>
+          <BuyCartButton onClick={orderButtonHandler}>선택 상품 주문하기</BuyCartButton>
         </ButtonWrap>
       </Wrap>
     </PageWrap>
@@ -118,6 +164,13 @@ const Wrap = styled.div`
   @media (max-width: ${device.small}px) {
     padding: 0 5px;
   }
+`;
+
+const CheckStockLoading = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
 `;
 
 const CartTitle = styled.h1`
