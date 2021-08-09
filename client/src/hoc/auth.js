@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { withPathCheck } from "@/hoc/withPathCheck";
@@ -25,10 +25,12 @@ export default function (SpecificComponent, option, adminRoute = null) {
 
     useEffect(() => {
       dispatch(getAuth());
+    }, []);
 
+    useEffect(() => {
       if (!auth) return;
       if (!auth.isAuth) {
-        if (option) history.push("/login");
+        if (option) return history.push("/login");
       } else {
         if (adminRoute && !auth.isAdmin) {
           return history.push("/");
@@ -36,7 +38,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
           if (option === false) return history.push("/");
         }
       }
-    }, []);
+    }, [authData]);
 
     return withPathCheck(path, SpecificComponent);
   }
