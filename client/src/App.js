@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { HashRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 // Components
 import GlobalStyleProvider from "@/components/style/GlobalStyleProvider";
@@ -10,6 +10,7 @@ import ProductDetailsPage from "@/components/ProductDetailsPage/ProductDetailsPa
 import CartPage from "@/components/CartPage/CartPage";
 import LoginPage from "@/components/LoginPage/LoginPage";
 import RegisterPage from "@/components/RegisterPage/RegisterPage";
+import OrderPage from "@/components/OrderPage/OrderPage";
 import auth from "@/hoc/auth";
 import NotFound from "@/components/NotFound";
 
@@ -26,6 +27,7 @@ const App = () => {
             <Route exact path="/cart" component={auth(CartPage, null)} />
             <Route exact path="/login" component={auth(LoginPage, false)} />
             <Route exact path="/register" component={auth(RegisterPage, false)} />
+            <Route exact path="/order" component={auth(OrderPage, true)} />
             <Route exact path="/notFound" component={NotFound} />
             <Route component={NotFound} />
           </Switch>
