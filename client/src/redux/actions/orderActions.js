@@ -26,3 +26,7 @@ export const removeStockCheckData = () => {
 export const setOrderInfo = (payload) => {
   return { type: actionTypes.SET_ORDER_INFO, payload: payload };
 };
+
+export const removeOrderInfo = () => {
+  return { type: actionTypes.REMOVE_ORDER_INFO };
+};

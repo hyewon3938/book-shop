@@ -30,5 +30,9 @@ export const orderInfoReducer = (state = {}, action) => {
       return {
         orderInfo: action.payload,
       };
+    case actionTypes.REMOVE_ORDER_INFO:
+      return {};
+    default:
+      return state;
   }
 };
