@@ -5,7 +5,7 @@ const Product = require("../models/Products");
 const checkCountOfStock = async (req, res) => {
   try {
     const outOfStockList = await Promise.all(
-      req.body.map(async (product) => {
+      req.body.productArray.map(async (product) => {
         const outOfStock = await Product.findOne({
           _id: product.productId,
           countInStock: { $lt: product.countOfOrder },
