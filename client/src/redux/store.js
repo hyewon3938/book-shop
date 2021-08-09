@@ -18,6 +18,7 @@ import {
   postEmailCheckReducer,
   postRegisterReducer,
 } from "@/redux/reducers/userReducers";
+import { postStockCheckReducer, orderInfoReducer } from "@/redux/reducers/orderReducers";
 
 const reducer = combineReducers({
   getProducts: getProductsReducer,
@@ -32,6 +33,7 @@ const reducer = combineReducers({
   auth: authReducer,
   emailCheck: postEmailCheckReducer,
   register: postRegisterReducer,
+  stockCheck: postStockCheckReducer,
 });
 
 const middleware = [thunk];
