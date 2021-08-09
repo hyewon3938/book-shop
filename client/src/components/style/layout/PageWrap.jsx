@@ -12,6 +12,7 @@ export default PageWrap;
 
 const Wrap = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   max-width: 1300px;
   margin: 80px auto;

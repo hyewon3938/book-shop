@@ -123,6 +123,7 @@ const ProductInfo = ({ data }) => {
 
   return (
     <>
+      {loading ? <CheckStockLoading /> : ""}
       {!data ? (
         <Wrap>
           <BookWrap loading="true">
@@ -317,6 +318,13 @@ const Wrap = styled.div`
     margin: 10px 0 0 0;
     padding: 0 0.5rem;
   }
+`;
+
+const CheckStockLoading = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
 `;
 
 const BookWrap = styled.div`
