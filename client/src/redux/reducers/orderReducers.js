@@ -24,7 +24,7 @@ export const postStockCheckReducer = (state = {}, action) => {
   }
 };
 
-export const orderInfoReducer = (state = {}, action) => {
+export const orderInfoReducer = (state = { orderInfo: [] }, action) => {
   switch (action.type) {
     case actionTypes.SET_ORDER_INFO:
       return {
