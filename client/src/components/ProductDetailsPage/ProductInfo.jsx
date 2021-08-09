@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { debounce } from "lodash";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import Book from "@/components/ProductDetailsPage/Book";
@@ -16,16 +16,29 @@ import { numberWithCommas } from "@/lib/utils";
 
 // Actions
 import { addToCart } from "@/redux/actions/cartActions";
+import { postStockCheck, removeStockCheckData, setOrderInfo } from "@/redux/actions/orderActions";
 
 const ProductInfo = ({ data }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+
+  const stockCheckData = useSelector((state) => state.stockCheck);
+  let { stockCheck, loading, error } = stockCheckData;
 
   const [itemCount, setItemCount] = useState(1);
   const [isShownCounter, setIsShownCounter] = useState(false);
   const [isMobileMode, setIsMobileMode] = useState(window.innerWidth > device.large ? false : true);
 
   const countInput = React.createRef();
+
+  const productArray = data
+    ? [
+        {
+          productId: data._id,
+          countOfOrder: itemCount,
+        },
+      ]
+    : [];
 
   const resizeEventHandler = debounce(() => {
     window.innerWidth > device.large ? setIsMobileMode(false) : setIsMobileMode(true);
@@ -37,6 +50,26 @@ const ProductInfo = ({ data }) => {
       window.removeEventListener("resize", resizeEventHandler);
     };
   }, [innerWidth]);
+
+  useEffect(() => {
+    if (!stockCheck) return;
+    if (error) return alert("Server Error");
+    if (stockCheck.isAvailable) {
+      dispatch(setOrderInfo(productArray));
+      history.push("/order");
+      return;
+    }
+    if (!stockCheck.isAvailable)
+      return alert(
+        `재고가 부족합니다.\n주문가능 수량 : ${stockCheck.outOfStockList[0].countInStock}`
+      );
+  }, [stockCheckData]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(removeStockCheckData());
+    };
+  }, []);
 
   const mobileButtonStyle = isShownCounter
     ? { mobileCounter: { display: "flex" }, arrowButton: { top: "-115px" } }
@@ -82,6 +115,10 @@ const ProductInfo = ({ data }) => {
     dispatch(addToCart(payload));
     let result = confirm("상품이 카트에 담겼습니다.\n바로 확인하시겠습니까?");
     result ? history.push("/cart") : "";
+  };
+
+  const buyNowButtonHandler = () => {
+    dispatch(postStockCheck(productArray));
   };
 
   return (
@@ -257,7 +294,9 @@ const ProductInfo = ({ data }) => {
                   >
                     카트에 담기
                   </BuyCartButton>
-                  <BuyCartButton outOfStock={data.countInStock === 0}>바로 구매하기</BuyCartButton>
+                  <BuyCartButton outOfStock={data.countInStock === 0} onClick={buyNowButtonHandler}>
+                    바로 구매하기
+                  </BuyCartButton>
                 </ButtonWrap>
               </CounterButtonWrap>
             </InfoColumnBox>
