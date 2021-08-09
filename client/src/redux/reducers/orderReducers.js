@@ -23,3 +23,12 @@ export const postStockCheckReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const orderInfoReducer = (state = {}, action) => {
+  switch (action.type) {
+    case actionTypes.SET_ORDER_INFO:
+      return {
+        orderInfo: action.payload,
+      };
+  }
+};

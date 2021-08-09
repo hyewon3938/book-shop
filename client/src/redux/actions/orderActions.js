@@ -22,3 +22,7 @@ export const postStockCheck = (productArray) => async (dispatch) => {
 export const removeStockCheckData = () => {
   return { type: actionTypes.REMOVE_STOCK_CHECK_DATA };
 };
+
+export const setOrderInfo = (payload) => {
+  return { type: actionTypes.SET_ORDER_INFO, payload: payload };
+};

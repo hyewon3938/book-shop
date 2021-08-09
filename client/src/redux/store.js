@@ -34,6 +34,7 @@ const reducer = combineReducers({
   emailCheck: postEmailCheckReducer,
   register: postRegisterReducer,
   stockCheck: postStockCheckReducer,
+  orderInfo: orderInfoReducer,
 });
 
 const middleware = [thunk];
