@@ -25,8 +25,8 @@ const checkCountOfStock = async (req, res) => {
 
 const pay = (req, res, next) => {
   User.findOneAndUpdate(
-    { _id: req.body.userId },
-    { $inc: { points: -req.body.totalPayment } },
+    { _id: req.body.orderInfo.userId },
+    { $inc: { points: -req.body.orderInfo.totalPayment } },
     (err, user) => {
       if (err) return res.json({ success: false, message: "결제에 실패하였습니다." });
       return next();
@@ -36,7 +36,7 @@ const pay = (req, res, next) => {
 
 const updateProductInfo = (req, res, next) => {
   try {
-    req.body.productList.forEach(async (product) => {
+    req.body.orderInfo.productList.forEach(async (product) => {
       await Product.findOneAndUpdate(
         { _id: product.productId },
         { $inc: { countInStock: -product.countOfOrder, sales: +product.countOfOrder } }
@@ -52,7 +52,7 @@ const updateProductInfo = (req, res, next) => {
 };
 
 const addOrder = (req, res) => {
-  const order = new Order(req.body);
+  const order = new Order(req.body.orderInfo);
 
   order.save((err, order) => {
     if (err) {
