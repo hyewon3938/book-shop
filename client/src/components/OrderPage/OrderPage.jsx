@@ -8,7 +8,8 @@ import PageWrap from "@/components/style/layout/PageWrap";
 import OrderItem from "@/components/OrderPage/OrderItem";
 
 // Actions
-import { removeOrderInfo } from "@/redux/actions/orderActions";
+import { postOrder, removeOrderData, removeOrderInfo } from "@/redux/actions/orderActions";
+import { removeSelectedItem } from "@/redux/actions/cartActions";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
@@ -20,25 +21,42 @@ const OrderPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const orderInfoData = useSelector((state) => state.orderInfo);
-  const { orderInfo } = orderInfoData;
+  const { orderInfo } = useSelector((state) => state.orderInfo);
+  const { auth } = useSelector((state) => state.auth);
+  const orderData = useSelector((state) => state.order);
+  const { order, loading, error } = orderData;
 
-  const availablePoints = 5000;
-  const totalPrice = 6000;
-  const shippingFee = 3000;
+  const availablePoints = auth ? auth.points : "";
+  const totalPrice = orderInfo
+    ? orderInfo.reduce((acc, item) => {
+        return acc + item.price * item.countOfOrder;
+      }, 0)
+    : "";
+  const shippingFee = 0;
 
   const [point, setPoint] = useState(0);
 
-  const loading = false;
-
   useEffect(() => {
-    console.log(orderInfo);
     if (!orderInfo) {
       alert("잘못된 접근입니다.");
       history.push("/");
       return <></>;
     }
   }, []);
+
+  useEffect(() => {
+    if (!order) return;
+    if (error) return alert(error.message);
+    if (!order.success) return alert(order.message);
+    if (order.success) {
+      dispatch(removeSelectedItem());
+      dispatch(removeOrderInfo());
+      dispatch(removeOrderData());
+      alert("주문이 완료되었습니다.");
+      history.push("/");
+      return;
+    }
+  }, [orderData]);
 
   const pointOnChangeHandler = (e) => {
     setPoint(e.target.value);
@@ -56,7 +74,18 @@ const OrderPage = () => {
 
   const payButtonHandler = () => {
     if (totalPrice > point) return alert("결제 금액이 부족합니다.");
-    alert("결제 완료!");
+    const order = {
+      userId: auth._id,
+      productList: orderInfo.map((item) => {
+        return {
+          productId: item.productId,
+          countOfOrder: item.countOfOrder,
+        };
+      }),
+      totalPayment: totalPrice,
+    };
+    console.log(order);
+    dispatch(postOrder(order));
   };
 
   return (
