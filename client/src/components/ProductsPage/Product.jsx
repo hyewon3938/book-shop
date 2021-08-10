@@ -93,7 +93,7 @@ const Product = ({ data }) => {
             <BookTitle onClick={productClickHandler}>{data.title}</BookTitle>
             <span>{data.writer}</span>
             <PriceCartWrap>
-              {data.countInStock === 0 ? (
+              {data.countInStock <= 0 ? (
                 <BookPrice>재고없음</BookPrice>
               ) : (
                 <>

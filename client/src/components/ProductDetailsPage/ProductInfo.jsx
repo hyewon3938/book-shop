@@ -31,15 +31,6 @@ const ProductInfo = ({ data }) => {
 
   const countInput = React.createRef();
 
-  const productArray = data
-    ? [
-        {
-          productId: data._id,
-          countOfOrder: itemCount,
-        },
-      ]
-    : [];
-
   const resizeEventHandler = debounce(() => {
     window.innerWidth > device.large ? setIsMobileMode(false) : setIsMobileMode(true);
   }, 300);
@@ -221,7 +212,7 @@ const ProductInfo = ({ data }) => {
                 {isMobileMode ? (
                   <CounterWrap style={mobileButtonStyle.mobileCounter}>
                     <Counter>
-                      {data.countInStock === 0 ? (
+                      {data.countInStock <= 0 ? (
                         <>
                           <FlexBox></FlexBox>
                           <FlexBox>
@@ -256,7 +247,7 @@ const ProductInfo = ({ data }) => {
                 ) : (
                   <CounterWrap>
                     <Counter>
-                      {data.countInStock === 0 ? (
+                      {data.countInStock <= 0 ? (
                         <>
                           <FlexBox></FlexBox>
                           <FlexBox>
@@ -305,13 +296,13 @@ const ProductInfo = ({ data }) => {
                     ""
                   )}
                   <BuyCartButton
-                    outOfStock={data.countInStock === 0}
+                    outOfStock={data.countInStock <= 0}
                     cart="true"
                     onClick={addCartButtonHandler}
                   >
                     카트에 담기
                   </BuyCartButton>
-                  <BuyCartButton outOfStock={data.countInStock === 0} onClick={buyNowButtonHandler}>
+                  <BuyCartButton outOfStock={data.countInStock <= 0} onClick={buyNowButtonHandler}>
                     바로 구매하기
                   </BuyCartButton>
                 </ButtonWrap>
