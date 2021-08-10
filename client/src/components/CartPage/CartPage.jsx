@@ -39,6 +39,7 @@ const CartPage = () => {
       title: item.title,
       category: item.category,
       imageUrl: item.imageUrl,
+      price: item.price,
     };
   });
 

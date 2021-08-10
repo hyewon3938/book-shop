@@ -62,6 +62,7 @@ const ProductInfo = ({ data }) => {
           title: data.title,
           category: data.category,
           imageUrl: data.coverImage.front,
+          price: data.price,
         },
       ];
       dispatch(setOrderInfo(productInfoArray));

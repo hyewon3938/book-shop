@@ -247,6 +247,7 @@ const PriceWrap = styled.div`
 
 const Count = styled.div`
   display: flex;
+  width: 100%;
   justify-content: center;
   align-items: center;
   button {
