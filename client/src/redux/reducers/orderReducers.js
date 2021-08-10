@@ -24,6 +24,30 @@ export const postStockCheckReducer = (state = {}, action) => {
   }
 };
 
+export const postOrderReducer = (state = {}, action) => {
+  switch (action.type) {
+    case actionTypes.POST_ORDER_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case actionTypes.POST_ORDER_SUCCESS:
+      return {
+        loading: false,
+        order: action.payload,
+      };
+    case actionTypes.POST_ORDER_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case actionTypes.REMOVE_ORDER_DATA:
+      return {};
+    default:
+      return state;
+  }
+};
+
 export const orderInfoReducer = (state = { orderInfo: [] }, action) => {
   switch (action.type) {
     case actionTypes.SET_ORDER_INFO:
