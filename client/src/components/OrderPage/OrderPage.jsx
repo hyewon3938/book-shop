@@ -37,10 +37,10 @@ const OrderPage = () => {
   const [point, setPoint] = useState(0);
 
   useEffect(() => {
-    if (!orderInfo) {
+    if (orderInfo.length === 0) {
       alert("잘못된 접근입니다.");
       history.push("/");
-      return <></>;
+      return;
     }
   }, []);
 
