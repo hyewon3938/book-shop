@@ -66,6 +66,9 @@ export const authReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+    case actionTypes.REMOVE_AUTH_DATA:
+      return {};
+
     default:
       return state;
   }
