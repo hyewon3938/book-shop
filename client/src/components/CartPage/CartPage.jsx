@@ -69,7 +69,7 @@ const CartPage = () => {
     }
     if (!stockCheck.isAvailable) {
       const listMessage = stockCheck.outOfStockList.reduce((acc, item) => {
-        return acc + `${item.title}(${item.countInStock})/`;
+        return acc + `${item.title}(${item.countInStock <= 0 ? "품절" : item.countInStock}),`;
       }, "");
       return alert(`재고가 부족합니다(주문가능 수량)\n${listMessage}`);
     }
@@ -94,12 +94,17 @@ const CartPage = () => {
   };
 
   const orderButtonHandler = () => {
-    const productArray = cartItems.map((item) => {
-      return {
-        productId: item._id,
-        countOfOrder: item.qty,
-      };
-    });
+    const productArray = cartItems
+      .map((item) => {
+        if (item.isSelected) {
+          return {
+            productId: item._id,
+            countOfOrder: item.qty,
+          };
+        }
+      })
+      .filter((item) => item);
+    if (productArray.length === 0) return alert("주문할 상품이 없습니다.");
     dispatch(postStockCheck(productArray));
   };
 
