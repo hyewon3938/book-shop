@@ -75,11 +75,13 @@ const CartPage = () => {
     }
   }, [stockCheckData]);
 
-  const totalPrice = cartItems.reduce((acc, cur) => {
+  const selectedItems = cartItems.filter((item) => item.isSelected);
+
+  const totalPrice = selectedItems.reduce((acc, cur) => {
     return acc + Number(cur.price) * cur.qty;
   }, 0);
 
-  const totalCount = cartItems.reduce((acc, cur) => {
+  const totalCount = selectedItems.reduce((acc, cur) => {
     return acc + cur.qty;
   }, 0);
 
@@ -140,7 +142,7 @@ const CartPage = () => {
           )}
           <ListFooter>
             <TotalCount>
-              <span>총 상품 수</span> {cartItems.length}종 {totalCount}개
+              <span>총 상품 수</span> {selectedItems.length}종 {totalCount}개
             </TotalCount>
             <TotalPrice>
               <span>총 결제금액</span>
