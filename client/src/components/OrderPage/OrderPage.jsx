@@ -77,7 +77,7 @@ const OrderPage = () => {
   };
 
   const payButtonHandler = () => {
-    // if (totalPrice > point) return alert("결제 금액이 부족합니다.");
+    if (totalPrice > point) return alert("결제 금액이 부족합니다.");
     const order = {
       userId: auth._id,
       productList: orderInfo.map((item) => {
