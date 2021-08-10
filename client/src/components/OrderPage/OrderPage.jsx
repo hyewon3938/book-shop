@@ -39,7 +39,7 @@ const OrderPage = () => {
   useEffect(() => {
     if (orderInfo.length === 0) {
       alert("잘못된 접근입니다.");
-      history.push("/");
+      history.replace("/");
       return;
     }
   }, []);

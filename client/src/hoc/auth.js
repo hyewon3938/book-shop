@@ -30,12 +30,12 @@ export default function (SpecificComponent, option, adminRoute = null) {
     useEffect(() => {
       if (!auth) return;
       if (!auth.isAuth) {
-        if (option) return history.push("/login");
+        if (option) return history.replace("/login");
       } else {
         if (adminRoute && !auth.isAdmin) {
-          return history.push("/");
+          return history.replace("/");
         } else {
-          if (option === false) return history.push("/");
+          if (option === false) return history.replace("/");
         }
       }
     }, [authData]);
