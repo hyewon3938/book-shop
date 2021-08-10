@@ -32,16 +32,20 @@ const CartPage = () => {
 
   const [isAllChecked, setIsAllChecked] = useState(unselectedList.length === 0 ? true : false);
 
-  const productInfoArray = cartItems.map((item) => {
-    return {
-      productId: item._id,
-      countOfOrder: item.qty,
-      title: item.title,
-      category: item.category,
-      imageUrl: item.imageUrl,
-      price: item.price,
-    };
-  });
+  const productInfoArray = cartItems
+    .map((item) => {
+      if (item.isSelected) {
+        return {
+          productId: item._id,
+          countOfOrder: item.qty,
+          title: item.title,
+          category: item.category,
+          imageUrl: item.imageUrl,
+          price: item.price,
+        };
+      }
+    })
+    .filter((item) => item);
 
   useEffect(() => {
     dispatch(selectAllCart());
