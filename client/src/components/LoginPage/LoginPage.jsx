@@ -63,7 +63,7 @@ const LoginPage = () => {
       return;
     }
     if (login.loginSuccess) {
-      if (orderInfo) return history.replace("/order");
+      if (orderInfo) return history.replace("/cart");
       return history.replace("/");
     }
   }, [loginData]);

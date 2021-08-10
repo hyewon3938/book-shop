@@ -24,6 +24,7 @@ const CartPage = () => {
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+  const { auth } = useSelector((state) => state.auth);
 
   const stockCheckData = useSelector((state) => state.stockCheck);
   let { stockCheck, loading, error } = stockCheckData;
@@ -64,8 +65,8 @@ const CartPage = () => {
     if (error) return alert("Server Error");
     if (stockCheck.isAvailable) {
       dispatch(setOrderInfo(productInfoArray));
-      history.push("/order");
-      return;
+      if (auth.isAuth) return history.push("/order");
+      return history.push("/login");
     }
     if (!stockCheck.isAvailable) {
       const listMessage = stockCheck.outOfStockList.reduce((acc, item) => {

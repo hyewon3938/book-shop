@@ -24,6 +24,7 @@ const ProductInfo = ({ data }) => {
 
   const stockCheckData = useSelector((state) => state.stockCheck);
   let { stockCheck, loading, error } = stockCheckData;
+  const { auth } = useSelector((state) => state.auth);
 
   const [itemCount, setItemCount] = useState(1);
   const [isShownCounter, setIsShownCounter] = useState(false);
@@ -57,8 +58,9 @@ const ProductInfo = ({ data }) => {
         },
       ];
       dispatch(setOrderInfo(productInfoArray));
-      history.push("/order");
-      return;
+      if (auth.isAuth) return history.push("/order");
+      addCart();
+      return history.push("/login");
     }
     if (!stockCheck.isAvailable)
       return alert(
@@ -101,8 +103,7 @@ const ProductInfo = ({ data }) => {
     setIsShownCounter(!isShownCounter);
   };
 
-  const addCartButtonHandler = () => {
-    if (data.countInStock === 0) return;
+  const addCart = () => {
     const payload = {
       _id: data._id,
       title: data.title,
@@ -114,6 +115,11 @@ const ProductInfo = ({ data }) => {
     };
 
     dispatch(addToCart(payload));
+  };
+
+  const addCartButtonHandler = () => {
+    if (data.countInStock === 0) return;
+    addCart();
     let result = confirm("상품이 카트에 담겼습니다.\n바로 확인하시겠습니까?");
     result ? history.push("/cart") : "";
   };
