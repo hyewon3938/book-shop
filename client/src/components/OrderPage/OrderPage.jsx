@@ -21,7 +21,7 @@ const OrderPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { orderInfo } = useSelector((state) => state.orderInfo);
+  const { orderInfo, path } = useSelector((state) => state.orderInfo);
   const { auth } = useSelector((state) => state.auth);
   const orderData = useSelector((state) => state.order);
   const { order, loading, error } = orderData;
@@ -53,7 +53,7 @@ const OrderPage = () => {
     if (error) return alert(error.message);
     if (!order.success) return alert(order.message);
     if (order.success) {
-      dispatch(removeSelectedItem());
+      if (path === "cart") dispatch(removeSelectedItem());
       dispatch(removeOrderInfo());
       dispatch(removeOrderData());
       alert("주문이 완료되었습니다.");
@@ -77,7 +77,7 @@ const OrderPage = () => {
   };
 
   const payButtonHandler = () => {
-    if (totalPrice > point) return alert("결제 금액이 부족합니다.");
+    // if (totalPrice > point) return alert("결제 금액이 부족합니다.");
     const order = {
       userId: auth._id,
       productList: orderInfo.map((item) => {

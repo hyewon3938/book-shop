@@ -57,7 +57,7 @@ const ProductInfo = ({ data }) => {
           price: data.price,
         },
       ];
-      dispatch(setOrderInfo(productInfoArray));
+      dispatch(setOrderInfo({ productInfoArray: productInfoArray, path: "productInfo" }));
       if (auth.isAuth) return history.push("/order");
       addCart();
       return history.push("/login");

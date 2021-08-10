@@ -64,7 +64,7 @@ const CartPage = () => {
     if (!stockCheck) return;
     if (error) return alert("Server Error");
     if (stockCheck.isAvailable) {
-      dispatch(setOrderInfo(productInfoArray));
+      dispatch(setOrderInfo({ productInfoArray: productInfoArray, path: "cart" }));
       if (auth.isAuth) return history.push("/order");
       return history.push("/login");
     }

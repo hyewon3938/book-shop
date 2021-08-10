@@ -52,7 +52,8 @@ export const orderInfoReducer = (state = { orderInfo: [] }, action) => {
   switch (action.type) {
     case actionTypes.SET_ORDER_INFO:
       return {
-        orderInfo: action.payload,
+        orderInfo: action.payload.productInfoArray,
+        path: action.payload.path,
       };
     case actionTypes.REMOVE_ORDER_INFO:
       return {};
