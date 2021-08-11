@@ -11,6 +11,7 @@ import CartPage from "@/components/CartPage/CartPage";
 import LoginPage from "@/components/LoginPage/LoginPage";
 import RegisterPage from "@/components/RegisterPage/RegisterPage";
 import OrderPage from "@/components/OrderPage/OrderPage";
+import UserPage from "@/components/UserPage/UserPage";
 import auth from "@/hoc/auth";
 import NotFound from "@/components/NotFound";
 
@@ -28,6 +29,7 @@ const App = () => {
             <Route exact path="/login" component={auth(LoginPage, false)} />
             <Route exact path="/register" component={auth(RegisterPage, false)} />
             <Route exact path="/order" component={auth(OrderPage, true)} />
+            <Route exact path="/myPage" component={auth(UserPage, true)} />
             <Route exact path="/notFound" component={NotFound} />
             <Route component={NotFound} />
           </Switch>

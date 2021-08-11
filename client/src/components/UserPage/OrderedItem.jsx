@@ -94,6 +94,8 @@ const ListHeader = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    border-left: none;
+    border-right: none;
   }
 `;
 
@@ -108,6 +110,10 @@ const ItemWrap = styled.div`
   @media (max-width: ${device.medium}px) {
     flex-direction: column;
     align-items: flex-start;
+  }
+  @media (max-width: ${device.small}px) {
+    border-left: none;
+    border-right: none;
   }
 `;
 
