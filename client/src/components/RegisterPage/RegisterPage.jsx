@@ -294,7 +294,9 @@ const Button = styled.button`
   font-weight: bold;
   font-size: 15px;
   cursor: pointer;
-  &:hover {
-    background: #cacba8;
+  @media (hover: hover) {
+    :hover {
+      background: #cacba8;
+    }
   }
 `;
