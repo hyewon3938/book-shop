@@ -150,14 +150,18 @@ const Wrap = styled.div`
   align-items: center;
   width: 100%;
   margin: 20px 0;
-  &:hover ${Book} {
-    transform: scale(1.15) translateY(8px);
-    transition: all 0.3s ease-out;
-    z-index: 1;
-  }
-  &:hover ${Shelf} {
-    transform: translateY(-8px) scale(0);
-    transition: all 0.3s ease-out;
+  @media (hover: hover) {
+    :hover {
+      ${Book} {
+        transform: scale(1.15) translateY(8px);
+        transition: all 0.3s ease-out;
+        z-index: 1;
+      }
+      ${Shelf} {
+        transform: translateY(-8px) scale(0);
+        transition: all 0.3s ease-out;
+      }
+    }
   }
 `;
 
