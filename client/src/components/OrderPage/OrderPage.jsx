@@ -37,8 +37,8 @@ const OrderPage = () => {
   const [point, setPoint] = useState(0);
 
   useEffect(() => {
-    if (!orderInfo.length) {
-      alert("잘못된 접근입니다.");
+    if (!orderInfo || !orderInfo.length) {
+      alert("주문을 다시 진행해주세요.");
       history.replace("/");
       return;
     }
@@ -88,7 +88,6 @@ const OrderPage = () => {
       }),
       totalPayment: totalPrice,
     };
-    console.log(order);
     dispatch(postOrder(order));
   };
 
@@ -215,7 +214,7 @@ const PriceInfo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #cacba82f;
+  background: #cacba814;
   border: solid 1px lightgray;
   padding: 30px 20px;
   margin: 0 0 50px 0;

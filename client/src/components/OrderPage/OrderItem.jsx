@@ -135,23 +135,8 @@ const Count = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    font-size: 18px;
-    background: white;
-    border: 1px solid #c2c2c2;
-    text-align: center;
-  }
   @media (max-width: ${device.medium}px) {
     justify-content: flex-start;
     margin: 5px 0 0 0;
-    button {
-      font-size: 15px;
-    }
   }
 `;
