@@ -96,7 +96,7 @@ const CartPage = () => {
     !isAllChecked ? dispatch(selectAllCart()) : dispatch(unselectAllCart());
   };
 
-  const orderButtonHandler = () => {
+  const orderButtonHandler = (cartItems) => {
     const productArray = cartItems
       .map((item) => {
         if (item.isSelected) {
@@ -138,7 +138,13 @@ const CartPage = () => {
             <EmptyCart>카트가 비어있습니다.</EmptyCart>
           ) : (
             cartItems.map((item, index) => {
-              return <CartItem data={item} key={index} />;
+              return (
+                <CartItem
+                  data={item}
+                  key={index}
+                  itemOrderButtonHandler={() => orderButtonHandler(cartItems)}
+                />
+              );
             })
           )}
           <ListFooter>

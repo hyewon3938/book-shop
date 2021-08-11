@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 // Components
@@ -14,8 +14,9 @@ import { device } from "@/components/style/responsiveBreakPoints";
 
 // Actions
 import { addToCart, removeFromCart, selectItem } from "@/redux/actions/cartActions";
+import { unselectAllCart } from "@/redux/actions/cartActions";
 
-const CartItem = ({ data }) => {
+const CartItem = ({ data, itemOrderButtonHandler }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -81,6 +82,12 @@ const CartItem = ({ data }) => {
     dispatch(selectItem(data._id));
   };
 
+  const orderButtonHandler = () => {
+    dispatch(unselectAllCart());
+    dispatch(selectItem(data._id));
+    itemOrderButtonHandler();
+  };
+
   return (
     <Wrap>
       <Checkbox onClick={checkboxClickHandler} isChecked={data.isSelected} />
@@ -112,7 +119,9 @@ const CartItem = ({ data }) => {
       </Item>
       <Item style={{ flex: "0.1" }}>
         <OrderWrap>
-          <Button order="true">주문</Button>
+          <Button order="true" onClick={orderButtonHandler}>
+            주문
+          </Button>
           <Button onClick={deleteItemHandler}>삭제</Button>
         </OrderWrap>
       </Item>
