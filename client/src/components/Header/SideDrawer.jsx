@@ -56,6 +56,11 @@ const SideDrawer = ({ show, click, isAuth, userName }) => {
     click();
   };
 
+  const myPageClickHandler = () => {
+    history.push("/myPage");
+    click();
+  };
+
   return (
     <Wrap style={{ transform: showSideDrawer }}>
       {loading ? <LoadingWrap /> : ""}
@@ -76,7 +81,7 @@ const SideDrawer = ({ show, click, isAuth, userName }) => {
             <LogInInfo>
               <LogInTitle>{userName}님 안녕하세요!</LogInTitle>
               <LogInButtonWrap>
-                <button>주문내역</button>
+                <button onClick={myPageClickHandler}>마이페이지</button>
                 <button onClick={logoutClickHandler}>로그아웃</button>
               </LogInButtonWrap>
             </LogInInfo>
