@@ -155,11 +155,6 @@ const Menu = styled.div`
     font-size: 1rem;
     margin: 0 5px 0 0;
     cursor: pointer;
-    &:hover {
-      div {
-        display: flex;
-      }
-    }
     span {
       font-weight: bold;
       margin: 0 0 0 4px;
@@ -177,6 +172,13 @@ const Menu = styled.div`
   }
   :last-child {
     margin: 0;
+  }
+  @media (hover: hover) {
+    button:hover {
+      div {
+        display: flex;
+      }
+    }
   }
   @media (max-width: ${device.small}px) {
     button {

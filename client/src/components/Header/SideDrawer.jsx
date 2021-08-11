@@ -174,10 +174,12 @@ const MenuWrap = styled.ul`
     font-size: 18px;
     margin: 0 0 20px 0;
     cursor: pointer;
-    &:hover {
-      color: gray;
-      transform: translateX(10px);
-      transition: all 0.2s ease-out;
+    @media (hover: hover) {
+      :hover {
+        color: gray;
+        transform: translateX(10px);
+        transition: all 0.2s ease-out;
+      }
     }
   }
 
@@ -222,11 +224,12 @@ const LogInInfo = styled.div`
   display: flex;
   word-break: keep-all;
   width: 100%;
-
   button {
     cursor: pointer;
-    &:hover {
-      color: gray;
+    @media (hover: hover) {
+      :hover {
+        color: gray;
+      }
     }
     @media (max-width: ${device.extraSmall}px) {
       font-size: 10px;
