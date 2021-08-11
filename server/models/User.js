@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema({
   },
   points: {
     type: Number,
-    default: 50000,
+    default: 100000,
   },
   role: {
     type: String,
