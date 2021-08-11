@@ -88,11 +88,13 @@ const getOrderList = async (req, res) => {
           orderStatus: 1,
           userId: 1,
           totalPayment: 1,
+          productList: 1,
           productObjects: {
             _id: 1,
             title: 1,
             coverImage: "$productObjects.coverImage.front",
             category: 1,
+            price: 1,
           },
         },
       },
