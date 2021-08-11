@@ -313,10 +313,12 @@ const BuyButton = styled.div`
   border: 1px solid #3d3d3d;
   font-size: 15px;
   font-weight: bold;
-  &:hover {
-    background: #cacba8;
-    color: white;
-    border: 1px solid #cacba8;
+  @media (hover: hover) {
+    :hover {
+      background: #cacba8;
+      color: white;
+      border: 1px solid #cacba8;
+    }
   }
   @media (max-width: ${device.medium}px) {
     width: 100%;
