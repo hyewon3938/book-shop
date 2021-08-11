@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { debounce } from "lodash";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -173,6 +173,7 @@ const ProductInfo = ({ data }) => {
                   </CounterWrap>
                 )}
                 <ButtonWrap>
+                  {loading ? <LoginLoadingIndicator /> : ""}
                   {isMobileMode ? (
                     <OpenMobileCounterButton
                       onClick={mobileArrowButtonClickHandler}
@@ -287,6 +288,7 @@ const ProductInfo = ({ data }) => {
                   </CounterWrap>
                 )}
                 <ButtonWrap>
+                  {loading ? <LoginLoadingIndicator /> : ""}
                   {isMobileMode ? (
                     <OpenMobileCounterButton
                       onClick={mobileArrowButtonClickHandler}
@@ -699,10 +701,12 @@ const BuyCartButton = styled.div`
   border: 1.5px solid #3d3d3d;
   font-size: 15px;
   font-weight: bold;
-  &:hover {
-    background: #cacba8;
-    color: white;
-    border: 1.5px solid #cacba8;
+  @media (hover: hover) {
+    :hover {
+      background: #cacba8;
+      color: white;
+      border: 1.5px solid #cacba8;
+    }
   }
   ${(props) => {
     if (props.outOfStock) {
@@ -742,4 +746,27 @@ const OpenMobileCounterButton = styled.div`
   @media (max-width: ${device.large}px) {
     display: flex;
   }
+`;
+
+const loading = keyframes`
+  from {
+    opacity : 1;
+  }
+  50%{
+    opacity : 0.8;
+  }
+  to{
+    opacity : 1;
+  }
+`;
+
+const LoginLoadingIndicator = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+  animation: ${loading} 1s ease infinite;
 `;
