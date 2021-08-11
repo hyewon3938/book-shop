@@ -22,14 +22,14 @@ const CartPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const cart = useSelector((state) => state.cart);
-  const { cartItems } = cart;
+  const cartData = useSelector((state) => state.cart);
+  const { cartItems } = cartData;
   const { auth } = useSelector((state) => state.auth);
 
   const stockCheckData = useSelector((state) => state.stockCheck);
   let { stockCheck, loading, error } = stockCheckData;
 
-  const unselectedList = cartItems.filter((item) => !item.isSelected);
+  const unselectedList = JSON.parse(JSON.stringify(cartItems)).filter((item) => !item.isSelected);
 
   const [isAllChecked, setIsAllChecked] = useState(unselectedList.length === 0 ? true : false);
 
@@ -76,7 +76,7 @@ const CartPage = () => {
     }
   }, [stockCheckData]);
 
-  const selectedItems = cartItems.filter((item) => item.isSelected);
+  const selectedItems = JSON.parse(JSON.stringify(cartItems)).filter((item) => item.isSelected);
 
   const totalPrice = selectedItems.reduce((acc, cur) => {
     return acc + Number(cur.price) * cur.qty;
@@ -96,7 +96,7 @@ const CartPage = () => {
     !isAllChecked ? dispatch(selectAllCart()) : dispatch(unselectAllCart());
   };
 
-  const orderButtonHandler = (cartItems) => {
+  const orderButtonHandler = () => {
     const productArray = cartItems
       .map((item) => {
         if (item.isSelected) {
@@ -139,11 +139,7 @@ const CartPage = () => {
           ) : (
             cartItems.map((item, index) => {
               return (
-                <CartItem
-                  data={item}
-                  key={index}
-                  itemOrderButtonHandler={() => orderButtonHandler(cartItems)}
-                />
+                <CartItem data={item} key={index} itemOrderButtonHandler={orderButtonHandler} />
               );
             })
           )}
