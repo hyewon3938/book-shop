@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -152,6 +152,7 @@ const CartPage = () => {
           </ListFooter>
         </CartListWrap>
         <ButtonWrap>
+          {loading ? <LoginLoadingIndicator /> : ""}
           <BuyCartButton onClick={orderButtonHandler}>선택 상품 주문하기</BuyCartButton>
         </ButtonWrap>
       </Wrap>
@@ -312,6 +313,7 @@ const ButtonWrap = styled.div`
   display: flex;
   justify-content: center;
   margin: 30px 0 0 0;
+  position: relative;
   @media (max-width: ${device.medium}px) {
     flex-direction: column;
     margin: 30px 10px;
@@ -328,10 +330,12 @@ const BuyCartButton = styled.div`
   border: 1px solid #3d3d3d;
   font-size: 15px;
   font-weight: bold;
-  &:hover {
-    background: #cacba8;
-    color: white;
-    border: 1px solid #cacba8;
+  @media (hover: hover) {
+    :hover {
+      background: #cacba8;
+      color: white;
+      border: 1px solid #cacba8;
+    }
   }
   @media (max-width: ${device.medium}px) {
     width: 100%;
@@ -360,4 +364,27 @@ const RemoveCartListButton = styled.button`
   @media (max-width: ${device.medium}px) {
     padding: 5px;
   }
+`;
+
+const loading = keyframes`
+  from {
+    opacity : 1;
+  }
+  50%{
+    opacity : 0.8;
+  }
+  to{
+    opacity : 1;
+  }
+`;
+
+const LoginLoadingIndicator = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+  animation: ${loading} 1s ease infinite;
 `;

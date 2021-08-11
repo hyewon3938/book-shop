@@ -215,13 +215,14 @@ const TitleWrap = styled.div`
   line-height: 20px;
   p {
     cursor: pointer;
-    &:hover {
-      text-decoration: underline;
+    @media (hover: hover) {
+      :hover {
+        text-decoration: underline;
+      }
     }
   }
   @media (max-width: ${device.medium}px) {
     flex: 0.8;
-
     p {
       font-size: 15px;
     }
@@ -315,10 +316,13 @@ const Button = styled.button`
   padding: 5px 15px;
   margin: 0 0 5px 0;
   cursor: pointer;
-  &:hover {
-    background: #cacba8;
-    color: white;
-    border: solid 1px #cacba8;
+
+  @media (hover: hover) {
+    :hover {
+      background: #cacba8;
+      color: white;
+      border: solid 1px #cacba8;
+    }
   }
   ${(props) => {
     if (props.order) {
@@ -337,8 +341,8 @@ const MobileDeleteButton = styled.div`
   height: 22px;
   position: relative;
   cursor: pointer;
-  &:hover {
-    div {
+  @media (hover: hover) {
+    div:hover {
       background: black;
     }
   }
