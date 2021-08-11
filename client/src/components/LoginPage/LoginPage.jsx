@@ -26,19 +26,25 @@ const LoginPage = () => {
   const password = useRef();
 
   const checkEmail = () => {
-    if (!email.current.value) return (email.current.style.borderColor = "red");
-
+    if (!email.current.value) {
+      email.current.style.borderColor = "red";
+      return false;
+    }
     email.current.style.borderColor = "";
+    return true;
   };
   const checkPassword = () => {
-    if (!password.current.value) return (password.current.style.borderColor = "red");
-
+    if (!password.current.value) {
+      password.current.style.borderColor = "red";
+      return false;
+    }
     password.current.style.borderColor = "";
+    return true;
   };
 
   const loginClickHandler = (e) => {
     e.preventDefault();
-    if (!email.current.value || !password.current.value) return;
+    if (!checkEmail() && !checkPassword()) return;
     dispatch(postLogin({ email: email.current.value, password: password.current.value }));
   };
 
@@ -189,8 +195,10 @@ const Button = styled.button`
   font-weight: bold;
   font-size: 15px;
   cursor: pointer;
-  &:hover {
-    background: #cacba8;
+  @media (hover: hover) {
+    :hover {
+      background: #cacba8;
+    }
   }
 `;
 
