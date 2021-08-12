@@ -69,7 +69,7 @@ const LoginPage = () => {
       return;
     }
     if (login.loginSuccess) {
-      if (orderInfo) return history.replace("/cart");
+      if (orderInfo && orderInfo.length > 0) return history.replace("/cart");
       return history.replace("/");
     }
   }, [loginData]);
