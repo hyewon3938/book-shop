@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -12,21 +12,47 @@ import { getOrder } from "@/redux/actions/orderActions";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
-// Utils
+// lib
 import { numberWithCommas } from "@/lib/utils";
 
 const UserPage = () => {
   const dispatch = useDispatch();
 
   const { auth } = useSelector((state) => state.auth);
+  const { order, loading, error } = useSelector((state) => state.getOrder);
 
-  const orderData = useSelector((state) => state.getOrder);
-  const { order, loading, error } = orderData;
+  const firstDataLength = 2;
+
+  const [itemCount, setItemCount] = useState(firstDataLength);
+  const [observerRef, setObserverRef] = useState(null);
 
   useEffect(() => {
     if (!auth) return;
     dispatch(getOrder(auth._id));
   }, [auth]);
+
+  const fetchItems = async () => {
+    setItemCount((prev) => prev + 2);
+  };
+
+  const checkIntersect = useCallback(([entry], observer) => {
+    if (entry.isIntersecting) {
+      fetchItems();
+    }
+  }, []);
+
+  useEffect(() => {
+    let observer;
+    if (observerRef) {
+      observer = new IntersectionObserver(checkIntersect, {
+        root: null,
+        threshold: 0.9,
+        rootMargin: "0px",
+      });
+      observer.observe(observerRef);
+    }
+    return () => observer && observer.disconnect();
+  }, [observerRef]);
 
   return (
     <>
@@ -78,6 +104,7 @@ const UserPage = () => {
                   return <OrderedItem key={index} data={orderItem} />;
                 })
               )}
+              <div ref={setObserverRef} />
             </ContentsWrap>
           ) : (
             ""
