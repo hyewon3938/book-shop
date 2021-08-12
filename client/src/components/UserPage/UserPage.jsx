@@ -41,22 +41,22 @@ const UserPage = () => {
           <OrderStateWrap>
             <OrderState>
               결제완료
-              <span>{order ? order.length : 0}</span>
+              <span>{auth && order ? order.length : "　"}</span>
             </OrderState>
             <Icon className="fas fa-chevron-right"></Icon>
             <OrderState>
               배송준비
-              <span>0</span>
+              <span>{auth && order ? 0 : "　"}</span>
             </OrderState>
             <Icon className="fas fa-chevron-right"></Icon>
             <OrderState>
               배송중
-              <span>0</span>
+              <span>{auth && order ? 0 : "　"}</span>
             </OrderState>
             <Icon className="fas fa-chevron-right"></Icon>
             <OrderState>
               배송완료
-              <span>0</span>
+              <span>{auth && order ? 0 : "　"}</span>
             </OrderState>
           </OrderStateWrap>
         </ContentsWrap>

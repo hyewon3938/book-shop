@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
@@ -8,12 +9,18 @@ import { device } from "@/components/style/responsiveBreakPoints";
 import { numberWithCommas } from "@/lib/utils";
 
 const OrderedItem = ({ data }) => {
+  const history = useHistory();
+
   const parseDate = (dateString) => {
     const year = dateString.substr(0, 4);
     const month = dateString.substr(6, 2);
     const day = dateString.substr(8, 2);
     const date = dateString.substr(0, 10);
     return date;
+  };
+
+  const itemClickHandler = (category, productId) => {
+    history.push(`/product/${category}/${productId}`);
   };
 
   return (
@@ -27,8 +34,12 @@ const OrderedItem = ({ data }) => {
           <ItemWrap key={index}>
             <Item style={{ flex: "0.3" }}>
               <ProductInfoWrap>
-                <img src={item.coverImage} alt={item.title} />
-                <TitleWrap>
+                <img
+                  src={item.coverImage}
+                  alt={item.title}
+                  onClick={() => itemClickHandler(item.category, item.productId)}
+                />
+                <TitleWrap onClick={() => itemClickHandler(item.category, item.productId)}>
                   <p>
                     [{item.category}] {item.title}
                   </p>
@@ -43,12 +54,16 @@ const OrderedItem = ({ data }) => {
             </Item>
             <MobileItem>
               <ProductInfoWrap>
-                <img src={item.coverImage} alt={item.title} />
-                <TitleWrap>
+                <img
+                  src={item.coverImage}
+                  alt={item.title}
+                  onClick={() => itemClickHandler(item.category, item.productId)}
+                />
+                <TitleWrap onClick={() => itemClickHandler(item.category, item.productId)}>
                   <p>
                     [{item.category}] {item.title}
                   </p>
-                  <PriceWrap>{numberWithCommas(item.price)}원</PriceWrap>
+                  <PriceWrap>{numberWithCommas(item.price * item.countOfOrder)}원</PriceWrap>
                   <Count>{item.countOfOrder}개</Count>
                 </TitleWrap>
               </ProductInfoWrap>
@@ -132,6 +147,7 @@ const ProductInfoWrap = styled.div`
   img {
     width: 50px;
     border: 1px solid lightgrey;
+    cursor: pointer;
   }
 `;
 
@@ -141,6 +157,9 @@ const TitleWrap = styled.div`
   margin: 5px 0 0 20px;
   font-size: 13px;
   line-height: 20px;
+  p {
+    cursor: pointer;
+  }
   @media (max-width: ${device.medium}px) {
     align-items: flex-start;
   }
