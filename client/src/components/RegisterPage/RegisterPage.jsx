@@ -77,7 +77,7 @@ const RegisterPage = () => {
     if (!emailCheck.test(target.value))
       return fail(target, emailMessage, "이메일을 다시 확인해주세요.");
     dispatch(postEmailCheck(target.value));
-    return true;
+    return pass(target, emailMessage);
   };
 
   const checkName = () => {
