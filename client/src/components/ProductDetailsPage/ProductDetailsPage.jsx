@@ -28,6 +28,10 @@ const ProductDetailsPage = () => {
     dispatch(getProductDetails(categoryParam, idParam));
   }, [dispatch]);
 
+  useEffect(() => {
+    if (error) return history.replace("/notFound");
+  }, [productDetailsData]);
+
   return (
     <PageWrap>
       {loading ? (
