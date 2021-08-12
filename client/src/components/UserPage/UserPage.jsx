@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import PageWrap from "@/components/style/layout/PageWrap";
@@ -124,12 +125,22 @@ const UserPage = () => {
       ],
     },
   ];
+
+  const { auth } = useSelector((state) => state.auth);
+
   return (
     <PageWrap>
       <Wrap>
-        <Title>이혜원님의 마이페이지</Title>
+        {auth ? <Title>{auth.name}님의 마이페이지</Title> : <Title>　</Title>}
         <ContentsWrap>
-          <UserInfo>ehak3@naver.com</UserInfo>
+          <UserInfo>
+            <span>이메일</span>
+            {auth ? auth.email : ""}
+          </UserInfo>
+          <UserInfo>
+            <span>적립금</span>
+            {auth ? auth.points : ""}p
+          </UserInfo>
           <OrderStateWrap>
             <OrderState>
               결제완료
@@ -208,8 +219,13 @@ const ContentsWrap = styled.div`
 
 const UserInfo = styled.div`
   width: 100%;
-  font-size: 18px;
-  margin: 10px 5px;
+  margin: 0 5px 15px 5px;
+  span {
+    font-weight: bold;
+    color: #574f27;
+    font-size: 15px;
+    margin: 0 10px 0 0;
+  }
   @media (max-width: ${device.small}px) {
     font-size: 15px;
   }
@@ -254,7 +270,7 @@ const OrderState = styled.div`
 
 const Icon = styled.i`
   font-size: 18px;
-  color: #6a6b58;
+  color: #574f27;
   @media (max-width: ${device.small}px) {
     font-size: 12px;
   }
