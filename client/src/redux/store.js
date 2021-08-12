@@ -22,6 +22,7 @@ import {
   postStockCheckReducer,
   orderInfoReducer,
   postOrderReducer,
+  getOrderReducer,
 } from "@/redux/reducers/orderReducers";
 
 const reducer = combineReducers({
@@ -40,6 +41,7 @@ const reducer = combineReducers({
   stockCheck: postStockCheckReducer,
   orderInfo: orderInfoReducer,
   order: postOrderReducer,
+  getOrder: getOrderReducer,
 });
 
 const middleware = [thunk];
