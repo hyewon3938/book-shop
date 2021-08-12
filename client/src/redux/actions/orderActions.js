@@ -1,5 +1,6 @@
 import * as actionTypes from "@/redux/constants/orderConstants";
 import axios from "axios";
+import { cacheRequest } from "@/lib/cacheRequest";
 
 export const postStockCheck = (productArray) => async (dispatch) => {
   try {
@@ -41,7 +42,10 @@ export const getOrder = (userId) => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_ORDER_REQUEST });
 
-    const { data } = await axios.get(`/api/orders/${userId}`);
+    const { data } = await cacheRequest.get(`/api/orders/${userId}`, {
+      forceUpdate: history.action === "PUSH",
+      cache: true,
+    });
     dispatch({
       type: actionTypes.GET_ORDER_SUCCESS,
       payload: data,

@@ -26,6 +26,8 @@ const OrderPage = () => {
   const orderData = useSelector((state) => state.order);
   const { order, loading, error } = orderData;
 
+  const availablePoints = auth ? auth.points : 0;
+
   const totalPrice = orderInfo
     ? orderInfo.reduce((acc, item) => {
         return acc + item.price * item.countOfOrder;
@@ -36,11 +38,11 @@ const OrderPage = () => {
   const [point, setPoint] = useState(0);
 
   useEffect(() => {
-    // if (!orderInfo || !orderInfo.length) {
-    //   alert("주문을 다시 진행해주세요.");
-    //   history.replace("/");
-    //   return;
-    // }
+    if (!orderInfo || !orderInfo.length) {
+      alert("주문을 다시 진행해주세요.");
+      history.replace("/");
+      return;
+    }
 
     return () => {
       dispatch(removeOrderInfo());
