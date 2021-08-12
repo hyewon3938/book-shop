@@ -12,6 +12,9 @@ import { getOrder } from "@/redux/actions/orderActions";
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
+// Utils
+import { numberWithCommas } from "@/lib/utils";
+
 const UserPage = () => {
   const dispatch = useDispatch();
 
@@ -36,7 +39,7 @@ const UserPage = () => {
           </UserInfo>
           <UserInfo>
             <span>적립금</span>
-            {auth ? auth.points : ""}p
+            {auth ? numberWithCommas(auth.points) : ""}p
           </UserInfo>
           <OrderStateWrap>
             <OrderState>
