@@ -24,6 +24,7 @@ const AdCarousel = ({ data, isMobileMode }) => {
   const carouselStyle = {
     transform: `translateX(-${100 * currentIndex}%)`,
   };
+
   const carouselImage = useRef();
   const transitionSec = 0.7;
   const autoSlideDelay = 3000;
@@ -31,7 +32,7 @@ const AdCarousel = ({ data, isMobileMode }) => {
   const rightClickHandler = () => {
     autoSlideTimer.pause();
     if (currentIndex === lastIndex) return;
-    if (!carouselImage) return;
+    if (!carouselImage.current) return;
     carouselImage.current.style.transition = `${transitionSec}s ease-in-out`;
     setCurrentIndex(currentIndex + 1);
   };
@@ -39,7 +40,7 @@ const AdCarousel = ({ data, isMobileMode }) => {
   const leftClickHandler = () => {
     autoSlideTimer.pause();
     if (currentIndex === firstIndex) return;
-    if (!carouselImage) return;
+    if (!carouselImage.current) return;
     carouselImage.current.style.transition = `${transitionSec}s ease-in-out`;
     setCurrentIndex(currentIndex - 1);
   };
@@ -49,6 +50,7 @@ const AdCarousel = ({ data, isMobileMode }) => {
   useEffect(() => {
     if (currentIndex === firstIndex) {
       let timeId = setTimeout(() => {
+        if (!carouselImage.current) return;
         carouselImage.current.style.transition = "none";
         setCurrentIndex(lastProductIndex);
         clearTimeout(timeId);
@@ -57,6 +59,7 @@ const AdCarousel = ({ data, isMobileMode }) => {
     }
     if (currentIndex === lastIndex) {
       let timeId = setTimeout(() => {
+        if (!carouselImage.current) return;
         carouselImage.current.style.transition = "none";
         setCurrentIndex(firstProductIndex);
         clearTimeout(timeId);
