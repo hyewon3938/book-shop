@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -6,127 +6,24 @@ import { useDispatch, useSelector } from "react-redux";
 import PageWrap from "@/components/style/layout/PageWrap";
 import OrderedItem from "@/components/UserPage/OrderedItem";
 
+// Actions
+import { getOrder } from "@/redux/actions/orderActions";
+
 // Style
 import { device } from "@/components/style/responsiveBreakPoints";
 
 const UserPage = () => {
-  const data = [
-    {
-      _id: "61126962934b832e449cd61c",
-      orderDate: "2021-08-10T11:42:31.154Z",
-      userId: "6112694f934b832e449cd613",
-      paymentType: "적립금",
-      orderStatus: "결제완료",
-      totalPayment: 9000,
-      productList: [
-        {
-          _id: "6102fdf42903bb337c41d0db",
-          productId: "6102fdf42903bb337c41d0db",
-          countOfOrder: 1,
-          title: "개소리에 대하여",
-          price: 9000,
-          category: "철학",
-          coverImage: "https://image.aladin.co.kr/product/7492/7/cover500/s982732770_1.jpg",
-        },
-      ],
-    },
-    {
-      _id: "61126b59934b832e449cd63b",
-      orderDate: "2021-08-10T11:42:31.154Z",
-      userId: "6112694f934b832e449cd613",
-      paymentType: "적립금",
-      orderStatus: "결제완료",
-      totalPayment: 24000,
-      productList: [
-        {
-          _id: "6102fdf42903bb337c41d0db",
-          productId: "6102fdf42903bb337c41d0db",
-          countOfOrder: 1,
-          title: "개소리에 대하여",
-          price: 9000,
-          category: "철학",
-          coverImage: "https://image.aladin.co.kr/product/7492/7/cover500/s982732770_1.jpg",
-        },
-        {
-          _id: "6102fdf42903bb337c41d0e4",
-          productId: "6102fdf42903bb337c41d0e4",
-          countOfOrder: 1,
-          title: "조르주 바타유 - 라스코 혹은 예술의 탄생 / 마네",
-          price: 15000,
-          category: "예술",
-          coverImage: "https://image.aladin.co.kr/product/11057/92/cover500/8994207783_1.jpg",
-        },
-      ],
-    },
-    {
-      _id: "611271d5934b832e449cd74a",
-      orderDate: "2021-08-10T11:42:31.154Z",
-      userId: "6112694f934b832e449cd613",
-      paymentType: "적립금",
-      orderStatus: "결제완료",
-      totalPayment: 34500,
-      productList: [
-        {
-          _id: "6102fdf42903bb337c41d0d0",
-          productId: "6102fdf42903bb337c41d0d0",
-          countOfOrder: 11,
-          title: "나는 어디에 있는가? ",
-          price: 20000,
-          category: "과학",
-          coverImage: "https://image.aladin.co.kr/product/27616/38/cover500/k622733128_1.jpg",
-        },
-        {
-          _id: "6102fdf42903bb337c41d107",
-          productId: "6102fdf42903bb337c41d107",
-          countOfOrder: 11,
-          title: "그러라 그래",
-          price: 14500,
-          category: "에세이",
-          coverImage: "https://image.aladin.co.kr/product/26913/49/cover500/893498497x_1.jpg",
-        },
-      ],
-    },
-    {
-      _id: "61126e5d934b832e449cd68b",
-      orderDate: "2021-08-10T11:42:31.154Z",
-      userId: "6112694f934b832e449cd613",
-      paymentType: "적립금",
-      orderStatus: "결제완료",
-      totalPayment: 9000,
-      productList: [
-        {
-          _id: "6102fdf42903bb337c41d0db",
-          productId: "6102fdf42903bb337c41d0db",
-          countOfOrder: 1,
-          title: "개소리에 대하여",
-          price: 9000,
-          category: "철학",
-          coverImage: "https://image.aladin.co.kr/product/7492/7/cover500/s982732770_1.jpg",
-        },
-      ],
-    },
-    {
-      _id: "61126fb8934b832e449cd6e0",
-      orderDate: "2021-08-10T11:42:31.154Z",
-      userId: "6112694f934b832e449cd613",
-      paymentType: "적립금",
-      orderStatus: "결제완료",
-      totalPayment: 20000,
-      productList: [
-        {
-          _id: "6102fdf42903bb337c41d0d0",
-          productId: "6102fdf42903bb337c41d0d0",
-          countOfOrder: 1,
-          title: "나는 어디에 있는가? ",
-          price: 20000,
-          category: "과학",
-          coverImage: "https://image.aladin.co.kr/product/27616/38/cover500/k622733128_1.jpg",
-        },
-      ],
-    },
-  ];
+  const dispatch = useDispatch();
 
   const { auth } = useSelector((state) => state.auth);
+
+  const orderData = useSelector((state) => state.getOrder);
+  const { order, loading, error } = orderData;
+
+  useEffect(() => {
+    if (!auth) return;
+    dispatch(getOrder(auth._id));
+  }, [auth]);
 
   return (
     <PageWrap>
@@ -144,7 +41,7 @@ const UserPage = () => {
           <OrderStateWrap>
             <OrderState>
               결제완료
-              <span>{data.length}</span>
+              <span>{order ? order.length : 0}</span>
             </OrderState>
             <Icon className="fas fa-chevron-right"></Icon>
             <OrderState>
@@ -164,15 +61,23 @@ const UserPage = () => {
           </OrderStateWrap>
         </ContentsWrap>
         <Title>주문내역</Title>
-        <ContentsWrap>
-          {data.length === 0 ? (
-            <div>주문 내역이 없습니다.</div>
-          ) : (
-            data.map((orderItem, index) => {
-              return <OrderedItem key={index} data={orderItem} />;
-            })
-          )}
-        </ContentsWrap>
+        {error && auth ? (
+          <div>server error</div>
+        ) : loading && auth ? (
+          <></>
+        ) : order && auth ? (
+          <ContentsWrap>
+            {order.length === 0 ? (
+              <div>주문 내역이 없습니다.</div>
+            ) : (
+              order.map((orderItem, index) => {
+                return <OrderedItem key={index} data={orderItem} />;
+              })
+            )}
+          </ContentsWrap>
+        ) : (
+          ""
+        )}
       </Wrap>
     </PageWrap>
   );
