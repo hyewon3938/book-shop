@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -29,60 +29,62 @@ const UserPage = () => {
   }, [auth]);
 
   return (
-    <PageWrap>
-      <Wrap>
-        {auth ? <Title>{auth.name}님의 마이페이지</Title> : <Title>　</Title>}
-        <ContentsWrap>
-          <UserInfo>
-            <span>이메일</span>
-            {auth ? auth.email : ""}
-          </UserInfo>
-          <UserInfo>
-            <span>적립금</span>
-            {auth ? numberWithCommas(auth.points) : ""}p
-          </UserInfo>
-          <OrderStateWrap>
-            <OrderState>
-              결제완료
-              <span>{auth && order ? order.length : "　"}</span>
-            </OrderState>
-            <Icon className="fas fa-chevron-right"></Icon>
-            <OrderState>
-              배송준비
-              <span>{auth && order ? 0 : "　"}</span>
-            </OrderState>
-            <Icon className="fas fa-chevron-right"></Icon>
-            <OrderState>
-              배송중
-              <span>{auth && order ? 0 : "　"}</span>
-            </OrderState>
-            <Icon className="fas fa-chevron-right"></Icon>
-            <OrderState>
-              배송완료
-              <span>{auth && order ? 0 : "　"}</span>
-            </OrderState>
-          </OrderStateWrap>
-        </ContentsWrap>
-        <Title>주문내역</Title>
-        {error && auth ? (
-          <div>server error</div>
-        ) : loading && auth ? (
-          <></>
-        ) : order && auth ? (
+    <>
+      <PageWrap>
+        <Wrap>
+          {auth ? <Title>{auth.name}님의 마이페이지</Title> : <Title>　</Title>}
           <ContentsWrap>
-            {order.length === 0 ? (
-              <div>주문 내역이 없습니다.</div>
-            ) : (
-              order.map((orderItem, index) => {
-                return <OrderedItem key={index} data={orderItem} />;
-              })
-            )}
+            <UserInfo>
+              <span>이메일</span>
+              {auth ? auth.email : ""}
+            </UserInfo>
+            <UserInfo>
+              <span>적립금</span>
+              {auth && auth.points ? numberWithCommas(auth.points) : "　"}p
+            </UserInfo>
+            <OrderStateWrap>
+              <OrderState>
+                결제완료
+                <span>{auth && order ? order.length : "　"}</span>
+              </OrderState>
+              <Icon className="fas fa-chevron-right"></Icon>
+              <OrderState>
+                배송준비
+                <span>{auth && order ? 0 : "　"}</span>
+              </OrderState>
+              <Icon className="fas fa-chevron-right"></Icon>
+              <OrderState>
+                배송중
+                <span>{auth && order ? 0 : "　"}</span>
+              </OrderState>
+              <Icon className="fas fa-chevron-right"></Icon>
+              <OrderState>
+                배송완료
+                <span>{auth && order ? 0 : "　"}</span>
+              </OrderState>
+            </OrderStateWrap>
           </ContentsWrap>
-        ) : (
-          ""
-        )}
-      </Wrap>
-    </PageWrap>
+          <Title>주문내역</Title>
+          {error && auth ? (
+            <div>server error</div>
+          ) : loading && auth ? (
+            <></>
+          ) : order && auth ? (
+            <ContentsWrap>
+              {order.length === 0 ? (
+                <div>주문 내역이 없습니다.</div>
+              ) : (
+                order.slice(0, itemCount).map((orderItem, index) => {
+                  return <OrderedItem key={index} data={orderItem} />;
+                })
+              )}
+            </ContentsWrap>
+          ) : (
+            ""
+          )}
+        </Wrap>
+      </PageWrap>
+    </>
   );
 };
 

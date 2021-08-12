@@ -26,7 +26,6 @@ const OrderPage = () => {
   const orderData = useSelector((state) => state.order);
   const { order, loading, error } = orderData;
 
-  const availablePoints = auth ? auth.points : "";
   const totalPrice = orderInfo
     ? orderInfo.reduce((acc, item) => {
         return acc + item.price * item.countOfOrder;
@@ -37,11 +36,11 @@ const OrderPage = () => {
   const [point, setPoint] = useState(0);
 
   useEffect(() => {
-    if (!orderInfo || !orderInfo.length) {
-      alert("주문을 다시 진행해주세요.");
-      history.replace("/");
-      return;
-    }
+    // if (!orderInfo || !orderInfo.length) {
+    //   alert("주문을 다시 진행해주세요.");
+    //   history.replace("/");
+    //   return;
+    // }
 
     return () => {
       dispatch(removeOrderInfo());
@@ -129,7 +128,8 @@ const OrderPage = () => {
               <button onClick={usePointButtonHandler}>전액사용</button>
             </InputWrap>
             <p>
-              사용 가능 포인트 <span>{numberWithCommas(availablePoints)}p</span>
+              사용 가능 포인트{" "}
+              <span>{auth && auth.points ? numberWithCommas(auth.points) : ""}p</span>
             </p>
           </OrderInfo>
           <Title>결제방법</Title>

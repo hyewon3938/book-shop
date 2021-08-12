@@ -38,7 +38,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
           if (option === false) return history.replace("/");
         }
       }
-    }, [authData]);
+    }, [auth]);
 
     return withPathCheck(path, SpecificComponent);
   }
