@@ -1,5 +1,9 @@
 import React from "react";
-import { HashRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
+
+// hoc
+import withPathCheck from "@/hoc/withPathCheck";
+import auth from "@/hoc/auth";
 
 // Components
 import GlobalStyleProvider from "@/components/style/GlobalStyleProvider";
@@ -12,7 +16,6 @@ import LoginPage from "@/components/LoginPage/LoginPage";
 import RegisterPage from "@/components/RegisterPage/RegisterPage";
 import OrderPage from "@/components/OrderPage/OrderPage";
 import UserPage from "@/components/UserPage/UserPage";
-import auth from "@/hoc/auth";
 import NotFound from "@/components/NotFound";
 
 const App = () => {
@@ -22,14 +25,22 @@ const App = () => {
         <ScrollTopButton />
         <main>
           <Switch>
-            <Route exact path="/" component={auth(HomePage, null)} />
-            <Route exact path="/product/:category" component={auth(ProductsPage, null)} />
-            <Route exact path="/product/:category/:id" component={auth(ProductDetailsPage, null)} />
-            <Route exact path="/cart" component={auth(CartPage, null)} />
-            <Route exact path="/login" component={auth(LoginPage, false)} />
-            <Route exact path="/register" component={auth(RegisterPage, false)} />
-            <Route exact path="/order" component={auth(OrderPage, true)} />
-            <Route exact path="/myPage" component={auth(UserPage, true)} />
+            <Route exact path="/" component={withPathCheck(auth(HomePage, null))} />
+            <Route
+              exact
+              path="/product/:category"
+              component={withPathCheck(auth(ProductsPage, null))}
+            />
+            <Route
+              exact
+              path="/product/:category/:id"
+              component={withPathCheck(auth(ProductDetailsPage, null))}
+            />
+            <Route exact path="/cart" component={withPathCheck(auth(CartPage, null))} />
+            <Route exact path="/login" component={withPathCheck(auth(LoginPage, false))} />
+            <Route exact path="/register" component={withPathCheck(auth(RegisterPage, false))} />
+            <Route exact path="/order" component={withPathCheck(auth(OrderPage, true))} />
+            <Route exact path="/myPage" component={withPathCheck(auth(UserPage, true))} />
             <Route exact path="/notFound" component={NotFound} />
             <Route component={NotFound} />
           </Switch>

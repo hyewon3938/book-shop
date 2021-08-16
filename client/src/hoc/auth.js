@@ -1,7 +1,6 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { withPathCheck } from "@/hoc/withPathCheck";
+import { useHistory } from "react-router";
 
 // Actions
 import { getAuth } from "@/redux/actions/userActions";
@@ -15,13 +14,12 @@ export default function (SpecificComponent, option, adminRoute = null) {
   // adminRoute 값?
   // true => admin만 출입가능
 
-  function AuthenticationCheck({ match, history }) {
+  function AuthenticationCheck() {
     const dispatch = useDispatch();
-
-    const path = match.path;
+    const history = useHistory();
 
     const authData = useSelector((state) => state.auth);
-    let { auth, loading, error } = authData;
+    let { auth } = authData;
 
     useEffect(() => {
       dispatch(getAuth());
@@ -40,7 +38,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
       }
     }, [auth]);
 
-    return withPathCheck(path, SpecificComponent);
+    return <SpecificComponent />;
   }
 
   return AuthenticationCheck;
