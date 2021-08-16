@@ -88,6 +88,7 @@ const OrderPage = () => {
         };
       }),
       totalPayment: totalPrice,
+      orderDate: new Date(),
     };
     dispatch(postOrder(order));
   };
