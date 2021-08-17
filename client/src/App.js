@@ -16,7 +16,7 @@ import LoginPage from "@/components/LoginPage/LoginPage";
 import RegisterPage from "@/components/RegisterPage/RegisterPage";
 import OrderPage from "@/components/OrderPage/OrderPage";
 import UserPage from "@/components/UserPage/UserPage";
-import NotFound from "@/components/NotFound";
+import NotFound from "@/components/NotFoundPage/NotFoundPage";
 
 const App = () => {
   return (
