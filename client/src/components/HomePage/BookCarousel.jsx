@@ -17,8 +17,6 @@ const BookCarousel = ({ data }) => {
   if (data && dataList.length === data.length) {
     for (let index = 1; index <= quantityToAdd; index++) {
       dataList.unshift(data[data.length - index]);
-    }
-    for (let index = 1; index <= quantityToAdd; index++) {
       dataList.push(data[index - 1]);
     }
   }
