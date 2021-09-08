@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useRouteMatch, useHistory } from "react-router-dom";
@@ -20,15 +20,42 @@ const ProductsPage = () => {
   const dispatch = useDispatch();
   const match = useRouteMatch();
   const history = useHistory();
+  const firstDataLength = 60;
 
   const productsData = useSelector((state) => state.getProducts);
   const { products, loading, error } = productsData;
+
+  const [itemCount, setItemCount] = useState(firstDataLength);
+  const [observerRef, setObserverRef] = useState(null);
 
   useEffect(() => {
     if (!category.includes(match.params.category)) return history.replace("/notFound");
     const categoryParam = match.params.category === "전체보기" ? "" : match.params.category;
     dispatch(getProducts(categoryParam, history));
   }, [match]);
+
+  const fetchItems = async () => {
+    setItemCount((prev) => prev + firstDataLength);
+  };
+
+  const checkIntersect = useCallback(([entry], observer) => {
+    if (entry.isIntersecting) {
+      fetchItems();
+    }
+  }, []);
+
+  useEffect(() => {
+    let observer;
+    if (observerRef) {
+      observer = new IntersectionObserver(checkIntersect, {
+        root: null,
+        threshold: 0.9,
+        rootMargin: "0px",
+      });
+      observer.observe(observerRef);
+    }
+    return () => observer && observer.disconnect();
+  }, [observerRef]);
 
   const emptyArray = new Array(20).fill(0);
 
@@ -52,9 +79,10 @@ const ProductsPage = () => {
               {match.params.category} ({products.length})
             </CategoryTitle>
             <ProductsWrap>
-              {products.map((product) => {
+              {products.slice(0, itemCount).map((product) => {
                 return <Product key={product._id} data={product} />;
               })}
+              <div ref={setObserverRef} />
             </ProductsWrap>
           </>
         )}
