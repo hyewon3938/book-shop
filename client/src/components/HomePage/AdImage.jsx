@@ -37,7 +37,7 @@ const Ad = styled.div`
   background: #44381e;
   cursor: pointer;
   img {
-    height: 100%;
+    height: 80%;
   }
   div {
     position: absolute;
