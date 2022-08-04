@@ -42,22 +42,25 @@ userSchema.pre("save", function (next) {
   let user = this;
 
   if (user.isModified("password")) {
-    bcrypt.genSalt(saltRounds, function (err, salt) {
-      if (err) return next(err);
 
-      bcrypt.hash(user.password, salt, function (err, hash) {
+      bcrypt.hash(user.password, 10, function (err, hash) {
         if (err) return next(err);
+
         user.password = hash;
         next();
       });
-    });
   } else {
     next();
   }
 });
 
 userSchema.methods.comparePassword = function (plainPassword, callback) {
-  bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
+
+  const userPassword = this.password;
+
+  bcrypt.compare(plainPassword, userPassword, function (err, isMatch) {
+
+
     if (err) return callback(err);
     callback(null, isMatch);
   });

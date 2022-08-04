@@ -57,6 +57,7 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
+    console.log(login)
     if (!login) return;
     if (error) {
       alert("서버 오류입니다");
