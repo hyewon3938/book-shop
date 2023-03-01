@@ -15,8 +15,16 @@ import { numberWithCommas } from "@/lib/utils";
 import { device } from "@/components/style/responsiveBreakPoints";
 
 // Actions
-import { removeSelectedItem, selectAllCart, unselectAllCart } from "@/redux/actions/cartActions";
-import { postStockCheck, removeStockCheckData, setOrderInfo } from "@/redux/actions/orderActions";
+import {
+  removeSelectedItem,
+  selectAllCart,
+  unselectAllCart,
+} from "@/redux/actions/cartActions";
+import {
+  postStockCheck,
+  removeStockCheckData,
+  setOrderInfo,
+} from "@/redux/actions/orderActions";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -29,9 +37,13 @@ const CartPage = () => {
   const stockCheckData = useSelector((state) => state.stockCheck);
   let { stockCheck, loading, error } = stockCheckData;
 
-  const unselectedList = JSON.parse(JSON.stringify(cartItems)).filter((item) => !item.isSelected);
+  const unselectedList = JSON.parse(JSON.stringify(cartItems)).filter(
+    (item) => !item.isSelected
+  );
 
-  const [isAllChecked, setIsAllChecked] = useState(unselectedList.length === 0 ? true : false);
+  const [isAllChecked, setIsAllChecked] = useState(
+    unselectedList.length === 0 ? true : false
+  );
 
   const productInfoArray = cartItems
     .map((item) => {
@@ -64,19 +76,28 @@ const CartPage = () => {
     if (!stockCheck) return;
     if (error) return alert("Server Error");
     if (stockCheck.isAvailable) {
-      dispatch(setOrderInfo({ productInfoArray: productInfoArray, path: "cart" }));
+      dispatch(
+        setOrderInfo({ productInfoArray: productInfoArray, path: "cart" })
+      );
       if (auth.isAuth) return history.push("/order");
       return history.push("/login");
     }
     if (!stockCheck.isAvailable) {
       const listMessage = stockCheck.outOfStockList.reduce((acc, item) => {
-        return acc + `${item.title}(${item.countInStock <= 0 ? "품절" : item.countInStock}),`;
+        return (
+          acc +
+          `${item.title}(${
+            item.countInStock <= 0 ? "품절" : item.countInStock
+          }),`
+        );
       }, "");
       return alert(`재고가 부족합니다(주문가능 수량)\n${listMessage}`);
     }
   }, [stockCheckData]);
 
-  const selectedItems = JSON.parse(JSON.stringify(cartItems)).filter((item) => item.isSelected);
+  const selectedItems = JSON.parse(JSON.stringify(cartItems)).filter(
+    (item) => item.isSelected
+  );
 
   const totalPrice = selectedItems.reduce((acc, cur) => {
     return acc + Number(cur.price) * cur.qty;
@@ -117,15 +138,28 @@ const CartPage = () => {
       <Wrap>
         <CartTitle>북샵 카트 ({totalCount})</CartTitle>
         <RemoveCartListWrap>
-          <RemoveCartListButton onClick={deleteListHandler}>선택 상품 삭제</RemoveCartListButton>
+          <RemoveCartListButton onClick={deleteListHandler}>
+            선택 상품 삭제
+          </RemoveCartListButton>
         </RemoveCartListWrap>
         <CartListWrap>
           <MobileAllCheckboxWrap>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <Checkbox onClick={allCheckClickHandler} isChecked={isAllChecked} />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Checkbox
+                onClick={allCheckClickHandler}
+                isChecked={isAllChecked}
+              />
               <span>전체선택</span>
             </div>
-            <RemoveCartListButton onClick={deleteListHandler}>선택 상품 삭제</RemoveCartListButton>
+            <RemoveCartListButton onClick={deleteListHandler}>
+              선택 상품 삭제
+            </RemoveCartListButton>
           </MobileAllCheckboxWrap>
           <ListHeader>
             <Checkbox onClick={allCheckClickHandler} isChecked={isAllChecked} />
@@ -139,7 +173,11 @@ const CartPage = () => {
           ) : (
             cartItems.map((item, index) => {
               return (
-                <CartItem data={item} key={index} itemOrderButtonHandler={orderButtonHandler} />
+                <CartItem
+                  data={item}
+                  key={index}
+                  itemOrderButtonHandler={orderButtonHandler}
+                />
               );
             })
           )}
@@ -155,7 +193,9 @@ const CartPage = () => {
         </CartListWrap>
         <ButtonWrap>
           {loading ? <LoginLoadingIndicator /> : ""}
-          <BuyCartButton onClick={orderButtonHandler}>선택 상품 주문하기</BuyCartButton>
+          <BuyCartButton onClick={orderButtonHandler}>
+            선택 상품 주문하기
+          </BuyCartButton>
         </ButtonWrap>
       </Wrap>
     </PageWrap>
@@ -362,6 +402,7 @@ const RemoveCartListButton = styled.button`
   padding: 5px 10px;
   border: 1px solid grey;
   cursor: pointer;
+  -webkit-text-fill-color: #000;
   font-size: 12px;
   @media (max-width: ${device.medium}px) {
     padding: 5px;

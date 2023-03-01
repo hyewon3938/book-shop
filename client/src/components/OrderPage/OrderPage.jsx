@@ -8,7 +8,11 @@ import PageWrap from "@/components/style/layout/PageWrap";
 import OrderItem from "@/components/OrderPage/OrderItem";
 
 // Actions
-import { postOrder, removeOrderData, removeOrderInfo } from "@/redux/actions/orderActions";
+import {
+  postOrder,
+  removeOrderData,
+  removeOrderInfo,
+} from "@/redux/actions/orderActions";
 import { removeSelectedItem } from "@/redux/actions/cartActions";
 
 // Style
@@ -68,7 +72,8 @@ const OrderPage = () => {
   };
 
   const pointOnBlurHandler = (e) => {
-    if (e.target.value > totalPrice && availablePoints > totalPrice) return setPoint(totalPrice);
+    if (e.target.value > totalPrice && availablePoints > totalPrice)
+      return setPoint(totalPrice);
     if (e.target.value > availablePoints) return setPoint(availablePoints);
   };
 
@@ -132,7 +137,9 @@ const OrderPage = () => {
             </InputWrap>
             <p>
               사용 가능 포인트{" "}
-              <span>{auth && auth.points ? numberWithCommas(auth.points) : ""}p</span>
+              <span>
+                {auth && auth.points ? numberWithCommas(auth.points) : ""}p
+              </span>
             </p>
           </OrderInfo>
           <Title>결제방법</Title>
@@ -274,6 +281,7 @@ const InputWrap = styled.div`
     width: 100px;
     border: solid 1px lightgray;
     margin: 0 0 0 10px;
+    -webkit-text-fill-color: #000;
     cursor: pointer;
   }
   @media (max-width: ${device.extraSmall}px) {

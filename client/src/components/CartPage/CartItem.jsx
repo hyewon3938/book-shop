@@ -13,7 +13,11 @@ import { numberWithCommas } from "@/lib/utils";
 import { device } from "@/components/style/responsiveBreakPoints";
 
 // Actions
-import { addToCart, removeFromCart, selectItem } from "@/redux/actions/cartActions";
+import {
+  addToCart,
+  removeFromCart,
+  selectItem,
+} from "@/redux/actions/cartActions";
 import { unselectAllCart } from "@/redux/actions/cartActions";
 
 const CartItem = ({ data, itemOrderButtonHandler }) => {
@@ -93,7 +97,11 @@ const CartItem = ({ data, itemOrderButtonHandler }) => {
       <Checkbox onClick={checkboxClickHandler} isChecked={data.isSelected} />
       <Item style={{ flex: "0.5" }}>
         <ProductInfoWrap>
-          <img onClick={itemClickHandler} src={data.imageUrl} alt={data.title} />
+          <img
+            onClick={itemClickHandler}
+            src={data.imageUrl}
+            alt={data.title}
+          />
           <TitleWrap onClick={itemClickHandler}>
             <p>
               [{data.category}] {data.title}
@@ -127,7 +135,11 @@ const CartItem = ({ data, itemOrderButtonHandler }) => {
       </Item>
       <MobileItem>
         <ProductInfoWrap>
-          <img onClick={itemClickHandler} src={data.imageUrl} alt={data.title} />
+          <img
+            onClick={itemClickHandler}
+            src={data.imageUrl}
+            alt={data.title}
+          />
           <TitleWrap>
             <p onClick={itemClickHandler}>
               [{data.category}] {data.title}
@@ -271,6 +283,7 @@ const Count = styled.div`
     background: white;
     border: 1px solid #c2c2c2;
     text-align: center;
+    -webkit-text-fill-color: #000;
   }
   @media (max-width: ${device.medium}px) {
     justify-content: flex-start;
