@@ -52,7 +52,9 @@ const Navbar = ({ click }) => {
         <div></div>
       </HamburgerMenu>
       <StyledLink to="/">
-        <Logo>{isHomePage && isScrollTop ? "" : <img src={logo} alt="logo" />}</Logo>
+        <Logo>
+          {isHomePage && isScrollTop ? "" : <img src={logo} alt="logo" />}
+        </Logo>
       </StyledLink>
       <Menu>
         {getCookie("x_auth") ? (
@@ -154,6 +156,7 @@ const Menu = styled.div`
     padding: 3px;
     font-size: 1rem;
     margin: 0 5px 0 0;
+    -webkit-text-fill-color: #000;
     cursor: pointer;
     span {
       font-weight: bold;

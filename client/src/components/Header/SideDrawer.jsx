@@ -89,7 +89,11 @@ const SideDrawer = ({ show, click, isAuth, userName }) => {
           <Bar />
           {category.map((item, index) =>
             index === 0 ? (
-              <li style={{ fontWeight: "bold" }} key={index} onClick={() => menuClickHandler(item)}>
+              <li
+                style={{ fontWeight: "bold" }}
+                key={index}
+                onClick={() => menuClickHandler(item)}
+              >
                 {item}
               </li>
             ) : (
@@ -231,6 +235,7 @@ const LogInInfo = styled.div`
   width: 100%;
   button {
     cursor: pointer;
+    -webkit-text-fill-color: #000;
     @media (hover: hover) {
       :hover {
         color: gray;
