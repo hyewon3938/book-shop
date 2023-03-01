@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --env=dev",
-    "build": "webpack --env=prod"
+    "build": "npm install && webpack --env=prod"
   },
   "author": "Joy",
   "license": "ISC",
