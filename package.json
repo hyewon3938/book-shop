@@ -14,7 +14,7 @@
     "data:import": "node server/data/products/insertData.js",
     "recommendation:import": "node server/data/recommendation/insertData.js",
     "ad:import": "node server/data/ad/insertData.js",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install --dev && npm run build"
   },
   "repository": {
     "type": "git",
