@@ -15,7 +15,7 @@
 
 <br/>
 
-<div width="100%" align="center"><a href="https://book-shopping.herokuapp.com">
+<div width="100%" align="center"><a href="https://book-shop-hyewon3938.koyeb.app">
 <img width="80%" alt="UI" src="https://user-images.githubusercontent.com/58355499/129574605-2b081219-1189-4071-8288-64a321d6c634.gif"></a></div>
 
 ###### <div align="center">화면을 클릭하면 사이트로 이동합니다</div>
@@ -41,7 +41,7 @@
 
 
 ### <img width="25px" src="https://user-images.githubusercontent.com/58355499/129580492-c1c4977c-3524-4760-944a-01f1c24a9b12.png"/> 서비스 기능
-#### → ['bookshop' 사이트 링크](https://book-shopping.herokuapp.com)
+#### → ['bookshop' 사이트 링크](https://book-shop-hyewon3938.koyeb.app)
 - 회원가입
 - 로그인/로그아웃
 - 상품 정보 확인
