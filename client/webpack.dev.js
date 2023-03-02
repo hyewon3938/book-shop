@@ -8,13 +8,13 @@ module.exports = merge(common, {
   devtool: "cheap-module-source-map",
   devServer: {
     historyApiFallback: true,
-    inline: true,
+    // inline: true,
     port: 3001,
     hot: true,
-    publicPath: "/",
+    // publicPath: "/",
     open: true,
     proxy: {
-      "/api": "http://localhost:5000",
+      "/api": "http://localhost:5001",
     },
   },
   plugins: [
