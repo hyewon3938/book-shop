@@ -23,7 +23,7 @@ const Book = ({ coverImage, size, title }) => {
           window.innerWidth <= device.extraLarge
             ? `translateX(${width * 2 * mobileRatio}px)`
             : `translateX(${width * 2}px)`
-        } rotate3d(0, 1, 0, ${left ? "" : "-"}180deg)`,
+        } rotate3d(0, 1, 0, ${left ? 180 : 180.1}deg)`,
       };
 
   const bookCoverClickHandler = () => {
@@ -31,8 +31,7 @@ const Book = ({ coverImage, size, title }) => {
     setIsFrontCover(!isFrontCover);
   };
 
-  const isReverse = left ? "" : "reverse";
-
+  const isReverse = left ? null : "reverse";
   return (
     <Wrap>
       <CoverImageWrap
@@ -102,7 +101,8 @@ const Front = styled.div`
       return css`
         width: ${props.width * mobileRatio}px;
         height: ${props.height * mobileRatio}px;
-        transform: rotateY(0deg) translateZ(${(props.depth * mobileRatio) / 2}px);
+        transform: rotateY(0deg)
+          translateZ(${(props.depth * mobileRatio) / 2}px);
       `;
     }};
   }
@@ -123,7 +123,8 @@ const Back = styled.div`
       return css`
         width: ${props.width * mobileRatio}px;
         height: ${props.height * mobileRatio}px;
-        transform: rotateY(180deg) translateZ(${(props.depth * mobileRatio) / 2}px);
+        transform: rotateY(180deg)
+          translateZ(${(props.depth * mobileRatio) / 2}px);
       `;
     }};
   }
@@ -143,8 +144,10 @@ const Left = styled.div`
       return css`
         width: ${props.depth * mobileRatio}px;
         height: ${props.height * mobileRatio}px;
-        transform: rotateY(-90deg) translateZ(${(props.width * mobileRatio) / 2}px);
-        left: ${(props.width * mobileRatio) / 2 - (props.depth * mobileRatio) / 2}px;
+        transform: rotateY(-90deg)
+          translateZ(${(props.width * mobileRatio) / 2}px);
+        left: ${(props.width * mobileRatio) / 2 -
+        (props.depth * mobileRatio) / 2}px;
       `;
     }};
   }
@@ -155,7 +158,8 @@ const Right = styled.div`
     return css`
       width: ${props.depth}px;
       height: ${props.height}px;
-      transform: rotateY(90deg) translateZ(${props.width / 2 - props.width * 0.01}px);
+      transform: rotateY(90deg)
+        translateZ(${props.width / 2 - props.width * 0.01}px);
       left: ${props.width / 2 - props.depth / 2}px;
       background: #f3f3f3;
     `;
@@ -166,8 +170,12 @@ const Right = styled.div`
         width: ${props.depth * mobileRatio}px;
         height: ${props.height * mobileRatio}px;
         transform: rotateY(90deg)
-          translateZ(${(props.width * mobileRatio) / 2 - props.width * mobileRatio * 0.01}px);
-        left: ${(props.width * mobileRatio) / 2 - (props.depth * mobileRatio) / 2}px;
+          translateZ(
+            ${(props.width * mobileRatio) / 2 -
+            props.width * mobileRatio * 0.01}px
+          );
+        left: ${(props.width * mobileRatio) / 2 -
+        (props.depth * mobileRatio) / 2}px;
       `;
     }};
   }
@@ -210,9 +218,8 @@ const CoverImageWrap = styled.div`
   transform-style: preserve-3d;
   transform: perspective(1500px) translateZ(-50px) rotate3d(0, 0, 0, 0);
   transition: 1s;
-  animation: ${rotation} 2.5s;
   ${(props) => {
-    if (props.isReverse) {
+    if (props.isReverse === "reverse") {
       return css`
         animation: ${reverseRotation} 2.5s;
         height: ${props.height}px;
@@ -220,6 +227,7 @@ const CoverImageWrap = styled.div`
       `;
     } else {
       return css`
+        animation: ${rotation} 2.5s;
         height: ${props.height}px;
         margin: 0 ${props.width}px 0 0;
       `;

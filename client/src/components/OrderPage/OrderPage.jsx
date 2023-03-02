@@ -136,7 +136,7 @@ const OrderPage = () => {
               <button onClick={usePointButtonHandler}>전액사용</button>
             </InputWrap>
             <p>
-              사용 가능 포인트{" "}
+              사용 가능 포인트
               <span>
                 {auth && auth.points ? numberWithCommas(auth.points) : ""}p
               </span>
