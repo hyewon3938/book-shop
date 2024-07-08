@@ -42,6 +42,8 @@
 
 ### <img width="25px" src="https://user-images.githubusercontent.com/58355499/129580492-c1c4977c-3524-4760-944a-01f1c24a9b12.png"/> 서비스 기능
 #### → ['bookshop' 사이트 링크](https://book-shop-hyewon3938.koyeb.app)
+#### → [포트폴리오 링크](https://adhesive-kale-b4a.notion.site/0351edf2913f41508b38f56a20caf5ff?pvs=4)
+
 - 회원가입
 - 로그인/로그아웃
 - 상품 정보 확인
@@ -51,6 +53,7 @@
 - 마이페이지에서 회원정보와 주문 내역 확인
 
 <br/>
+
 
 
 
